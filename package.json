@@ -1,10 +1,10 @@
 {
     "name": "finlean-cli",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "description": "",
     "main": "index.js",
     "bin": {
-        "finlin": "./bin/finlean.js",
+        "finlean": "./bin/finlean.js",
         "fl": "./bin/finlean.js"
     },
     "scripts": {
