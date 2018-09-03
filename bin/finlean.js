@@ -10,7 +10,7 @@ const chalk = require('chalk');
 const ora = require('ora');
 program
     .version('0.1.0')
-    .option('-i, init', '初始化finlean项目')
+    .option('i, -i, init', '初始化finlean项目')
     .parse(process.argv);
 const nameQuestion = {
     type: 'input',
@@ -43,11 +43,37 @@ if (program.init) {
                 console.info('');
                 console.info(chalk.cyan(` -  cd ${answers.name}`));
                 console.info(chalk.cyan(` -  npm install`));
-                console.info(chalk.cyan(` -  npm start / npm run dev`));
+                console.info(chalk.cyan(` -  npm run dev`));
+                console.info(
+                    chalk.green(
+                        '-----------------------------------------------------'
+                    )
+                );
+                fs.readFile(
+                    `${process.cwd()}/${answers.name}/package.json`,
+                    (err, data) => {
+                        if (err) throw err;
+                        let _data = JSON.parse(data.toString());
+                        _data.name = answers.name;
+                        _data.version = answers.version || '1.0.0';
+                        // _data.port = answers.port;
+                        // _data.template = answers.template ? 'pug' : 'html';
+                        // _data.rem = answers.rem;
+                        let str = JSON.stringify(_data, null, 4);
+                        fs.writeFile(
+                            `${process.cwd()}/${answers.name}/package.json`,
+                            str,
+                            err => {
+                                if (err) throw err;
+                                process.exit();
+                            }
+                        );
+                    }
+                );
             } else {
-                spinner.succeed(['项目创建失败,请重新创建']);
-                console.info('项目创建失败,请重新创建');
                 // 可以输出一些项目失败的信息
+                spinner.warn(['发生错误，请找黄智强']);
+                process.exit();
             }
         });
     });
