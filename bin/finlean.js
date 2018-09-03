@@ -9,7 +9,7 @@ const download = require('download-git-repo');
 const chalk = require('chalk');
 const ora = require('ora');
 program
-    .version('0.1.0')
+    .version('1.0.6')
     .option('i, init', '初始化finlean项目')
     .parse(process.argv);
 const nameQuestion = {
@@ -18,17 +18,17 @@ const nameQuestion = {
     name: 'name',
     default: 'finlean'
 };
-const versionQuestion = {
+const templateQuestion = {
     type: 'input',
-    message: '项目版本(web/pc): ',
-    name: 'version',
+    message: '项目模板(web/pc): ',
+    name: 'template',
     default: 'pc'
 };
 if (program.init) {
     console.info('');
-    inquirer.prompt([nameQuestion, versionQuestion]).then(answers => {
+    inquirer.prompt([nameQuestion, templateQuestion]).then(answers => {
         const spinner = ora('正在下载模板').start();
-        let _download = 'MrHzq/finlean_' + answers.version;
+        let _download = 'MrHzq/finlean_' + answers.template;
         download(_download, answers.name, err => {
             if (!err) {
                 spinner.clear();
@@ -55,7 +55,7 @@ if (program.init) {
                         if (err) throw err;
                         let _data = JSON.parse(data.toString());
                         _data.name = answers.name;
-                        _data.version = answers.version || '1.0.0';
+                        _data.template = answers.template;
                         // _data.port = answers.port;
                         // _data.template = answers.template ? 'pug' : 'html';
                         // _data.rem = answers.rem;
