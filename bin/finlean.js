@@ -10,7 +10,7 @@ const chalk = require('chalk');
 const ora = require('ora');
 program
     .version('0.1.0')
-    .option('i, init', '初始化finlean项目')
+    .option('-i, init', '初始化finlean项目')
     .parse(process.argv);
 const nameQuestion = {
     type: 'input',

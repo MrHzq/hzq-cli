@@ -1,11 +1,11 @@
 {
-    "name": "finlin-cli",
+    "name": "finlean-cli",
     "version": "1.0.0",
     "description": "",
     "main": "index.js",
     "bin": {
-        "finlin": "./bin/finlin.js",
-        "fl": "./bin/finlin.js"
+        "finlin": "./bin/finlean.js",
+        "fl": "./bin/finlean.js"
     },
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1"
