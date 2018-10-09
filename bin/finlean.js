@@ -1,32 +1,33 @@
 #! /usr/bin/env node
 
-const path = require('path');
 const fs = require('fs');
-
 const program = require('commander');
 const inquirer = require('inquirer');
 const download = require('download-git-repo');
 const chalk = require('chalk');
 const ora = require('ora');
 program
-    .version('1.0.6')
+    .version('2.0.0')
     .option('i, init', '初始化finlean项目')
     .parse(process.argv);
-const nameQuestion = {
-    type: 'input',
-    message: '项目名称: ',
-    name: 'name',
-    default: 'finlean'
-};
-const templateQuestion = {
-    type: 'input',
-    message: '项目模板(web/pc): ',
-    name: 'template',
-    default: 'pc'
-};
+const promptList = [
+    {
+        type: 'input',
+        message: '项目名称: ',
+        name: 'name',
+        default: 'finlean'
+    },
+    {
+        type: 'list',
+        message: '请选择项目模板: ',
+        name: 'template',
+        choices: ['base', 'pc', 'web'],
+        default: 'base'
+    }
+];
 if (program.init) {
     console.info('');
-    inquirer.prompt([nameQuestion, templateQuestion]).then(answers => {
+    inquirer.prompt(promptList).then(answers => {
         const spinner = ora('正在下载模板').start();
         let _download = 'MrHzq/finlean_' + answers.template;
         download(_download, answers.name, err => {
@@ -56,9 +57,6 @@ if (program.init) {
                         let _data = JSON.parse(data.toString());
                         _data.name = answers.name;
                         _data.template = answers.template;
-                        // _data.port = answers.port;
-                        // _data.template = answers.template ? 'pug' : 'html';
-                        // _data.rem = answers.rem;
                         let str = JSON.stringify(_data, null, 4);
                         fs.writeFile(
                             `${process.cwd()}/${answers.name}/package.json`,
