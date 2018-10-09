@@ -7,7 +7,7 @@ const download = require('download-git-repo');
 const chalk = require('chalk');
 const ora = require('ora');
 program
-    .version('2.0.1')
+    .version('2.0.2')
     .option('i, init', '初始化finlean项目')
     .parse(process.argv);
 const promptList = [
@@ -28,7 +28,7 @@ const promptList = [
 if (program.init) {
     console.info('');
     inquirer.prompt(promptList).then(answers => {
-        const spinner = ora('正在下载模板').start();
+        const spinner = ora('正在下载' + answers.template + '模板').start();
         let _download = 'MrHzq/finlean_' + answers.template;
         download(_download, answers.name, err => {
             if (!err) {
