@@ -1,6 +1,6 @@
 # finlean-cli
 
-**纷领脚手架**
+**[纷领脚手架](https://github.com/MrHzq/finlean-cli)**
 
 1. 下载安装：`npm i -g finlean-cli`
 1. 查看版本号：`f -V`

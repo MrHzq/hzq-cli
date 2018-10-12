@@ -7,7 +7,7 @@ const download = require('download-git-repo');
 const chalk = require('chalk');
 const ora = require('ora');
 program
-    .version('2.0.3')
+    .version('2.0.4')
     .option('i, init', '初始化finlean项目')
     .parse(process.argv);
 const promptList = [
