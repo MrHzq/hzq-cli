@@ -1,6 +1,6 @@
 {
     "name": "finlean-cli",
-    "version": "2.0.2",
+    "version": "2.0.3",
     "description": "纷领脚手架工具",
     "main": "index.js",
     "bin": {
