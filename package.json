@@ -10,6 +10,8 @@
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1"
     },
+    "readme": "使用手册https://github.com/MrHzq/finlean-cli",
+    "readmeFilename": "README.md",
     "author": "hzq",
     "license": "ISC",
     "dependencies": {
