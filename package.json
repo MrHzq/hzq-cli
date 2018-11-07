@@ -1,16 +1,16 @@
 {
-    "name": "finlean-cli",
-    "version": "2.0.4",
-    "description": "纷领脚手架工具",
+    "name": "hzq-cli",
+    "version": "1.0.0",
+    "description": "Vue脚手架工具",
     "main": "index.js",
     "bin": {
-        "finlean": "./bin/finlean.js",
-        "f": "./bin/finlean.js"
+        "hzq": "./bin/hzq.js",
+        "h": "./bin/hzq.js"
     },
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1"
     },
-    "readme": "使用手册https://github.com/MrHzq/finlean-cli",
+    "readme": "使用手册https://github.com/MrHzq/hzq-cli",
     "readmeFilename": "README.md",
     "author": "hzq",
     "license": "ISC",

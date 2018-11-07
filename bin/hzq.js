@@ -7,29 +7,29 @@ const download = require('download-git-repo');
 const chalk = require('chalk');
 const ora = require('ora');
 program
-    .version('2.0.4')
-    .option('i, init', '初始化finlean项目')
+    .version('1.0.0')
+    .option('i, init', '初始化项目')
     .parse(process.argv);
 const promptList = [
     {
         type: 'input',
         message: '项目名称: ',
         name: 'name',
-        default: 'finlean'
+        default: 'project'
     },
     {
         type: 'list',
         message: '请选择项目模板: ',
         name: 'template',
-        choices: ['base', 'pc', 'web'],
-        default: 'base'
+        choices: ['pc', 'mobile'],
+        default: 'pc'
     }
 ];
 if (program.init) {
     console.info('');
     inquirer.prompt(promptList).then(answers => {
         const spinner = ora('正在下载' + answers.template + '模板').start();
-        let _download = 'MrHzq/finlean_' + answers.template;
+        let _download = 'MrHzq/template_' + answers.template;
         download(_download, answers.name, err => {
             if (!err) {
                 spinner.clear();
