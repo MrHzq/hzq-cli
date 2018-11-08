@@ -7,7 +7,7 @@ const download = require('download-git-repo');
 const chalk = require('chalk');
 const ora = require('ora');
 program
-    .version('1.0.1')
+    .version('1.0.2')
     .option('i, init', '初始化项目')
     .parse(process.argv);
 const promptList = [
@@ -19,10 +19,10 @@ const promptList = [
     },
     {
         type: 'list',
-        message: '请选择项目模板: ',
+        message: '请选择项目UI框架: ',
         name: 'template',
-        choices: ['pc', 'mobile'],
-        default: 'pc'
+        choices: ['base', 'element', 'iview', 'vux'],
+        default: 'base'
     }
 ];
 if (program.init) {
