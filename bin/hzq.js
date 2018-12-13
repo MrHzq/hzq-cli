@@ -19,9 +19,9 @@ const promptList = [
     },
     {
         type: 'list',
-        message: '请选择项目UI框架: ',
+        message: '请选择项目框架: ',
         name: 'template',
-        choices: ['base', 'element', 'iview', 'vux', 'cli3'],
+        choices: ['base', 'element', 'cli3', 'nuxt'],
         default: 'base'
     }
 ]
