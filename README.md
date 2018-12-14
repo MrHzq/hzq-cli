@@ -15,11 +15,15 @@
 1. 自制的前端脚手架，用于创建项目时快速选择模板
 1. 模板选项
 
--   base：基础模板，**vue-cli2.x** 构建，无任何 UI 组件，使用 **vue + vuex + vue-router + hzq-router + axios + hzq-axios + hzq-tool + scss + javaScript**
--   element：**Element** 模板，**vue-cli2.x** 构建，在 **base** 模板上只增加了 Element UI 组件
--   cli3：**vue-cli3.x** 搭建的项目模板，无任何 UI 组件，仅仅将 **base** 模板的 **vue-cli2.x** 换成 **vue-cli3.x**
--   nuxt：**Nuxt** 服务端渲染模板，无任何 UI 组件，使用 **nuxt + axios + hzq-axios + hzq-tool + scss + javaScript**
--   ts：**TypeScript** 模板，**vue-cli2.x** 构建，无任何 UI 组件，仅仅将 base 模板的 javaScript 换成 typeScript
+-   cli2_base：**vue-cli2.x** 构建的**基础模板**，使用 **vue + vuex + vue-router + hzq-router + axios + hzq-axios + hzq-tool + scss + javaScript** <br><br>
+
+-   cli2_ts：**vue-cli2.x** 构建的**TypeScript** 模板，仅仅将 **cli2_base** 模板的 **javaScript** 换成 **typeScript** <br><br>
+
+-   cli3_base：**vue-cli3.x** 搭建的**基础模板**，使用 **vue + vuex + vue-router + hzq-router + axios + hzq-axios + hzq-tool + scss + javaScript** <br><br>
+
+-   cli3_base：**vue-cli3.x** 构建的**TypeScript** 模板，仅仅将 **cli3_base** 模板的 **javaScript** 换成 **typeScript** <br><br>
+
+-   nuxt：**Nuxt** 服务端渲染模板，使用 **nuxt + axios + hzq-axios + hzq-tool + scss + javaScript**
 
 ## 其他
 
@@ -29,12 +33,12 @@
 
 **什么是 [hzq-router](https://github.com/MrHzq/hzq-router)**
 
-**[template_base 源码](https://github.com/MrHzq/template_base)**
+**[template_cli2_base 源码](https://github.com/MrHzq/template_cli2_base)**
 
-**[template_element 源码](https://github.com/MrHzq/template_element)**
+**[template_cli2_ts 源码](https://github.com/MrHzq/template_cli2_ts)**
 
-**[template_cli3 源码](https://github.com/MrHzq/template_base)**
+**[template_cli3_base 源码](https://github.com/MrHzq/template_cli3_base)**
+
+**[template_cli3_ts 源码](https://github.com/MrHzq/template_cli3_ts)**
 
 **[template_nuxt 源码](https://github.com/MrHzq/template_nuxt)**
-
-**[template_ts 源码](https://github.com/MrHzq/template_ts)**
