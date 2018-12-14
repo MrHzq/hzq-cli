@@ -4,6 +4,8 @@
 
 **[前端脚手架搭建之 hzq-cli 教程](https://www.jianshu.com/p/edd5ec93ffb3)**
 
+**[npm 包](https://www.npmjs.com/package/hzq-cli)**
+
 ## 使用
 
 1. 全局下载安装：**npm i -g hzq-cli**
