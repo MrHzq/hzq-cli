@@ -21,7 +21,7 @@ const promptList = [
         type: 'list',
         message: '请选择项目框架: ',
         name: 'template',
-        choices: ['base', 'element', 'cli3', 'nuxt'],
+        choices: ['base', 'element', 'cli3', 'nuxt', 'ts'],
         default: 'base'
     }
 ]
