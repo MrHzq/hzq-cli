@@ -1,6 +1,6 @@
 {
     "name": "hzq-cli",
-    "version": "1.0.4",
+    "version": "1.0.5",
     "description": "Vue脚手架工具",
     "main": "index.js",
     "bin": {
