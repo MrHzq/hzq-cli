@@ -21,7 +21,14 @@ const promptList = [
         type: 'list',
         message: '请选择项目类型： ',
         name: 'template',
-        choices: ['cli2_base', 'cli2_ts', 'cli3_base', 'cli3_ts', 'nuxt'],
+        choices: [
+            'cli2_base',
+            'cli2_ts',
+            'cli3_base',
+            'cli3_ts',
+            'cli2_base_decorator',
+            'nuxt'
+        ],
         default: 'cli2_base'
     }
 ]
