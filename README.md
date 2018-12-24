@@ -19,6 +19,8 @@
 
 -   cli2_base：**vue-cli2.x** 构建的**基础模板**，使用 **vue + vuex + vue-router + hzq-router + axios + hzq-axios + hzq-tool + scss + javaScript** <br><br>
 
+-   cli2_base_decorator：**vue-cli2.x** 构建的**基础模板**，使用 **vue 装饰器 + vue + vuex + vue-router + hzq-router + axios + hzq-axios + hzq-tool + scss + javaScript** <br><br>
+
 -   cli2_ts：**vue-cli2.x** 构建的**TypeScript** 模板，仅仅将 **cli2_base** 模板的 **javaScript** 换成 **typeScript** <br><br>
 
 -   cli3_base：**vue-cli3.x** 搭建的**基础模板**，使用 **vue + vuex + vue-router + hzq-router + axios + hzq-axios + hzq-tool + scss + javaScript** <br><br>
