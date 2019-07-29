@@ -6,8 +6,10 @@ const inquirer = require('inquirer')
 const download = require('download-git-repo')
 const chalk = require('chalk')
 const ora = require('ora')
+const pkg = require('./package')
+
 program
-    .version('1.0.3')
+    .version(pkg.version)
     .option('i, init', '初始化项目')
     .parse(process.argv)
 const promptList = [
