@@ -6,7 +6,7 @@ const inquirer = require('inquirer')
 const download = require('download-git-repo')
 const chalk = require('chalk')
 const ora = require('ora')
-const pkg = require('./package')
+const pkg = require('../package.json')
 
 program
     .version(pkg.version)
