@@ -23,20 +23,40 @@ const promptList = [
         name: 'template',
         choices: [
             'cli2_base',
-            'cli2_ts',
+            'cli2_element',
+            'cli2_mobile',
+            'cli2_vant',
+            'cli2_base_ts',
+            'cli2_element_ts',
+            'cli2_mobile_ts',
+            'cli2_vant_ts',
             'cli3_base',
-            'cli3_ts',
-            'cli2_base_decorator',
-            'nuxt'
+            'cli3_element',
+            'cli3_mobile',
+            'cli3_vant',
+            'cli3_base_ts',
+            'cli3_element_ts',
+            'cli3_mobile_ts',
+            'cli3_vant_ts',
+            'nuxt_base',
+            'nuxt_element',
+            'nuxt_mobile',
+            'nuxt_vant'
+            // 'cli2_ts',
+            // 'cli3_base',
+            // 'cli3_ts',
+            // 'cli2_base_decorator',
+            // 'nuxt'
         ],
-        default: 'cli2_base'
+        default: 'cli2_base_pc'
     }
 ]
 if (program.init) {
     console.info('')
     inquirer.prompt(promptList).then(answers => {
         const spinner = ora('正在下载' + answers.template + '模板').start()
-        let _download = 'MrHzq/template_' + answers.template
+        // let _download = 'MrHzq/template_' + answers.template
+        let _download = 'MrHzq/' + answers.template
         download(_download, answers.name, err => {
             if (!err) {
                 spinner.clear()
