@@ -15,27 +15,27 @@ program
 const promptList = [
     {
         type: 'input',
-        message: '项目名称: ',
+        message: '项目名称：',
         name: 'name',
         default: 'project'
     },
     {
         type: 'list',
-        message: '请选择构建工具： ',
+        message: '请选择构建工具：',
         name: 'tool',
         choices: ['cli2', 'cli3', 'nuxt'],
         default: 'cli2'
     },
     {
         type: 'list',
-        message: '请选择项目模板： ',
+        message: '请选择项目模板：',
         name: 'template',
         choices: ['base', 'mobile', 'element', 'vant'],
         default: 'base'
     },
     {
         type: 'list',
-        message: '请选择语言类型（nuxt只有js）： ',
+        message: '请选择语言类型（nuxt只有js）：',
         name: 'type',
         choices: ['js', 'ts'],
         default: 'js'
@@ -48,7 +48,9 @@ if (program.init) {
         if (answers.tool !== 'nuxt' && answers.type === 'ts') type = '_ts'
         const url = `${answers.tool}_${answers.template}${type}`
 
-        const spinner = ora('正在下载【' + url + '】模板').start()
+        const spinner = ora(
+            '正在下载 ' + url + ' 模板，可能有点慢，请保持耐心~~'
+        ).start()
 
         let _download = `MrHzq/${url}`
 
@@ -62,7 +64,7 @@ if (program.init) {
                     )
                 )
                 console.info('')
-                spinner.succeed(['项目创建成功,请继续进行以下操作:'])
+                spinner.succeed(['模板下载完成，请继续进行以下操作：'])
                 console.info('')
                 console.info(chalk.cyan(` -  cd ${answers.name}`))
                 console.info(chalk.cyan(` -  npm install`))
