@@ -21,44 +21,37 @@ const promptList = [
     },
     {
         type: 'list',
-        message: '请选择项目类型： ',
+        message: '请选择构建工具： ',
+        name: 'tool',
+        choices: ['cli2', 'cli3', 'nuxt'],
+        default: 'cli2'
+    },
+    {
+        type: 'list',
+        message: '请选择项目模板： ',
         name: 'template',
-        choices: [
-            'cli2_base',
-            'cli2_element',
-            'cli2_mobile',
-            'cli2_vant',
-            'cli2_base_ts',
-            'cli2_element_ts',
-            'cli2_mobile_ts',
-            'cli2_vant_ts',
-            'cli3_base',
-            'cli3_element',
-            'cli3_mobile',
-            'cli3_vant',
-            'cli3_base_ts',
-            'cli3_element_ts',
-            'cli3_mobile_ts',
-            'cli3_vant_ts',
-            'nuxt_base',
-            'nuxt_element',
-            'nuxt_mobile',
-            'nuxt_vant'
-            // 'cli2_ts',
-            // 'cli3_base',
-            // 'cli3_ts',
-            // 'cli2_base_decorator',
-            // 'nuxt'
-        ],
-        default: 'cli2_base_pc'
+        choices: ['base', 'mobile', 'element', 'vant'],
+        default: 'base'
+    },
+    {
+        type: 'list',
+        message: '请选择语言类型（nuxt只有js）： ',
+        name: 'type',
+        choices: ['js', 'ts'],
+        default: 'js'
     }
 ]
 if (program.init) {
     console.info('')
     inquirer.prompt(promptList).then(answers => {
-        const spinner = ora('正在下载' + answers.template + '模板').start()
-        // let _download = 'MrHzq/template_' + answers.template
-        let _download = 'MrHzq/' + answers.template
+        let type = ''
+        if (answers.tool !== 'nuxt' && answers.type === 'ts') type = '_ts'
+        const url = `${answers.tool}_${answers.template}${type}`
+
+        const spinner = ora('正在下载【' + url + '】模板').start()
+
+        let _download = `MrHzq/${url}`
+
         download(_download, answers.name, err => {
             if (!err) {
                 spinner.clear()
