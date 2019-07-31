@@ -9,40 +9,13 @@
 ## 使用
 
 1. 全局下载安装：**npm i -g hzq-cli**
-1. 查看版本号：**h -V** 或 **hzq -V**
-1. 使用：**h i** 或 **hzq -i**
+1. 查看版本号：**hzq -V**
+1. 使用：**hzq -i**
 
 ## 说明
 
 1. 自制的前端脚手架，用于创建项目时快速选择模板
 1. 模板选项
-
--   cli2_base：**vue-cli2.x** 构建的**基础模板**，使用 **vue + vuex + vue-router + hzq-router + axios + hzq-axios + hzq-tool + scss + javaScript** <br><br>
-
--   cli2_base_decorator：**vue-cli2.x** 构建的**基础模板**，使用 **vue 装饰器 + vue + vuex + vue-router + hzq-router + axios + hzq-axios + hzq-tool + scss + javaScript** <br><br>
-
--   cli2_ts：**vue-cli2.x** 构建的**TypeScript** 模板，仅仅将 **cli2_base** 模板的 **javaScript** 换成 **typeScript** <br><br>
-
--   cli3_base：**vue-cli3.x** 搭建的**基础模板**，使用 **vue + vuex + vue-router + hzq-router + axios + hzq-axios + hzq-tool + scss + javaScript** <br><br>
-
--   cli3_base：**vue-cli3.x** 构建的**TypeScript** 模板，仅仅将 **cli3_base** 模板的 **javaScript** 换成 **typeScript** <br><br>
-
--   nuxt：**Nuxt** 服务端渲染模板，使用 **nuxt + axios + hzq-axios + hzq-tool + scss + javaScript**
-
-## 其他
-
-**什么是 [hzq-axios](https://github.com/MrHzq/hzq-axios)**
-
-**什么是 [hzq-tool](https://github.com/MrHzq/hzq-tool)**
-
-**什么是 [hzq-router](https://github.com/MrHzq/hzq-router)**
-
-**[template_cli2_base 源码](https://github.com/MrHzq/template_cli2_base)**
-
-**[template_cli2_ts 源码](https://github.com/MrHzq/template_cli2_ts)**
-
-**[template_cli3_base 源码](https://github.com/MrHzq/template_cli3_base)**
-
-**[template_cli3_ts 源码](https://github.com/MrHzq/template_cli3_ts)**
-
-**[template_nuxt 源码](https://github.com/MrHzq/template_nuxt)**
+   (1) 构建工具选项：vue-cli2、vue-cli3、nuxt
+   (2) 项目模板选项：base、mobile、element、vant
+   (2) 语言类型选项：js、ts；（nuxt 只有 js）

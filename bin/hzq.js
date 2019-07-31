@@ -68,7 +68,9 @@ if (program.init) {
                 console.info('')
                 console.info(chalk.cyan(` -  cd ${answers.name}`))
                 console.info(chalk.cyan(` -  npm install`))
-                console.info(chalk.cyan(` -  npm run dev`))
+                let msg = 'npm run dev'
+                if (answers.tool === 'cli3') msg = 'npm run serve'
+                console.info(chalk.cyan(` -  ${msg}`))
                 console.info(
                     chalk.green(
                         '-----------------------------------------------------'
