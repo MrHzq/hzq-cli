@@ -16,6 +16,6 @@
 
 1. 自制的前端脚手架，用于创建项目时快速选择模板
 1. 模板选项
-   (1) 构建工具选项：vue-cli2、vue-cli3、nuxt
-   (2) 项目模板选项：base、mobile、element、vant
-   (2) 语言类型选项：js、ts；（nuxt 只有 js）
+   - 构建工具选项：vue-cli2、vue-cli3、nuxt
+   - 项目模板选项：base、mobile、element、vant
+   - 语言类型选项：js、ts；（nuxt 只有 js）

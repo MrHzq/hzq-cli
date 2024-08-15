@@ -1,24 +1,24 @@
 {
-    "name": "hzq-cli",
-    "version": "1.0.16",
-    "description": "Vue脚手架工具",
-    "main": "index.js",
-    "bin": {
-        "hzq": "./bin/hzq.js",
-        "h": "./bin/hzq.js"
-    },
-    "scripts": {
-        "test": "echo \"Error: no test specified\" && exit 1"
-    },
-    "readme": "使用手册https://github.com/MrHzq/hzq-cli",
-    "readmeFilename": "README.md",
-    "author": "hzq",
-    "license": "ISC",
-    "dependencies": {
-        "chalk": "^2.4.1",
-        "commander": "^2.17.1",
-        "download-git-repo": "^1.1.0",
-        "inquirer": "^6.2.0",
-        "ora": "^3.0.0"
-    }
+  "name": "hzq-cli",
+  "version": "1.0.16",
+  "description": "Vue脚手架工具",
+  "main": "index.js",
+  "bin": {
+    "hzq": "./bin/hzq.js",
+    "h": "./bin/hzq.js"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "readme": "使用手册https://github.com/MrHzq/hzq-cli",
+  "readmeFilename": "README.md",
+  "author": "hzq",
+  "license": "ISC",
+  "dependencies": {
+    "chalk": "^2.4.1",
+    "commander": "^2.17.1",
+    "download-git-repo": "^1.1.0",
+    "inquirer": "^6.2.0",
+    "ora": "^3.0.0"
+  }
 }
