@@ -13,5 +13,10 @@
     "cmd": "projectTemplate",
     "alias": "pt",
     "desc": "拉取项目模板"
+  },
+  {
+    "cmd": "cliTemplate",
+    "alias": "ct",
+    "desc": "拉取 cli 模板"
   }
 ]
