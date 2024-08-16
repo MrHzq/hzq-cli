@@ -8,7 +8,7 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "npmPublish": "npm version patch && npm publish"
+    "npmp": "npm version patch && npm publish"
   },
   "keywords": [],
   "readme": "使用手册https://github.com/MrHzq/hzq-cli",
