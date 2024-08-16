@@ -2,10 +2,9 @@ const { execSync } = require("child_process");
 const log = require("./log");
 
 // 执行命令
-exports.runCmd = (cmd) => {
+const runCmd = (cmd) => {
   try {
     execSync(cmd, { stdio: "inherit" });
-    return true;
   } catch (error) {
     const tip = `执行 '${cmd}' 时出错: ${error.message}`;
     log.error(tip);
@@ -14,7 +13,7 @@ exports.runCmd = (cmd) => {
 };
 
 // 获取 git 用户信息
-exports.getGitUser = () => {
+const getGitUser = () => {
   try {
     // 获取用户名
     const userName = execSync("git config --global user.name", {
@@ -28,7 +27,13 @@ exports.getGitUser = () => {
 
     return { userName, userEmail };
   } catch (error) {
-    log.error(`获取 Git 用户信息时出错: ${error.message}`);
+    const tip = `获取 Git 用户信息时出错: ${error.message}`;
+    log.error(tip);
     return {};
   }
+};
+
+module.exports = {
+  runCmd,
+  getGitUser,
 };

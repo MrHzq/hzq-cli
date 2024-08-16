@@ -1,26 +1,46 @@
 const chalk = require("chalk");
 
-const log = {
-  info: console.log,
+const info = console.log;
 
-  newLine: (num = 1) => {
+const log = {
+  newLine(num = 1) {
     Array(num)
       .fill(0)
-      .forEach(() => log.info(" "));
+      .forEach(() => info(" "));
   },
 
-  chalk: (msg, color) => {
-    color && chalk[color] ? log.info(chalk[color](msg)) : log.info(msg);
+  chalk(msg, color) {
+    color && chalk[color] ? info(chalk[color](msg)) : info(msg);
   },
 
   successText: chalk.green,
-  success: (msg) => log.info(log.successText(msg)),
+  success(msg) {
+    info(this.successText(msg));
+  },
 
   warnText: chalk.yellow,
-  warn: (msg) => log.info(log.warnText(msg)),
+  warn(msg) {
+    info(this.warnText(msg));
+  },
 
   errorText: chalk.red,
-  error: (msg) => log.info(log.errorText(msg)),
+  error(msg) {
+    info(this.errorText(msg));
+  },
+
+  succeedText(msg) {
+    return this.successText(msg);
+  },
+  succeed(msg) {
+    return this.success(msg);
+  },
+
+  failText(...args) {
+    return this.errorText(...args);
+  },
+  fail(...args) {
+    return this.error(...args);
+  },
 };
 
 module.exports = log;

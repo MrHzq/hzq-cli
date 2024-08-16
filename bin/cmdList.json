@@ -18,5 +18,10 @@
     "cmd": "cliTemplate",
     "alias": "ct",
     "desc": "拉取 cli 模板"
+  },
+  {
+    "cmd": "removeFile",
+    "alias": "rf",
+    "desc": "删除文件"
   }
 ]

@@ -14,35 +14,37 @@ class Spinner {
     }
   }
 
-  start(text, prefix = "start ") {
+  start(text, prefix = "start") {
     log.newLine();
 
-    text = text || prefix + this.text;
+    text = text || prefix + " " + this.text;
 
     this.do("start", text);
 
     log.newLine();
   }
-  succeed(text, prefix = "finish ") {
+
+  print(fnName, text, prefix) {
     log.newLine();
 
-    text = text || prefix + this.text;
+    text = text || prefix + " " + this.text;
 
-    return this.do("succeed", log.successText(text));
+    return this.do(fnName, log[`${fnName}Text`](text));
   }
-  warn(text, prefix = "warn ") {
-    log.newLine();
 
-    text = text || prefix + this.text;
-
-    return this.do("warn", log.warnText(text));
+  succeed(text, prefix) {
+    const type = "succeed";
+    return this.print(type, text, prefix || type);
   }
-  fail(text, prefix = "fail ") {
-    log.newLine();
 
-    text = text || prefix + this.text;
+  warn(text, prefix) {
+    const type = "warn";
+    return this.print(type, text, prefix || type);
+  }
 
-    return this.do("fail", log.errorText(text));
+  fail(text, prefix) {
+    const type = "fail";
+    return this.print(type, text, prefix || type);
   }
 }
 

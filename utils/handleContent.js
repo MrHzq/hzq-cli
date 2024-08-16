@@ -1,13 +1,12 @@
-const { writeFileSync } = require("fs-extra");
 const { isExistByRegTest } = require("./common");
-const { readFileSync } = require("./fs");
+const { readFileSync, writeFileSync } = require("./fs");
 
 const startSpace = `  `; // 2 个开始空格
 const lbc = `\n`; // 换行符
 const newLine = lbc + startSpace;
 
 // 对内容的处理：分割 + 拼接
-exports.splitAndJoin = (p, sp, getAddContent) => {
+const splitAndJoin = (p, sp, getAddContent) => {
   const content = readFileSync(p);
 
   if (content) {
@@ -26,7 +25,7 @@ exports.splitAndJoin = (p, sp, getAddContent) => {
 };
 
 // 往 TS 文件内容新增 enum 值
-exports.addValueToEnum = (p, enumName, valueList, addContent) => {
+const addValueToEnum = (p, enumName, valueList, addContent) => {
   const content = readFileSync(p);
 
   if (content) {
@@ -69,7 +68,7 @@ exports.addValueToEnum = (p, enumName, valueList, addContent) => {
 };
 
 // 往 TS 文件内容新增 type 值
-exports.addValueToType = (p, typeName, typeKey) => {
+const addValueToType = (p, typeName, typeKey) => {
   return splitAndJoin(p, `export type ${typeName} =`, (content) => {
     if (isExistByRegTest(content, typeKey)) {
       return { error: `${typeKey} 重复` };
@@ -77,4 +76,10 @@ exports.addValueToType = (p, typeName, typeKey) => {
 
     return { addContent: newLine + `| ` + typeKey };
   });
+};
+
+module.exports = {
+  splitAndJoin,
+  addValueToEnum,
+  addValueToType,
 };

@@ -1,13 +1,18 @@
 const { firstUpperCase } = require("./common");
+const log = require("./log");
 const Spinner = require("./spinner");
 
 // 统一的运行流程方法
-module.export = async (list, globalFailType = "fail", config = {}) => {
+module.exports = async (stepList, globalFailType = "fail", config = {}) => {
+  // fail、warn
+  let finalType = globalFailType;
   let everySuccess = false;
 
-  for (let index = 0; index < list.length; index++) {
-    const item = list[index];
-    const { fun, desc, ignore, failType } = item;
+  for (let index = 0; index < stepList.length; index++) {
+    const item = stepList[index];
+    const { fun, desc, ignore } = item;
+
+    if (item.failType) finalType = item.failType;
 
     if (ignore) continue;
 
@@ -21,8 +26,16 @@ module.export = async (list, globalFailType = "fail", config = {}) => {
 
     // 表明无错误，则是走【成功】逻辑
     if (funRes === undefined) funRes = { success: true };
+    else if (typeof funRes === "string") {
+      funRes = {
+        success: false,
+        tip: funRes,
+      };
+    }
 
-    const { success, tip } = funRes;
+    const { success, tip = "" } = funRes;
+
+    if (funRes.failType) finalType = funRes.failType;
 
     if (success) {
       everySuccess = true;
@@ -33,12 +46,11 @@ module.export = async (list, globalFailType = "fail", config = {}) => {
         config.onSuccess(item, funRes);
       }
     } else {
-      everySuccess = failType === "warn";
+      stepSpinner[finalType]();
 
-      stepSpinner[failType]();
-      if (tip) log.error(tip);
+      everySuccess = finalType === "warn";
 
-      const finalType = failType || globalFailType;
+      if (tip) everySuccess ? log.warn(tip) : log.error(tip);
 
       const cb = config[`on${firstUpperCase(finalType)}`];
 
