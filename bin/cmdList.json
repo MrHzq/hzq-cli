@@ -1,0 +1,17 @@
+[
+  {
+    "cmd": "addCmd",
+    "alias": "ac",
+    "desc": "新增一个命令"
+  },
+  {
+    "cmd": "removeCmd",
+    "alias": "rc",
+    "desc": "删除一个命令"
+  },
+  {
+    "cmd": "projectTemplate",
+    "alias": "pt",
+    "desc": "拉取项目模板"
+  }
+]

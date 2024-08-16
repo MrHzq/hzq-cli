@@ -1,24 +1,32 @@
 {
   "name": "hzq-cli",
-  "version": "1.0.16",
+  "version": "2.0.0",
   "description": "Vue脚手架工具",
-  "main": "index.js",
+  "main": "bin/index.js",
   "bin": {
-    "hzq": "./bin/hzq.js",
-    "h": "./bin/hzq.js"
+    "hzq": "bin/index.js"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "npmPublish": "npm version patch && npm publish"
   },
+  "keywords": [],
   "readme": "使用手册https://github.com/MrHzq/hzq-cli",
   "readmeFilename": "README.md",
   "author": "hzq",
   "license": "ISC",
   "dependencies": {
-    "chalk": "^2.4.1",
-    "commander": "^2.17.1",
-    "download-git-repo": "^1.1.0",
-    "inquirer": "^6.2.0",
-    "ora": "^3.0.0"
+    "axios": "^1.7.2",
+    "chalk": "^4.1.2",
+    "commander": "^12.1.0",
+    "dayjs": "^1.11.12",
+    "download-git-repo": "^3.0.2",
+    "fs-extra": "^11.2.0",
+    "git-clone": "^0.2.0",
+    "handlebars": "^4.7.8",
+    "inquirer": "^8",
+    "ora": "^5.4.1",
+    "path": "^0.12.7",
+    "simple-git": "^3.25.0"
   }
 }
