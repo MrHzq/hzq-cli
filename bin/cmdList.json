@@ -23,5 +23,10 @@
     "cmd": "removeFile",
     "alias": "rf",
     "desc": "删除文件"
+  },
+  {
+    "cmd": "commonCmd",
+    "alias": "cc",
+    "desc": "常用命令"
   }
 ]
