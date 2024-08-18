@@ -3,6 +3,9 @@ const fs = require("fs-extra");
 // 检查文件是否存在
 const checkFileExist = (p) => fs.existsSync(p);
 
+// 获取文件状态信息
+const statSync = (p) => fs.statSync(p);
+
 // 同步读取文件内容
 const readFileSync = (p, c = "utf-8") =>
   checkFileExist(p) ? fs.readFileSync(p, c) : "";
@@ -30,6 +33,7 @@ const readdirSync = (p = ".") => fs.readdirSync(p);
 
 module.exports = {
   checkFileExist,
+  statSync,
   readFileSync,
   readFileSyncFormat,
   writeFileSync,

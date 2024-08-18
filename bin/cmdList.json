@@ -38,5 +38,10 @@
     "cmd": "zshrcAlias",
     "alias": "za",
     "desc": "查看 .zshrc 里面的 alias"
+  },
+  {
+    "cmd": "updateCliTemplate",
+    "alias": "uct",
+    "desc": "更新 cli-template-2024 代码"
   }
 ]
