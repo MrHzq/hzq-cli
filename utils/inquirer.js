@@ -18,8 +18,18 @@ const numberRule = (value, isReq = true) => {
   return true;
 };
 
+const tfList = (isReverse = false) => {
+  const list = [
+    { name: "否", value: false },
+    { name: "是", value: true },
+  ];
+
+  return isReverse ? list.reverse() : list;
+};
+
 module.exports = {
   prompt,
   requireRule,
   numberRule,
+  tfList,
 };

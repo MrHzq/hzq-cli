@@ -33,5 +33,10 @@
     "cmd": "runCmd",
     "alias": "rc",
     "desc": "展示当前命令&选择命令运行"
+  },
+  {
+    "cmd": "zshrcAlias",
+    "alias": "za",
+    "desc": "查看 .zshrc 里面的 alias"
   }
 ]
