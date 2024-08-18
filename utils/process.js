@@ -13,9 +13,7 @@ const processRun = (cmd) => {
 };
 
 // 进入某个文件
-const cdPath = (path) => {
-  processRun(`cd ${path}`);
-};
+const cdPath = (path) => `cd ${path}`;
 
 // 获取 git 用户信息
 const getGitUser = () => {
@@ -39,11 +37,10 @@ const getGitUser = () => {
 };
 
 // 暂存
-const gitAdd = () => processRun(`git add .`);
+const gitAdd = () => `git add .`;
 
 // 提交
-const gitCommit = (msg = "Initial commit") =>
-  processRun(`git commit -m "${msg}"`);
+const gitCommit = (msg = "Initial commit") => `git commit -m "${msg}"`;
 
 module.exports = {
   processRun,
