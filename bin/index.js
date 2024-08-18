@@ -11,16 +11,18 @@ program.version(version);
 
 const cmdList = require("./cmdList.json");
 
-cmdList.forEach((item) => {
-  const { cmd, alias, desc } = item;
-  // 定义命令与参数，类似 hzq addMsg 等等
-  program
-    .command(cmd)
-    .alias(alias)
-    .description(desc)
-    .action((_, options) => {
-      require(`../lib/${cmd}`)(_, options);
-    });
-});
+cmdList
+  .sort((a, b) => a.cmd.localeCompare(b.cmd))
+  .forEach((item) => {
+    const { cmd, alias, desc } = item;
+    // 定义命令与参数，类似 hzq addMsg 等等
+    program
+      .command(cmd)
+      .alias(alias)
+      .description(desc)
+      .action((_, options) => {
+        require(`../lib/${cmd}`)(_, options);
+      });
+  });
 
 program.parse(process.argv); // 解析用户输入的命令和参数，第一个参数是要解析的字符串数组，第二个参数是解析选项

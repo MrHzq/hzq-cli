@@ -26,7 +26,7 @@ const removeDir = (p) => {
 const copyDir = (s, t, recursive = true) => fs.copy(s, t, { recursive });
 
 // 读取当前所有文件和文件夹
-const readdirSync = (p) => fs.readdirSync(p);
+const readdirSync = (p = ".") => fs.readdirSync(p);
 
 module.exports = {
   checkFileExist,

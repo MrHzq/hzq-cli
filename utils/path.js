@@ -1,5 +1,6 @@
-const _ = require("path");
+const os = require("os");
 
-const path = {};
+// 获取不同操作系统的根目录
+const root = () => os.homedir();
 
-module.exports = path;
+module.exports = { root };

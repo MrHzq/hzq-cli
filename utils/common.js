@@ -7,6 +7,18 @@ const getHBSContent = (temp, config) => toHBSTemp(temp)(config);
 // 格式化时间
 const formatTime = (format = "YYYY-MM-DD HH:mm:ss") => dayjs().format(format);
 
+// 获取[开始年份到今年]的所有年数据
+const getAllYears = (startYear = 2017) => {
+  let currentYear = dayjs().year();
+  let years = [];
+
+  for (let year = startYear; year <= currentYear; year++) {
+    years.push(year);
+  }
+
+  return years;
+};
+
 // 全字匹配，判断是否存在
 const isExistByRegTest = (content, target) => {
   const regex = new RegExp(`\\b${target}\\b`); // 创建正则表达式对象，^表示匹配字符串的开头，$表示匹配字符串的结尾，从而实现完全匹配
@@ -37,6 +49,7 @@ module.exports = {
   toHBSTemp,
   getHBSContent,
   formatTime,
+  getAllYears,
   isExistByRegTest,
   camelToHyphen,
   firstUpperCase,

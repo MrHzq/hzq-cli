@@ -5,8 +5,8 @@
     "desc": "新增一个命令"
   },
   {
-    "cmd": "removeCmd",
-    "alias": "rc",
+    "cmd": "deleteCmd",
+    "alias": "dc",
     "desc": "删除一个命令"
   },
   {
@@ -20,13 +20,18 @@
     "desc": "拉取 cli 模板"
   },
   {
-    "cmd": "removeFile",
-    "alias": "rf",
+    "cmd": "deleteFile",
+    "alias": "df",
     "desc": "删除文件"
   },
   {
     "cmd": "commonCmd",
     "alias": "cc",
     "desc": "常用命令"
+  },
+  {
+    "cmd": "runCmd",
+    "alias": "rc",
+    "desc": "展示当前命令&选择命令运行"
   }
 ]

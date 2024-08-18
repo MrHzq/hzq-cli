@@ -9,6 +9,8 @@ const log = {
       .forEach(() => info(" "));
   },
 
+  info,
+
   chalk(msg, color) {
     color && chalk[color] ? info(chalk[color](msg)) : info(msg);
   },

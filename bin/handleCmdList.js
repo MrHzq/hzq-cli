@@ -26,16 +26,21 @@ class handleCmdList {
     this.write();
   }
 
-  // 查找：返回[index, item]
+  // 查找：返回 index
+  findIndex(cmd) {
+    return this.list.findIndex((item) => [item.cmd, item.alias].includes(cmd));
+  }
+
+  // 查找：item
   find(cmd) {
-    return this.list.findIndex((item) => item.cmd === cmd);
+    return this.list.find((item) => [item.cmd, item.alias].includes(cmd));
   }
 
   // 删除某个命令
   delete(value) {
     let index;
 
-    if (typeof value !== "number") index = this.find(value);
+    if (typeof value !== "number") index = this.findIndex(value);
 
     if (index !== -1) {
       this.list.splice(index, 1); // 删除数据
