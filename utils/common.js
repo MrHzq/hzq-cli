@@ -45,6 +45,13 @@ const getAlias = (str) => {
   return result;
 };
 
+// 获取 横向命名的 简称：add-page->ap
+const getAliasHyphen = (str) => {
+  let result = "";
+  str.split("-").forEach((item) => (result += item[0]));
+  return result;
+};
+
 module.exports = {
   toHBSTemp,
   getHBSContent,
@@ -55,4 +62,5 @@ module.exports = {
   firstUpperCase,
   firstLowerCase,
   getAlias,
+  getAliasHyphen,
 };

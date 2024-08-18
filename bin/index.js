@@ -4,8 +4,13 @@
 
 // 引入 commander 模块，官方使用文档：https://github.com/tj/commander.js/blob/HEAD/Readme_zh-CN.md
 const { program } = require("commander");
+const log = require("../utils/log");
 
-const version = require("../package.json").version;
+const { name, version } = require("../package.json");
+
+log.newLine();
+log.success(`welcome use ${name} ~`);
+log.newLine();
 
 program.version(version);
 
