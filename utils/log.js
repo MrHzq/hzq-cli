@@ -11,8 +11,11 @@ const log = {
 
   info,
 
+  chalkText(msg, color) {
+    return color && chalk[color] ? chalk[color](msg) : msg;
+  },
   chalk(msg, color) {
-    color && chalk[color] ? info(chalk[color](msg)) : info(msg);
+    info(this.chalkText(msg, color));
   },
 
   successText: chalk.green,
