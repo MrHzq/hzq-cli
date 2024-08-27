@@ -5,9 +5,9 @@ const path = require("path");
 const root = () => os.homedir();
 
 // 获取当前工作目录
-const currCwdPath = () => process.cwd();
+const currCwdPath = process.cwd();
 
 // 获取当前运行命令的目录
-const currCmdPath = () => __dirname;
+const currCmdPath = __dirname;
 
 module.exports = { root, currCwdPath, currCmdPath };
