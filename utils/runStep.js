@@ -4,7 +4,7 @@ const Spinner = require("./spinner");
 
 // 统一的运行流程方法
 module.exports = async (stepList, globalFailType = "fail", config = {}) => {
-  // fail、warn
+  // fail | warn
   let finalType = globalFailType;
   let everySuccess = false;
 
@@ -19,7 +19,7 @@ module.exports = async (stepList, globalFailType = "fail", config = {}) => {
     const finalDesc = typeof desc === "function" ? desc() : desc;
 
     const stepSpinner = new Spinner(
-      (config.hideIndex ? "" : index + 1 + "、") + finalDesc
+      (config.hideIndex ? "" : index + 1 + ". ") + finalDesc
     );
 
     let funRes = typeof fun === "function" ? await fun() : {};

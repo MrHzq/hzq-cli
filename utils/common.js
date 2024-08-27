@@ -4,8 +4,18 @@ const Handlebars = require("handlebars");
 const toHBSTemp = (temp) => Handlebars.compile(temp);
 const getHBSContent = (temp, config) => toHBSTemp(temp)(config);
 
-// 格式化时间
+// 格式化当前时间
 const formatTime = (format = "YYYY-MM-DD HH:mm:ss") => dayjs().format(format);
+
+// 格式化传入时间
+const formatTimeBy = (time, format = "YYYY-MM-DD HH:mm:ss") =>
+  dayjs(time).format(format);
+
+const bitTransform = (bit) => {
+  const kb = (bit / 1024).toFixed(2);
+  const mb = (kb / 1024).toFixed(2);
+  return { kb, kbs: `${kb} KB`, mb, mbs: `${mb} MB` };
+};
 
 // 获取[开始年份到今年]的所有年数据
 const getAllYears = (startYear = 2017) => {
@@ -56,6 +66,8 @@ module.exports = {
   toHBSTemp,
   getHBSContent,
   formatTime,
+  formatTimeBy,
+  bitTransform,
   getAllYears,
   isExistByRegTest,
   camelToHyphen,
