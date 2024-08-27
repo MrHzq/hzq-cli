@@ -1,21 +1,85 @@
-# hzq-cli
-
-**[前端脚手架 GitHub](https://github.com/MrHzq/hzq-cli)**
-
-**[前端脚手架搭建之 hzq-cli 教程](https://www.jianshu.com/p/edd5ec93ffb3)**
-
-**[npm 包](https://www.npmjs.com/package/hzq-cli)**
+# hzq-cli 脚手架工具集合
 
 ## 使用
 
 1. 全局下载安装：**npm i -g hzq-cli**
 1. 查看版本号：**hzq -V**
-1. 使用：**hzq -i**
+1. 使用：**hzq**
 
-## 说明
+## 现有工具
 
-1. 自制的前端脚手架，用于创建项目时快速选择模板
-1. 模板选项
-   - 构建工具选项：vue-cli2、vue-cli3、nuxt
-   - 项目模板选项：base、mobile、element、vant
-   - 语言类型选项：js、ts；（nuxt 只有 js）
+```json
+[
+  {
+    "cmd": "addCmd",
+    "alias": "ac",
+    "desc": "新增一个命令"
+  },
+  {
+    "cmd": "deleteCmd",
+    "alias": "dc",
+    "desc": "删除一个命令"
+  },
+  {
+    "cmd": "projectTemplate",
+    "alias": "pt",
+    "desc": "拉取项目模板"
+  },
+  {
+    "cmd": "cliTemplate",
+    "alias": "ct",
+    "desc": "拉取 cli 模板"
+  },
+  {
+    "cmd": "deleteFile",
+    "alias": "df",
+    "desc": "删除文件"
+  },
+  {
+    "cmd": "commonCmd",
+    "alias": "cc",
+    "desc": "常用命令"
+  },
+  {
+    "cmd": "runCmd",
+    "alias": "rc",
+    "desc": "展示当前命令&选择命令运行"
+  },
+  {
+    "cmd": "zshrcAlias",
+    "alias": "za",
+    "desc": "查看 .zshrc 里面的 alias"
+  },
+  {
+    "cmd": "updateCliTemplate",
+    "alias": "uct",
+    "desc": "更新 cli-template-2024 代码"
+  },
+  {
+    "cmd": "videoToGif",
+    "alias": "vtg",
+    "desc": "视频转为 gif"
+  }
+]
+```
+
+## 工具使用
+
+`hzq [alias]` 即可唤起/使用对应工具
+
+## 例子
+
+```js
+> hzq rc
+
+welcome use hzq-cli ~
+
+? 请选择要运行的命令: (Use arrow keys)
+❯ addCmd: 新增一个命令
+  deleteCmd: 删除一个命令
+  projectTemplate: 拉取项目模板
+  cliTemplate: 拉取 cli 模板
+  deleteFile: 删除文件
+  commonCmd: 常用命令
+  zshrcAlias: 查看 .zshrc 里面的 alias
+```
