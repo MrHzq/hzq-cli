@@ -52,12 +52,12 @@
   {
     "cmd": "fileFilter",
     "alias": "ff",
-    "desc": "文件过滤"
+    "desc": "文件查找并展示列表"
   },
   {
     "cmd": "fileDetail",
     "alias": "fd",
-    "desc": "文件详情"
+    "desc": "查看文件详情"
   },
   {
     "cmd": "replaceLang",

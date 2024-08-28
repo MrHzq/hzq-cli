@@ -65,16 +65,28 @@ const getAliasHyphen = (str) => {
   return result;
 };
 
-const toPromise = (fun, resolveKey, rejectKey) => {
-  return new Promise((resolve, reject) => {
-    const res = fun();
+const doFun = (obj, ...args) => {
+  obj = Array.isArray(obj) ? obj : [obj];
+  const [fun] = obj;
 
-    const resolveFun = res[resolveKey];
-    const rejectFun = res[rejectKey];
+  let res = fun;
 
-    if (typeof resolveFun === "function") resolveFun();
-    if (typeof rejectFun === "function") rejectFun();
-  });
+  if (typeof fun === "function") res = fun(...args);
+  else if (obj.length > 1) res = obj[1];
+
+  return res;
+};
+
+const doFunPro = async (obj, ...args) => {
+  obj = Array.isArray(obj) ? obj : [obj];
+  const [fun] = obj;
+
+  let res = fun;
+
+  if (typeof fun === "function") res = await fun(...args);
+  else if (obj.length > 1) res = obj[1];
+
+  return res;
 };
 
 module.exports = {
@@ -90,4 +102,6 @@ module.exports = {
   firstLowerCase,
   getAlias,
   getAliasHyphen,
+  doFun,
+  doFunPro,
 };

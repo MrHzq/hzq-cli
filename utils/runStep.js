@@ -1,11 +1,10 @@
-const { firstUpperCase } = require("./common");
+const { firstUpperCase, doFun, doFunPro } = require("./common");
 const log = require("./log");
 const Spinner = require("./spinner");
 
 // 统一的运行流程方法
 module.exports = async (stepList, globalFailType = "fail", config = {}) => {
-  // fail | warn
-  let finalType = globalFailType;
+  let finalType = globalFailType; // fail | warn
   let everySuccess = false;
 
   const stepListLen = stepList.length;
@@ -14,17 +13,15 @@ module.exports = async (stepList, globalFailType = "fail", config = {}) => {
     const item = stepList[index];
     const { fun, desc, ignore } = item;
 
+    if (doFun(ignore)) continue;
+
     if (item.failType) finalType = item.failType;
 
-    if (ignore) continue;
-
-    const finalDesc = typeof desc === "function" ? desc() : desc;
-
     const stepSpinner = new Spinner(
-      (config.hideIndex ? "" : index + 1 + ". ") + finalDesc
+      (config.hideIndex ? "" : index + 1 + ". ") + doFun(desc)
     );
 
-    let funRes = typeof fun === "function" ? await fun() : {};
+    let funRes = await doFunPro([fun, {}]);
 
     // 表明无错误，则是走【成功】逻辑
     if (funRes === undefined) funRes = { success: true };
@@ -35,7 +32,7 @@ module.exports = async (stepList, globalFailType = "fail", config = {}) => {
       };
     }
 
-    const { success, tip = "", stop } = funRes;
+    const { success, tip, stop } = funRes;
 
     if (funRes.failType) finalType = funRes.failType;
 
@@ -49,9 +46,7 @@ module.exports = async (stepList, globalFailType = "fail", config = {}) => {
         log.succeed(tip);
       }
 
-      if (typeof funRes.onSuccess === "function") {
-        funRes.onSuccess(item, funRes);
-      }
+      doFun(funRes.onSuccess, item, funRes);
     } else {
       stepSpinner[finalType]("", config.prefix);
 
@@ -62,9 +57,7 @@ module.exports = async (stepList, globalFailType = "fail", config = {}) => {
         log[finalType](tip);
       }
 
-      const cb = funRes[`on${firstUpperCase(finalType)}`];
-
-      if (typeof cb === "function") cb(item, funRes);
+      doFun(funRes[`on${firstUpperCase(finalType)}`], item, funRes);
 
       if (finalType === "fail") break;
     }

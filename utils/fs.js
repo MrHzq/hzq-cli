@@ -69,8 +69,8 @@ const getFileList = (filterKey, targetPath) => {
     });
 };
 
-// 查询文件详情
-const fileDetail = (file) => {
+// 查询查看文件详情
+const getFileDetail = (file) => {
   const stat = typeof file === "object" ? file : statSync(file);
   const sizeFormat = stat.isFile() ? bitTransform(stat.size) : null;
   const birthtimeFormat = formatTimeBy(stat.birthtime);
@@ -85,9 +85,9 @@ const fileDetail = (file) => {
   });
 };
 
-// 打印查询到的文件详情
+// 打印查询到的查看文件详情
 const logFileDetail = (file) => {
-  const stat = typeof file === "object" ? file : fileDetail(file);
+  const stat = typeof file === "object" ? file : getFileDetail(file);
 
   log.succeed(`类型: ${stat.isFile ? "文件" : "目录"}`);
   if (stat.fullPath !== stat.filePath) log.succeed(`名称: ${stat.filePath}`);
@@ -113,6 +113,6 @@ module.exports = {
   readdirSync,
   filterFileList,
   getFileList,
-  fileDetail,
+  getFileDetail,
   logFileDetail,
 };
