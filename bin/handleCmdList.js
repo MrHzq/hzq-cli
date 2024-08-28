@@ -9,10 +9,15 @@ class handleCmdList {
     this.list = this.getList();
   }
 
-  // 获取更改 cmdList.json 数据
-  getList() {
+  // 获取 cmdList.json 原始数据
+  getListOrigin() {
     const list = readFileSync(this.path);
-    return list ? JSON.parse(list) : [];
+    return list ? list : "[]";
+  }
+
+  // 获取 cmdList.json 数据
+  getList() {
+    return JSON.parse(this.getListOrigin())
   }
 
   // 写入 cmdList.json 数据

@@ -32,7 +32,7 @@
   {
     "cmd": "runCmd",
     "alias": "rc",
-    "desc": "展示当前命令&选择命令运行"
+    "desc": "展示当前命令并选择命令运行"
   },
   {
     "cmd": "zshrcAlias",
@@ -63,5 +63,10 @@
     "cmd": "replaceLang",
     "alias": "rl",
     "desc": "语言包替换"
+  },
+  {
+    "cmd": "updateMd",
+    "alias": "um",
+    "desc": "更新 README.md"
   }
 ]

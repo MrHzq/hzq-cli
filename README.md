@@ -43,7 +43,7 @@
   {
     "cmd": "runCmd",
     "alias": "rc",
-    "desc": "展示当前命令&选择命令运行"
+    "desc": "展示当前命令并选择命令运行"
   },
   {
     "cmd": "zshrcAlias",
@@ -59,8 +59,29 @@
     "cmd": "videoToGif",
     "alias": "vtg",
     "desc": "视频转为 gif"
+  },
+  {
+    "cmd": "fileFilter",
+    "alias": "ff",
+    "desc": "文件查找并展示列表"
+  },
+  {
+    "cmd": "fileDetail",
+    "alias": "fd",
+    "desc": "查看文件详情"
+  },
+  {
+    "cmd": "replaceLang",
+    "alias": "rl",
+    "desc": "语言包替换"
+  },
+  {
+    "cmd": "updateMd",
+    "alias": "um",
+    "desc": "更新 README.md"
   }
 ]
+
 ```
 
 ## 工具使用
@@ -82,4 +103,16 @@ welcome use hzq-cli ~
   deleteFile: 删除文件
   commonCmd: 常用命令
   zshrcAlias: 查看 .zshrc 里面的 alias
+```
+
+```js
+> hzq ff
+
+welcome use hzq-cli ~
+ 
+? 请输入查找关键词: .mp3
+ 
+查找目录：/Users/Downloads
+ 
+未找到包含 .mp3 的文件
 ```
