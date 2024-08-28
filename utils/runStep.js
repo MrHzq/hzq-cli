@@ -8,7 +8,9 @@ module.exports = async (stepList, globalFailType = "fail", config = {}) => {
   let finalType = globalFailType;
   let everySuccess = false;
 
-  for (let index = 0; index < stepList.length; index++) {
+  const stepListLen = stepList.length;
+
+  for (let index = 0; index < stepListLen; index++) {
     const item = stepList[index];
     const { fun, desc, ignore } = item;
 
@@ -33,7 +35,7 @@ module.exports = async (stepList, globalFailType = "fail", config = {}) => {
       };
     }
 
-    const { success, tip = "" } = funRes;
+    const { success, tip = "", stop } = funRes;
 
     if (funRes.failType) finalType = funRes.failType;
 
@@ -42,23 +44,34 @@ module.exports = async (stepList, globalFailType = "fail", config = {}) => {
 
       stepSpinner.succeed("", config.prefix);
 
-      if (tip) log.succeed(tip);
+      if (tip) {
+        log.newLine();
+        log.succeed(tip);
+      }
 
-      if (typeof config.onSuccess === "function") {
-        config.onSuccess(item, funRes);
+      if (typeof funRes.onSuccess === "function") {
+        funRes.onSuccess(item, funRes);
       }
     } else {
       stepSpinner[finalType]("", config.prefix);
 
       everySuccess = finalType === "warn";
 
-      if (tip) log[finalType](tip);
+      if (tip) {
+        log.newLine();
+        log[finalType](tip);
+      }
 
-      const cb = config[`on${firstUpperCase(finalType)}`];
+      const cb = funRes[`on${firstUpperCase(finalType)}`];
 
       if (typeof cb === "function") cb(item, funRes);
 
       if (finalType === "fail") break;
+    }
+
+    if (stop) {
+      log.fail("主动停止");
+      break;
     }
   }
 

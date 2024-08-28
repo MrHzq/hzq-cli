@@ -58,5 +58,10 @@
     "cmd": "fileDetail",
     "alias": "fd",
     "desc": "文件详情"
+  },
+  {
+    "cmd": "replaceLang",
+    "alias": "rl",
+    "desc": "语言包替换"
   }
 ]

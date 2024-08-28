@@ -12,6 +12,9 @@ const formatTimeBy = (time, format = "YYYY-MM-DD HH:mm:ss") =>
   dayjs(time).format(format);
 
 const bitTransform = (bit) => {
+  bit = Number(bit);
+  if (isNaN(bit)) bit = 0;
+
   const kb = (bit / 1024).toFixed(2);
   const mb = (kb / 1024).toFixed(2);
   return { kb, kbs: `${kb} KB`, mb, mbs: `${mb} MB` };
@@ -60,6 +63,18 @@ const getAliasHyphen = (str) => {
   let result = "";
   str.split("-").forEach((item) => (result += item[0]));
   return result;
+};
+
+const toPromise = (fun, resolveKey, rejectKey) => {
+  return new Promise((resolve, reject) => {
+    const res = fun();
+
+    const resolveFun = res[resolveKey];
+    const rejectFun = res[rejectKey];
+
+    if (typeof resolveFun === "function") resolveFun();
+    if (typeof rejectFun === "function") rejectFun();
+  });
 };
 
 module.exports = {
