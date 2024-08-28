@@ -62,8 +62,10 @@ const getFileList = (filterKey, targetPath) => {
   return filterFileList(fileList, filterKey)
     .sort((a, b) => a.localeCompare(b))
     .map((file, index) => {
+      const { sizeFormat } = getFileDetail(path.resolve(file));
+
       return {
-        name: `${index + 1}. ${file}`,
+        name: `${index + 1}. ${file} ${sizeFormat.mbs}`,
         value: file,
       };
     });

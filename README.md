@@ -82,7 +82,7 @@
   },
   {
     "cmd": "videoTo3D",
-    "alias": "vtd",
+    "alias": "vt3d",
     "_description": "视频转为 3D 视频"
   },
   {
@@ -91,7 +91,6 @@
     "_description": "更改当前项目的 formatOnSave 配置"
   }
 ]
-
 ```
 
 ## 工具使用
@@ -119,10 +118,10 @@ welcome use hzq-cli ~
 > hzq ff
 
 welcome use hzq-cli ~
- 
+
 ? 请输入查找关键词: .mp3
- 
+
 查找目录：/Users/Downloads
- 
+
 未找到包含 .mp3 的文件
 ```

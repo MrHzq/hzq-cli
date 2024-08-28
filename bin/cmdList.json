@@ -71,7 +71,7 @@
   },
   {
     "cmd": "videoTo3D",
-    "alias": "vtd",
+    "alias": "vt3d",
     "_description": "视频转为 3D 视频"
   },
   {
