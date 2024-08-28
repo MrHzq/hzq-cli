@@ -1,12 +1,18 @@
 const path = require("path");
 
 const { readFileSync, writeFileSync } = require("../utils/fs");
+const { getDirRePath } = require("../utils/path");
 
 class handleCmdList {
   constructor() {
     this.fileName = "cmdList.json";
-    this.path = path.join(__dirname, this.fileName);
+    this.path = getDirRePath(__dirname, this.fileName);
     this.list = this.getList();
+  }
+
+  // 获取当前项目可执行的父级命令
+  getCliName() {
+    return Object.keys(require("../package.json").bin).join(" | ");
   }
 
   // 获取 cmdList.json 原始数据
@@ -17,7 +23,7 @@ class handleCmdList {
 
   // 获取 cmdList.json 数据
   getList() {
-    return JSON.parse(this.getListOrigin())
+    return JSON.parse(this.getListOrigin());
   }
 
   // 写入 cmdList.json 数据

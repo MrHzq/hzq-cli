@@ -15,6 +15,9 @@ const processRun = (cmd) => {
 // 进入某个文件
 const cdPath = (path) => `cd ${path}`;
 
+// VScode 打开
+const codeCmd = "open -a 'Visual Studio Code'";
+
 // 获取 git 用户信息
 const getGitUser = () => {
   try {
@@ -48,4 +51,5 @@ module.exports = {
   getGitUser,
   gitAdd,
   gitCommit,
+  codeCmd,
 };

@@ -19,12 +19,12 @@ const cmdList = require("./cmdList.json");
 cmdList
   .sort((a, b) => a.cmd.localeCompare(b.cmd))
   .forEach((item) => {
-    const { cmd, alias, desc } = item;
+    const { cmd, alias, _description } = item;
     // 定义命令与参数，类似 hzq addMsg 等等
     program
       .command(cmd)
       .alias(alias)
-      .description(desc)
+      .description(_description)
       .action((_, options) => {
         require(`../lib/${cmd}`)(_, options);
       });

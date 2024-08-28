@@ -1,4 +1,4 @@
-module.exports = `const log = require("../../utils/log");
+const log = require("../../utils/log");
 const Spinner = require("../../utils/spinner");
 const runStep = require("../../utils/runStep");
 const path = require("path");
@@ -34,7 +34,7 @@ module.exports = async (_, options) => {
 
   mainSpinner = new Spinner(_description);
 
-  if (mainStepList.length === 1) {
+  if (mainStepList.length === 1 && !todoStepList?.length) {
     await mainStepList[0].fun();
     return mainSpinner.succeed();
   }
@@ -50,10 +50,9 @@ module.exports = async (_, options) => {
     log.newLine();
 
     log.warn("next todo");
-    runStep(todoStepList, "warn", { prefix: "todo"});
+    runStep(todoStepList, "warn", { prefix: "todo" });
   {{/if}}
   } else {
     mainSpinner.fail();
   }
 };
-`;
