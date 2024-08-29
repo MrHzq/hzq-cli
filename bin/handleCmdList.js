@@ -1,27 +1,24 @@
-const path = require("path");
-
-const { readFileSync, writeFileSync } = require("../utils/fs");
+const { writeFileSync } = require("../utils/fs");
 const { getDirRePath } = require("../utils/path");
 
 class handleCmdList {
   constructor() {
     this.fileName = "cmdList.json";
+    this.list = require("./" + this.fileName);
     this.path = getDirRePath(__dirname, this.fileName);
-    this.list = this.getList();
   }
 
   // 获取 cmdList.json 原始数据
   getListOrigin() {
-    const list = readFileSync(this.path);
-    return list ? list : "[]";
+    return JSON.stringify(this.list);
   }
 
   // 获取 cmdList.json 数据
   getList() {
-    return JSON.parse(this.getListOrigin());
+    return this.list;
   }
 
-  // 获取 cmdList.json 数据
+  // 获取格式化 cmdList.json 数据
   getFormatList() {
     return this.list.map((item) => {
       const { cmd, _description, alias } = item;
@@ -71,11 +68,15 @@ class handleCmdList {
   }
 
   // 替换某个命令
-  replace(newItem, index = -1) {
-    const { oldCmd, ...reset } = newItem;
-    if (index === -1) index = this.findIndex(oldCmd);
-    Object.assign(this.list[index], reset);
-    this.write();
+  replace(newItem, value) {
+    let index;
+
+    if (typeof value !== "number") index = this.findIndex(value);
+
+    if (index !== -1) {
+      Object.assign(this.list[index], newItem);
+      this.write();
+    }
   }
 }
 
