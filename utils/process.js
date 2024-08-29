@@ -2,9 +2,12 @@ const { execSync } = require("child_process");
 const log = require("./log");
 
 // 执行命令并获得返回值
-const processRun = (cmd, config = {}) => {
+const processRun = (cmd, type = "run", _config = {}) => {
   try {
-    return execSync(cmd, { encoding: "utf8", ...config });
+    const config = {};
+    if (type === "run") config.stdio = "inherit";
+    else config.encoding = "utf8";
+    return execSync(cmd, { ...config, ..._config });
   } catch (error) {
     const tip = `执行 '${cmd}' 时出错: ${error.message}`;
     log.error(tip);
@@ -12,16 +15,37 @@ const processRun = (cmd, config = {}) => {
   }
 };
 
-// 进入某个文件 - 注释
-const cdPathZS = (path) => `cd ${path}`;
+// cd 操作
+const cd = {
+  run(cmd, ...args) {
+    return processRun(this[cmd](...args));
+  },
+  cd(path) {
+    return `cd ${path}`;
+  },
+};
 
-// VScode 打开
-const codeCmd = "open -a 'Visual Studio Code'";
+// 编辑器 操作
+const code = {
+  run(cmd, ...args) {
+    return processRun(this[cmd](...args));
+  },
+  appName() {
+    const editor = "Cursor";
+    return editor;
+  },
+  open(path) {
+    return `open -a '${this.appName()}' ${path}`;
+  },
+};
 
-// git 相关命令
+// git 操作
 const git = {
-  run(cmd) {
-    return processRun(this[cmd]());
+  type: "run",
+  run(cmd, ...args) {
+    const res = processRun(this[cmd](...args), this.type);
+    this.type = "run";
+    return res;
   },
   // 暂存 - 注释
   add(file = ".") {
@@ -31,6 +55,11 @@ const git = {
   // 提交 - 注释
   commit(msg = "Initial commit") {
     return `git commit -m "${msg}"`;
+  },
+
+  // 获取 git origin
+  remote() {
+    return `git remote -v`;
   },
 
   userName() {
@@ -43,26 +72,21 @@ const git = {
 
   // 获取 git 用户信息
   getUser() {
+    this.type = "get";
+
     // 获取用户名
-    const userName = processRun(this.userName());
+    const userName = this.run(this.userName());
 
     // 获取用户邮箱
-    const userEmail = processRun(this.userEmail());
+    const userEmail = this.run(this.userEmail());
 
     return { userName, userEmail };
   },
-
-  // 获取 git origin
-  remote() {
-    return `git remote -v`;
-  },
 };
-
-console.log("[ run ] >", git.run("remote"));
 
 module.exports = {
   processRun,
-  cdPathZS,
+  cd,
+  code,
   git,
-  codeCmd,
 };

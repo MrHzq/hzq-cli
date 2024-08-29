@@ -45,7 +45,7 @@ const removeDir = (p) => {
 };
 
 // 复制文件夹
-const copyDir = (s, t, re = true) => fs.copy(s, t, { recursive: re });
+const copyDir = (s, t, re = true) => fs.copySync(s, t, { recursive: re });
 
 // 读取当前所有文件和文件夹
 const readdirSync = (p = ".") => fs.readdirSync(p);

@@ -7,6 +7,9 @@ const root = () => os.homedir();
 // 获取当前工作目录
 const currCwdPath = process.cwd();
 
+// 判断是否在当前目录
+const pathEqCwd = (path) => currCwdPath === path;
+
 // 获取当前运行命令的目录
 const currCmdPath = __dirname;
 
@@ -30,12 +33,17 @@ const getDirRePath = (dirname, ...args) => path.join(dirname, ...args);
 // 基于当前工作目录，获取相对路径
 const getCwdRePath = (...args) => path.join(currCwdPath, ...args);
 
+// 获取当前文件夹名称
+const getDirName = (dirname = __dirname) => path.basename(dirname);
+
 module.exports = {
   root,
   currCwdPath,
+  pathEqCwd,
   currCmdPath,
   getFullPathBy,
   getFileName,
   getDirRePath,
   getCwdRePath,
+  getDirName,
 };
