@@ -1,3 +1,4 @@
+const { removeEmpty } = require("../utils/common");
 const { writeFileSync } = require("../utils/fs");
 const { getDirRePath } = require("../utils/path");
 
@@ -10,7 +11,7 @@ class handleCmdList {
 
   // 获取 cmdList.json 原始数据
   getListOrigin() {
-    return JSON.stringify(this.list);
+    return JSON.stringify(this.list, null, 2);
   }
 
   // 获取 cmdList.json 数据
@@ -74,7 +75,7 @@ class handleCmdList {
     if (typeof value !== "number") index = this.findIndex(value);
 
     if (index !== -1) {
-      Object.assign(this.list[index], newItem);
+      Object.assign(this.list[index], removeEmpty(newItem));
       this.write();
     }
   }

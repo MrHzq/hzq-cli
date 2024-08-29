@@ -89,6 +89,16 @@ const doFunPro = async (obj, ...args) => {
   return res;
 };
 
+// 删除对象中的空值
+const removeEmpty = (obj, otherEmptyAdjustList = []) => {
+  Object.keys(obj).forEach((key) => {
+    if ([null, undefined, "", ...otherEmptyAdjustList].includes(obj[key])) {
+      delete obj[key];
+    }
+  });
+  return obj;
+};
+
 module.exports = {
   toHBSTemp,
   getHBSContent,
@@ -104,4 +114,5 @@ module.exports = {
   getAliasHyphen,
   doFun,
   doFunPro,
+  removeEmpty,
 };

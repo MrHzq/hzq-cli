@@ -18,6 +18,7 @@ const cmdList = require("./cmdList.json");
 
 cmdList
   .sort((a, b) => a.cmd.localeCompare(b.cmd))
+  .filter((item) => item.cmd)
   .forEach((item) => {
     const { cmd, alias, _description } = item;
     // 定义命令与参数，类似 hzq addMsg 等等

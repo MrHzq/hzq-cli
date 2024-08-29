@@ -16,19 +16,14 @@
     "_description": "新增一个命令"
   },
   {
+    "cmd": "changeFormatOnSave",
+    "alias": "cfos",
+    "_description": "更改当前项目的 formatOnSave 配置"
+  },
+  {
     "cmd": "deleteCmd",
     "alias": "dc",
     "_description": "删除一个命令"
-  },
-  {
-    "cmd": "getProjectTem",
-    "alias": "gpt",
-    "_description": "拉取项目模板"
-  },
-  {
-    "cmd": "getCliTem",
-    "alias": "gct",
-    "_description": "拉取 cli 模板"
   },
   {
     "cmd": "deleteFile",
@@ -36,29 +31,9 @@
     "_description": "删除文件"
   },
   {
-    "cmd": "otherCmd",
-    "alias": "oc",
-    "_description": "其他命令"
-  },
-  {
-    "cmd": "runCmd",
-    "alias": "rc",
-    "_description": "展示当前命令并选择命令运行"
-  },
-  {
-    "cmd": "zshrcAlias",
-    "alias": "za",
-    "_description": "查看 .zshrc 里面的 alias"
-  },
-  {
-    "cmd": "updateCliTemplate",
-    "alias": "uct",
-    "_description": "更新其他 *-cli 代码"
-  },
-  {
-    "cmd": "videoToGif",
-    "alias": "vtg",
-    "_description": "视频转为 gif"
+    "cmd": "fileDetail",
+    "alias": "fd",
+    "_description": "查看文件详情"
   },
   {
     "cmd": "fileFilter",
@@ -66,9 +41,24 @@
     "_description": "文件查找并展示列表"
   },
   {
-    "cmd": "fileDetail",
-    "alias": "fd",
-    "_description": "查看文件详情"
+    "cmd": "getCliTem",
+    "alias": "gct",
+    "_description": "拉取 cli 模板"
+  },
+  {
+    "cmd": "getProjectTem",
+    "alias": "gpt",
+    "_description": "拉取项目模板"
+  },
+  {
+    "cmd": "otherCmd",
+    "alias": "oc",
+    "_description": "其他常用命令"
+  },
+  {
+    "cmd": "renameCmd",
+    "alias": "rec",
+    "_description": "更改命令名称"
   },
   {
     "cmd": "replaceLang",
@@ -76,8 +66,18 @@
     "_description": "语言包替换"
   },
   {
-    "cmd": "updateMd",
-    "alias": "um",
+    "cmd": "runCmd",
+    "alias": "rc",
+    "_description": "展示当前命令并选择命令运行"
+  },
+  {
+    "cmd": "updateCliTemplate",
+    "alias": "uct",
+    "_description": "更新其他 *-cli 代码"
+  },
+  {
+    "cmd": "updateReadme",
+    "alias": "ur",
     "_description": "更新 README.md"
   },
   {
@@ -86,14 +86,14 @@
     "_description": "视频转为 3D 视频"
   },
   {
-    "cmd": "changeFormatOnSave",
-    "alias": "cfos",
-    "_description": "更改当前项目的 formatOnSave 配置"
+    "cmd": "videoToGif",
+    "alias": "vtg",
+    "_description": "视频转为 gif"
   },
   {
-    "cmd": "renameCmd",
-    "alias": "rec",
-    "_description": "更改命令名称"
+    "cmd": "zshrcAlias",
+    "alias": "za",
+    "_description": "查看 .zshrc 里面的自定义 alias"
   }
 ]
 ```

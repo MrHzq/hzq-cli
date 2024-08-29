@@ -42,7 +42,7 @@
   {
     "cmd": "otherCmd",
     "alias": "oc",
-    "_description": "其他命令"
+    "_description": "其他常用命令"
   },
   {
     "cmd": "renameCmd",
@@ -82,6 +82,6 @@
   {
     "cmd": "zshrcAlias",
     "alias": "za",
-    "_description": "查看 .zshrc 里面的 alias"
+    "_description": "查看 .zshrc 里面的自定义 alias"
   }
 ]
