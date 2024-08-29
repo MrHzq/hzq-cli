@@ -36,9 +36,9 @@
     "_description": "删除文件"
   },
   {
-    "cmd": "commonCmd",
-    "alias": "cc",
-    "_description": "常用命令"
+    "cmd": "otherCmd",
+    "alias": "oc",
+    "_description": "其他命令"
   },
   {
     "cmd": "runCmd",
@@ -111,7 +111,7 @@ welcome use hzq-cli ~
   projectTemplate: 拉取项目模板
   cliTemplate: 拉取 cli 模板
   deleteFile: 删除文件
-  commonCmd: 常用命令
+  otherCmd: 常用命令
   zshrcAlias: 查看 .zshrc 里面的 alias
 ```
 

@@ -25,9 +25,9 @@
     "_description": "删除文件"
   },
   {
-    "cmd": "commonCmd",
-    "alias": "cc",
-    "_description": "常用命令"
+    "cmd": "otherCmd",
+    "alias": "oc",
+    "_description": "其他命令"
   },
   {
     "cmd": "runCmd",
