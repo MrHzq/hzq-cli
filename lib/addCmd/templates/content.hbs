@@ -1,17 +1,43 @@
 const log = require("../../utils/log");
 const Spinner = require("../../utils/spinner");
 const runStep = require("../../utils/runStep");
+const { readConfig, writeConfig } = require("../../utils/config");
+const { getDirName } = require("../../utils/path");
+
+{{#if needInquirer}}
 const { prompt, notNumberRule } = require("../../utils/inquirer");
-const path = require("path");
+{{/if}}
 
 let mainSpinner;
 
+{{#if needConfig}}
+let config;
+const configKey = getDirName(__dirname);
+
+// 获取当前所需配置
+const getConfig = () => {
+  const allConfig = readConfig() || {};
+  config = allConfig[configKey] || {};
+};
+
+// 设置当前所得配置
+const setConfig = () => {
+  const allConfig = readConfig() || {};
+  writeConfig({ ...allConfig, [configKey]: config });
+};
+{{/if}}
+
+{{#if needInquirer}}
 let cmd;
 
 // 初始化变量
 const initVar = (answers) => {
   cmd = answers.cmd;
 };
+{{else}}
+// 初始化变量
+const initVar = () => {};
+{{/if}}
 
 const step1 = () => {};
 
@@ -23,7 +49,7 @@ const mainStepList = [
   },
 ];
 
-{{#if todo}}
+{{#if needTodo}}
 // todo 流程 - step 集合
 const todoStepList = [
   {
@@ -33,9 +59,18 @@ const todoStepList = [
 {{/if}}
 
 module.exports = async (_, options) => {
-  const { _description, parent } = options;
+  const { _description, args } = options;
 
-  const answers = await prompt([
+  const [arg] = args || []
+
+  {{#if needConfig}}
+  getConfig();
+  {{/if}}
+
+  let answers = {};
+
+  {{#if needInquirer}}
+  answers = await prompt([
     {
       type: "input",
       name: "cmd",
@@ -43,6 +78,12 @@ module.exports = async (_, options) => {
       validate: notNumberRule,
     },
   ]);
+  {{/if}}
+
+  {{#if needConfig}}
+  Object.assign(config, answers);
+  setConfig();
+  {{/if}}
 
   initVar(answers);
 
@@ -60,7 +101,7 @@ module.exports = async (_, options) => {
   if (runSuccess) {
     mainSpinner.succeed();
 
-  {{#if todo}}
+  {{#if needTodo}}
     log.newLine();
 
     log.warn("next todo");
