@@ -1,10 +1,10 @@
 const { execSync } = require("child_process");
 const log = require("./log");
 
-// 执行命令
-const processRun = (cmd) => {
+// 执行命令并获得返回值
+const processRun = (cmd, config = {}) => {
   try {
-    execSync(cmd, { stdio: "inherit" });
+    return execSync(cmd, { encoding: "utf8", ...config });
   } catch (error) {
     const tip = `执行 '${cmd}' 时出错: ${error.message}`;
     log.error(tip);
@@ -12,44 +12,57 @@ const processRun = (cmd) => {
   }
 };
 
-// 进入某个文件
-const cdPath = (path) => `cd ${path}`;
+// 进入某个文件 - 注释
+const cdPathZS = (path) => `cd ${path}`;
 
 // VScode 打开
 const codeCmd = "open -a 'Visual Studio Code'";
 
-// 获取 git 用户信息
-const getGitUser = () => {
-  try {
+// git 相关命令
+const git = {
+  run(cmd) {
+    return processRun(this[cmd]());
+  },
+  // 暂存 - 注释
+  add(file = ".") {
+    return `git add ${file}`;
+  },
+
+  // 提交 - 注释
+  commit(msg = "Initial commit") {
+    return `git commit -m "${msg}"`;
+  },
+
+  userName() {
+    return "git config --global user.name";
+  },
+
+  userEmail() {
+    return "git config --global user.email";
+  },
+
+  // 获取 git 用户信息
+  getUser() {
     // 获取用户名
-    const userName = execSync("git config --global user.name", {
-      encoding: "utf8",
-    }).trim();
+    const userName = processRun(this.userName());
 
     // 获取用户邮箱
-    const userEmail = execSync("git config --global user.email", {
-      encoding: "utf8",
-    }).trim();
+    const userEmail = processRun(this.userEmail());
 
     return { userName, userEmail };
-  } catch (error) {
-    const tip = `获取 Git 用户信息时出错: ${error.message}`;
-    log.error(tip);
-    return {};
-  }
+  },
+
+  // 获取 git origin
+  remote() {
+    return `git remote -v`;
+  },
 };
 
-// 暂存
-const gitAdd = () => `git add .`;
-
-// 提交
-const gitCommit = (msg = "Initial commit") => `git commit -m "${msg}"`;
+console.log("[ run ] >", git.run("remote"));
 
 module.exports = {
   processRun,
-  cdPath,
-  getGitUser,
-  gitAdd,
-  gitCommit,
+  cdPathZS,
+  git,
   codeCmd,
 };
