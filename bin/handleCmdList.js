@@ -10,11 +10,6 @@ class handleCmdList {
     this.list = this.getList();
   }
 
-  // 获取当前项目可执行的父级命令
-  getCliName() {
-    return Object.keys(require("../package.json").bin).join(" | ");
-  }
-
   // 获取 cmdList.json 原始数据
   getListOrigin() {
     const list = readFileSync(this.path);
@@ -24,6 +19,22 @@ class handleCmdList {
   // 获取 cmdList.json 数据
   getList() {
     return JSON.parse(this.getListOrigin());
+  }
+
+  // 获取 cmdList.json 数据
+  getFormatList() {
+    return this.list.map((item) => {
+      const { cmd, _description, alias } = item;
+      return {
+        name: `${cmd}: ${_description} ${alias ? `(${alias})` : ""}`,
+        value: cmd,
+      };
+    });
+  }
+
+  // 获取当前项目可执行的父级命令
+  getCliName() {
+    return Object.keys(require("../package.json").bin).join(" | ");
   }
 
   // 写入 cmdList.json 数据
@@ -57,6 +68,14 @@ class handleCmdList {
       this.list.splice(index, 1); // 删除数据
       this.write();
     }
+  }
+
+  // 替换某个命令
+  replace(newItem, index = -1) {
+    const { oldCmd, ...reset } = newItem;
+    if (index === -1) index = this.findIndex(oldCmd);
+    Object.assign(this.list[index], reset);
+    this.write();
   }
 }
 

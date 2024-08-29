@@ -21,13 +21,13 @@
     "_description": "删除一个命令"
   },
   {
-    "cmd": "projectTemplate",
-    "alias": "pt",
+    "cmd": "getProjectTem",
+    "alias": "gpt",
     "_description": "拉取项目模板"
   },
   {
-    "cmd": "cliTemplate",
-    "alias": "ct",
+    "cmd": "getCliTem",
+    "alias": "gct",
     "_description": "拉取 cli 模板"
   },
   {
@@ -89,9 +89,13 @@
     "cmd": "changeFormatOnSave",
     "alias": "cfos",
     "_description": "更改当前项目的 formatOnSave 配置"
+  },
+  {
+    "cmd": "renameCmd",
+    "alias": "rec",
+    "_description": "更改命令名称"
   }
 ]
-
 ```
 
 ## 工具使用

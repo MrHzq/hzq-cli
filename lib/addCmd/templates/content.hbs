@@ -1,9 +1,12 @@
+const path = require("path");
 const log = require("../../utils/log");
 const Spinner = require("../../utils/spinner");
 const runStep = require("../../utils/runStep");
-const { readConfig, writeConfig } = require("../../utils/config");
+const { renameSync } = require("../../utils/fs");
 const { getDirName } = require("../../utils/path");
-
+{{#if needConfig}}
+const { readConfig, writeConfig } = require("../../config/handler");
+{{/if}}
 {{#if needInquirer}}
 const { prompt, notNumberRule } = require("../../utils/inquirer");
 {{/if}}
@@ -28,11 +31,11 @@ const setConfig = () => {
 {{/if}}
 
 {{#if needInquirer}}
-let cmd;
+let inputValue;
 
 // 初始化变量
 const initVar = (answers) => {
-  cmd = answers.cmd;
+  inputValue = answers.inputValue;
 };
 {{else}}
 // 初始化变量
@@ -73,8 +76,8 @@ module.exports = async (_, options) => {
   answers = await prompt([
     {
       type: "input",
-      name: "cmd",
-      message: "命令名称（eg：addMsg|addPage）:",
+      name: " inputValue",
+      message: "请输入:",
       validate: notNumberRule,
     },
   ]);

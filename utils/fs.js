@@ -38,6 +38,9 @@ const writeFileSync = (p, text, c = "utf-8") => fs.writeFileSync(p, text, c);
 // 递归创建文件夹
 const mkdirSync = (p, re = true) => fs.mkdirSync(p, { recursive: re });
 
+// 重命名文件
+const renameSync = (s, t) => fs.renameSync(s, t);
+
 // 删除文件夹 & 子文件
 const removeDir = (p) => {
   if (checkFileExist(p)) return fs.removeSync(p);
@@ -110,6 +113,7 @@ module.exports = {
   readFileSyncFormat,
   writeFileSync,
   mkdirSync,
+  renameSync,
   removeDir,
   copyDir,
   readdirSync,
