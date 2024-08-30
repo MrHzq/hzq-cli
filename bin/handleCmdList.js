@@ -1,4 +1,8 @@
-const { removeEmpty } = require("../utils/common");
+const {
+  removeEmpty,
+  getFilterList,
+  formatCmdList,
+} = require("../utils/common");
 const { writeFileSync } = require("../utils/fs");
 const { getDirRePath } = require("../utils/path");
 
@@ -19,15 +23,14 @@ class handleCmdList {
     return this.list;
   }
 
+  // 获取格式化 && 过滤了的 cmdList.json 数据,filterType:'eq'
+  getFormatListFilter(filterValue, filterType = "") {
+    return getFilterList(this.getFormatList(), filterValue, filterType);
+  }
+
   // 获取格式化 cmdList.json 数据
   getFormatList() {
-    return this.list.map((item) => {
-      const { cmd, _description, alias } = item;
-      return {
-        name: `${cmd}: ${_description} ${alias ? `(${alias})` : ""}`,
-        value: cmd,
-      };
-    });
+    return formatCmdList(this.list);
   }
 
   // 获取当前项目可执行的父级命令

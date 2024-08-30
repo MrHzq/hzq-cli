@@ -37,6 +37,13 @@ const code = {
     vscode: "Visual Studio Code",
   },
 
+  prompt: {
+    type: "list",
+    name: "editor",
+    message: "请选择编辑器:",
+    choices: ["vscode", "cursor"],
+  },
+
   setEditor(editor) {
     this.editor = editor;
   },

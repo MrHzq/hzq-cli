@@ -55,6 +55,7 @@ const getAlias = (str) => {
   for (let char of str) {
     if (/[A-Z]/.test(char)) result += char.toLowerCase();
   }
+  if (result.length === 1) result = '';
   return result;
 };
 
@@ -99,6 +100,32 @@ const removeEmpty = (obj, otherEmptyAdjustList = []) => {
   return obj;
 };
 
+// 格式化 cmdList 数据，用于 inquire 库
+const formatCmdList = (list) => {
+  return list.map((item) => {
+    const { cmd, _description, alias } = item;
+    return {
+      name: `${cmd}: ${_description} ${alias ? `(${alias})` : ""}`,
+      value: cmd,
+    };
+  });
+};
+
+// 获取已过滤过的 list
+const getFilterList = (list, filterValue, filterType = "") => {
+  const filterObj = removeEmpty(Object.assign({}, filterValue || {}));
+
+  return (list || []).filter((item) => {
+    const keys = Object.keys(filterObj);
+    if (!keys.length) return true;
+
+    return keys.some((key) => {
+      const isEq = filterObj[key] === item[key];
+      return filterType === "eq" ? isEq : !isEq;
+    });
+  });
+};
+
 module.exports = {
   toHBSTemp,
   getHBSContent,
@@ -115,4 +142,6 @@ module.exports = {
   doFun,
   doFunPro,
   removeEmpty,
+  formatCmdList,
+  getFilterList,
 };

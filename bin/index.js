@@ -8,9 +8,7 @@ const log = require("../utils/log");
 
 const { name, version } = require("../package.json");
 
-log.newLine();
-log.success(`welcome use ${name} ~`);
-log.newLine();
+log.success(`welcome use ${name} ~`, [true, true]);
 
 program.version(version);
 

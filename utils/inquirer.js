@@ -13,7 +13,7 @@ const notNumberRule = (value, isReq = true) => {
   }
 
   value = value.trim();
-  if (!isNaN(Number(value))) return "此字段不能为数字";
+  if (value && !isNaN(Number(value))) return "此字段不能为数字";
 
   return true;
 };
@@ -25,7 +25,7 @@ const isNumberRule = (value, isReq = true) => {
   }
 
   value = value.trim();
-  if (isNaN(Number(value))) return "此字段只能为数字";
+  if (value && isNaN(Number(value))) return "此字段只能为数字";
 
   return true;
 };

@@ -5,7 +5,7 @@ const { getFileName } = require("./path");
 const { bitTransform, formatTimeBy } = require("./common");
 
 // 检查文件是否存在
-const checkFileExist = (p) => fs.existsSync(p);
+const checkFileExist = fs.existsSync;
 
 // 基于已有文件，生成自定义的文件名称
 const newFileName = (filePath, { suffix, prefix }) => {
@@ -39,7 +39,7 @@ const writeFileSync = (p, text, c = "utf-8") => fs.writeFileSync(p, text, c);
 const mkdirSync = (p, re = true) => fs.mkdirSync(p, { recursive: re });
 
 // 重命名文件
-const renameSync = (s, t) => fs.renameSync(s, t);
+const renameSync = fs.renameSync;
 
 // 删除文件夹 & 子文件
 const removeDir = (p) => {
@@ -47,11 +47,14 @@ const removeDir = (p) => {
   else return `${p} 文件不存在`;
 };
 
+// 移动文件夹/文件夹
+const moveSync = fs.moveSync;
+
 // 复制文件夹
 const copyDir = (s, t, re = true) => fs.copySync(s, t, { recursive: re });
 
 // 读取当前所有文件和文件夹
-const readdirSync = (p = ".") => fs.readdirSync(p);
+const readdirSync = fs.readdirSync;
 
 // 根据文件名称进行过滤
 const filterFileList = (fileList, filterKey) => {
@@ -115,6 +118,7 @@ module.exports = {
   mkdirSync,
   renameSync,
   removeDir,
+  moveSync,
   copyDir,
   readdirSync,
   filterFileList,

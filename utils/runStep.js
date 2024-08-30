@@ -41,10 +41,7 @@ module.exports = async (stepList, globalFailType = "fail", config = {}) => {
 
       stepSpinner.succeed("", config.prefix);
 
-      if (tip) {
-        log.newLine();
-        log.succeed(tip);
-      }
+      if (tip) log.succeed(tip, true);
 
       doFun(funRes.onSuccess, item, funRes);
     } else {
@@ -52,10 +49,7 @@ module.exports = async (stepList, globalFailType = "fail", config = {}) => {
 
       everySuccess = finalType === "warn";
 
-      if (tip) {
-        log.newLine();
-        log[finalType](tip);
-      }
+      if (tip) log[finalType](tip, true);
 
       doFun(funRes[`on${firstUpperCase(finalType)}`], item, funRes);
 
