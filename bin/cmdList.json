@@ -83,5 +83,10 @@
     "cmd": "zshrcAlias",
     "alias": "za",
     "_description": "查看 .zshrc 里面的自定义 alias"
+  },
+  {
+    "cmd": "mergeCmd",
+    "alias": "mc",
+    "_description": "将某些 cmd 合并到一个大类里面"
   }
 ]
