@@ -10,13 +10,13 @@
     "_description": "更改当前项目的 formatOnSave 配置"
   },
   {
-    "cmd": "code-v2",
+    "cmd": "code",
     "alias": "",
     "_description": "code 相关命令"
   },
   {
-    "cmd": "deleteCmd-v2",
-    "alias": "dc-v2",
+    "cmd": "deleteCmd",
+    "alias": "dc",
     "_description": "删除一个命令"
   },
   {
