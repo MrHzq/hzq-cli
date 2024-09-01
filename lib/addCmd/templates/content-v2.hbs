@@ -50,7 +50,7 @@ module.exports = async (_, options = {}) => {
 
     if (!config.$2) promptList.push($2Prompt);
 
-    return promptList.length ? promptList : null;
+    return promptList
   };
   {{/if}}
 
@@ -67,7 +67,7 @@ module.exports = async (_, options = {}) => {
       const promptList = createConfigPromptList(reset ? {} : config);
       // promptList 按情况使用
 
-      {{else}}
+      {{/if}}
       const [arg] = args;
       const answers = await prompt([
         {
@@ -77,7 +77,6 @@ module.exports = async (_, options = {}) => {
           validate: notNumberRule,
         },
       ]);
-      {{/if}}
 
       return answers;
     },

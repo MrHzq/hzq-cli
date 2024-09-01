@@ -20,14 +20,13 @@ const setConfig = () => {
   writeConfig({ ...allConfig, [configKey]: config });
 };
 
-module.exports = async (
-  _,
-  options,
-  { prompt, initVar, mainStepList, todoStepList }
-) => {
-  let { _name, _description, args = [] } = options;
+module.exports = async (_, options) => {
+  let { _name, cmd, _description, args = [] } = options;
 
-  configKey = _name;
+  configKey = cmd || _name;
+
+  const { prompt, initVar, mainStepList, todoStepList } =
+    await require(`../lib/${configKey}`)(_, options);
 
   getConfig();
 

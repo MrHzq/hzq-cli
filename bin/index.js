@@ -9,7 +9,7 @@ const log = require("../utils/log");
 
 const { name, version } = require("../package.json");
 
-const mainStep = require("./mainStep");
+const actionMain = require("./actionMain");
 const cmdList = require("./cmdList.json");
 
 log.success(`welcome use ${name} ~`, [true, true]);
@@ -26,13 +26,7 @@ cmdList
       .command(cmd)
       .alias(alias)
       .description(_description)
-      .action(async (_, options) => {
-        return await mainStep(
-          _,
-          options,
-          await require(`../lib/${cmd}`)(_, options)
-        );
-      });
+      .action(actionMain);
   });
 
 program.parse(process.argv); // 解析用户输入的命令和参数，第一个参数是要解析的字符串数组，第二个参数是解析选项
