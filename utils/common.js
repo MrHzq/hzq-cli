@@ -17,7 +17,7 @@ const bitTransform = (bit) => {
 
   const kb = (bit / 1024).toFixed(2);
   const mb = (kb / 1024).toFixed(2);
-  return { kb, kbs: `${kb} KB`, mb, mbs: `${mb} MB` };
+  return { bit, kb, kbs: `${kb} KB`, mb, mbs: `${mb} MB` };
 };
 
 // 获取[开始年份到今年]的所有年数据
@@ -55,7 +55,7 @@ const getAlias = (str) => {
   for (let char of str) {
     if (/[A-Z]/.test(char)) result += char.toLowerCase();
   }
-  if (result.length === 1) result = '';
+  if (result.length === 1) result = "";
   return result;
 };
 

@@ -1,0 +1,83 @@
+module.exports = async (_, options = {}) => {
+  {{#if prompt}}
+  const { prompt, notNumberRule } = require("../../utils/inquirer");
+  {{/if}}
+  const CmdList = require("../../bin/handleCmdList");
+
+  let cliName, $1;
+
+  // 初始化变量
+  const initVar = (answers) => {
+    cliName = CmdList.getCliName();
+
+    $1 = answers.$1;
+  };
+
+  const runMain = () => {};
+
+  // 主流程 - step 集合
+  const mainStepList = [
+    {
+      fun: runMain,
+      desc: () => "运行",
+    },
+  ];
+
+  // todo 流程 - step 集合
+  const todoStepList = [
+    // {
+    //   desc: () => "todo...",
+    // },
+  ];
+
+  {{#if config}}
+  // 生成当前配置对应的 prompt
+  const createConfigPromptList = (config) => {
+    const promptList = [];
+
+    const $2Prompt = {
+      type: "input",
+      name: "config.$2",
+      message: "请输入:",
+      validate: notNumberRule,
+    };
+
+    if (!config.$2) promptList.push($2Prompt);
+
+    return promptList.length ? promptList : null;
+  };
+  {{/if}}
+
+  return {
+    {{#if prompt}}
+    async prompt(...args) {
+      {{#if config}}
+      const config = args.pop(); // 最后一个为配置项
+
+      const reset = args[0] === "reset";
+
+      if(reset) args.shift() // 若需要重置，则将第一个参数删除掉
+
+      const promptList = createConfigPromptList(reset ? {} : config);
+
+      const answers = promptList ? await prompt(promptList) : {};
+      {{else}}
+      const [args] = args
+      const answers = await prompt([
+        {
+          type: "input",
+          name: "$1",
+          message: "请输入:",
+          validate: notNumberRule,
+        },
+      ]);
+      {{/if}}
+
+      return answers;
+    },
+    {{/if}}
+    initVar,
+    mainStepList,
+    todoStepList,
+  };
+};

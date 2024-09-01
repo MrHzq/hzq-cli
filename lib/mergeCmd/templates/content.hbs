@@ -85,6 +85,8 @@ module.exports = async (_, options = {}) => {
 
   const [arg] = args || [];
 
+  let answers = {};
+
   {{#if needConfig}}
   getConfig();
   {{/if}}
@@ -93,7 +95,6 @@ module.exports = async (_, options = {}) => {
 
   if (choices.length === 0) return log.warn("未找到相关命令");
 
-  let answers = {};
 
   if (choices.length === 1) {
     answers = { cmd: choices[0].value };

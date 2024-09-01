@@ -4,15 +4,17 @@
 
 // 引入 commander 模块，官方使用文档：https://github.com/tj/commander.js/blob/HEAD/Readme_zh-CN.md
 const { program } = require("commander");
+
 const log = require("../utils/log");
 
 const { name, version } = require("../package.json");
 
+const mainStep = require("./mainStep");
+const cmdList = require("./cmdList.json");
+
 log.success(`welcome use ${name} ~`, [true, true]);
 
 program.version(version);
-
-const cmdList = require("./cmdList.json");
 
 cmdList
   .sort((a, b) => a.cmd.localeCompare(b.cmd))
@@ -24,8 +26,12 @@ cmdList
       .command(cmd)
       .alias(alias)
       .description(_description)
-      .action((_, options) => {
-        require(`../lib/${cmd}`)(_, options);
+      .action(async (_, options) => {
+        return await mainStep(
+          _,
+          options,
+          await require(`../lib/${cmd}`)(_, options)
+        );
       });
   });
 

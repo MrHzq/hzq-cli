@@ -17,9 +17,12 @@ const newFileName = (filePath, { suffix, prefix }) => {
 };
 
 // 基于已有文件，生成唯一的文件名称
-const createUniqueFileName = (filePath) => {
-  const suffix = Math.random().toString(36).substring(2, 8);
-  return newFileName(filePath, { suffix });
+const createUniqueFileName = (filePath, { suffix, prefix }) => {
+  const random_suffix = Math.random().toString(36).substring(2, 8);
+  return newFileName(filePath, {
+    suffix: suffix ? suffix + "-" + random_suffix : random_suffix,
+    prefix,
+  });
 };
 
 // 获取文件状态信息
@@ -54,24 +57,58 @@ const moveSync = fs.moveSync;
 const copyDir = (s, t, re = true) => fs.copySync(s, t, { recursive: re });
 
 // 读取当前所有文件和文件夹
-const readdirSync = fs.readdirSync;
+const readdirSync = (p = ".") => fs.readdirSync(p);
 
 // 根据文件名称进行过滤
-const filterFileList = (fileList, filterKey) => {
-  return fileList.filter((file) => !filterKey || file.includes(filterKey));
+const filterFileList = (fileList, filterKey, notFilterKey) => {
+  return fileList.filter((file) => {
+    let flg = true;
+    if (typeof filterKey === "string") {
+      flg = file.includes(filterKey);
+    } else if (Array.isArray(filterKey)) {
+      flg = filterKey.every((key) => file.includes(key));
+    }
+
+    if (flg) {
+      if (typeof notFilterKey === "string") {
+        flg = !file.includes(notFilterKey);
+      } else if (Array.isArray(notFilterKey)) {
+        flg = notFilterKey.every((key) => !file.includes(key));
+      }
+    }
+
+    return flg;
+  });
 };
 
 // 获取当前 cwd 运行目录下的所有文件（可通过 filterKey 过滤）
-const getFileList = (filterKey, targetPath) => {
+const getFileList = (filterKey, targetPath, sortKey) => {
+  filterKey = Array.isArray(filterKey) ? filterKey : [filterKey];
+
+  let notFilterKey = [];
+
+  if (Array.isArray(targetPath)) {
+    notFilterKey = targetPath;
+    targetPath = ".";
+  }
+
   const fileList = readdirSync(targetPath);
 
-  return filterFileList(fileList, filterKey)
-    .sort((a, b) => a.localeCompare(b))
+  return filterFileList(fileList, filterKey, notFilterKey)
+    .sort((a, b) => {
+      if (sortKey) {
+        if (sortKey === "size") {
+          const aSize = getFileDetail(path.resolve(a)).sizeFormat.bit;
+          const bSize = getFileDetail(path.resolve(b)).sizeFormat.bit;
+          return aSize - bSize;
+        }
+      } else return a.localeCompare(b);
+    })
     .map((file, index) => {
       const { sizeFormat } = getFileDetail(path.resolve(file));
 
       return {
-        name: `${index + 1}. ${file} ${sizeFormat.mbs}`,
+        name: `${index + 1}. ${file} ${sizeFormat.mbs || ""}`,
         value: file,
       };
     });
@@ -79,18 +116,22 @@ const getFileList = (filterKey, targetPath) => {
 
 // 查询查看文件详情
 const getFileDetail = (file) => {
-  const stat = typeof file === "object" ? file : statSync(file);
-  const sizeFormat = stat.isFile() ? bitTransform(stat.size) : null;
-  const birthtimeFormat = formatTimeBy(stat.birthtime);
-  const mtimeFormat = formatTimeBy(stat.mtime);
-  const fullPath = path.resolve(stat.filePath || file);
+  try {
+    const stat = typeof file === "object" ? file : statSync(file);
+    const sizeFormat = stat.isFile() ? bitTransform(stat.size) : {};
+    const birthtimeFormat = formatTimeBy(stat.birthtime);
+    const mtimeFormat = formatTimeBy(stat.mtime);
+    const fullPath = path.resolve(stat.filePath || file);
 
-  return Object.assign(stat, {
-    sizeFormat,
-    birthtimeFormat,
-    mtimeFormat,
-    fullPath,
-  });
+    return Object.assign(stat, {
+      sizeFormat,
+      birthtimeFormat,
+      mtimeFormat,
+      fullPath,
+    });
+  } catch (error) {
+    throw Error(`${file} 文件不存在`);
+  }
 };
 
 // 打印查询到的查看文件详情
@@ -100,7 +141,8 @@ const logFileDetail = (file) => {
   log.succeed(`类型: ${stat.isFile ? "文件" : "目录"}`);
   if (stat.fullPath !== stat.filePath) log.succeed(`名称: ${stat.filePath}`);
 
-  if (stat.isFile) log.succeed(`大小: ${stat.sizeFormat.mbs}`);
+  if (stat.isFile && stat.sizeFormat.bit && stat.sizeFormat.mbs)
+    log.succeed(`大小: ${stat.sizeFormat.mbs}`);
 
   log.succeed(`创建时间: ${stat.birthtimeFormat}`);
   log.succeed(`修改时间: ${stat.mtimeFormat}`);

@@ -6,6 +6,7 @@ const runStep = require("../../utils/runStep");
 const { getDirName } = require("../../utils/path");
 const { readConfig, writeConfig } = require("../../config/handler");
 {{/if}}
+const CmdList = require("../../bin/handleCmdList");
 {{#if needInquirer}}
 const { prompt, notNumberRule } = require("../../utils/inquirer");
 {{/if}}
@@ -30,10 +31,12 @@ const setConfig = () => {
 {{/if}}
 
 {{#if needInquirer}}
-let $1;
+let cliName, $1;
 
 // 初始化变量
 const initVar = (answers) => {
+  cliName = CmdList.getCliName();
+
   $1 = answers.$1;
 };
 {{else}}
@@ -107,10 +110,8 @@ module.exports = async (_, options = {}) => {
   if (runSuccess) {
     mainSpinner.succeed();
 
-  {{#if needTodo}}
     log.warn("next todo", true);
     runStep(todoStepList, "warn", { prefix: "todo" });
-  {{/if}}
   } else {
     mainSpinner.fail();
   }
