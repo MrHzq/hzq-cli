@@ -1,19 +1,25 @@
-module.exports = async (_, options = {}) => {
-  {{#if prompt}}
-  const { prompt, notNumberRule } = require("../../utils/inquirer");
-  {{/if}}
-  const CmdList = require("../../bin/handleCmdList");
+{{#if needInquirer}}
+const { prompt, notNumberRule } = require("../../utils/inquirer");
+{{/if}}
+const CmdList = require("../../bin/handleCmdList");
 
-  let cliName, $1;
+module.exports = async (_, options = {}) => {
+  let cliName, config;
+
+  let $1;
 
   // 初始化变量
   const initVar = (answers) => {
+    config = answers.config;
+
     cliName = CmdList.getCliName();
 
     $1 = answers.$1;
   };
 
-  const runMain = () => {};
+  const runMain = () => {
+    // 运行命令...
+  };
 
   // 主流程 - step 集合
   const mainStepList = [
@@ -30,7 +36,7 @@ module.exports = async (_, options = {}) => {
     // },
   ];
 
-  {{#if config}}
+  {{#if needConfig}}
   // 生成当前配置对应的 prompt
   const createConfigPromptList = (config) => {
     const promptList = [];
@@ -49,20 +55,20 @@ module.exports = async (_, options = {}) => {
   {{/if}}
 
   return {
-    {{#if prompt}}
+    {{#if needInquirer}}
     async prompt(...args) {
-      {{#if config}}
+      {{#if needConfig}}
       const config = args.pop(); // 最后一个为配置项
 
       const reset = args[0] === "reset";
 
-      if(reset) args.shift() // 若需要重置，则将第一个参数删除掉
+      if (reset) args.shift(); // 若需要重置，则将第一个参数删除掉
 
       const promptList = createConfigPromptList(reset ? {} : config);
+      // promptList 按情况使用
 
-      const answers = promptList ? await prompt(promptList) : {};
       {{else}}
-      const [args] = args
+      const [arg] = args;
       const answers = await prompt([
         {
           type: "input",

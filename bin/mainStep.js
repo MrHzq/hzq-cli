@@ -38,7 +38,7 @@ module.exports = async (
     setConfig();
   }
 
-  Object.assign(answers, config);
+  Object.assign(answers, { config });
 
   initVar(answers);
 

@@ -10,13 +10,13 @@
     "_description": "更改当前项目的 formatOnSave 配置"
   },
   {
-    "cmd": "code",
+    "cmd": "code-v2",
     "alias": "",
     "_description": "code 相关命令"
   },
   {
-    "cmd": "deleteCmd",
-    "alias": "dc",
+    "cmd": "deleteCmd-v2",
+    "alias": "dc-v2",
     "_description": "删除一个命令"
   },
   {
@@ -90,6 +90,11 @@
     "_description": "更新 README.md"
   },
   {
+    "cmd": "videoInfo",
+    "alias": "vi",
+    "_description": "查看视频详情"
+  },
+  {
     "cmd": "videoTo3D",
     "alias": "vt3d",
     "_description": "视频转为 3D 视频"
@@ -103,10 +108,5 @@
     "cmd": "zshrcAlias",
     "alias": "za",
     "_description": "查看 .zshrc 里面的自定义 alias"
-  },
-  {
-    "cmd": "videoInfo",
-    "alias": "vi",
-    "_description": "查看视频详情"
   }
 ]
