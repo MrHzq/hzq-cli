@@ -2,6 +2,7 @@
 const { prompt, notNumberRule } = require("../../utils/inquirer");
 {{/if}}
 const CmdList = require("../../bin/handleCmdList");
+const log = require("../../utils/log");
 
 module.exports = async (_, options = {}) => {
   let cliName, config;
