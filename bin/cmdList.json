@@ -103,5 +103,10 @@
     "cmd": "zshrcAlias",
     "alias": "za",
     "_description": "查看 .zshrc 里面的自定义 alias"
+  },
+  {
+    "cmd": "replaceLang2",
+    "alias": "rl2",
+    "_description": "语言包替换"
   }
 ]
