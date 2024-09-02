@@ -102,11 +102,6 @@
   {
     "cmd": "zshrcAlias",
     "alias": "za",
-    "_description": "查看 .zshrc 里面的自定义 alias"
-  },
-  {
-    "cmd": "zshrcAlias2",
-    "alias": "za2",
     "_description": "查看 .zshrc 里面的 alias"
   }
 ]
