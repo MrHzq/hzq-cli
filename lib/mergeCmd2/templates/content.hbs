@@ -1,11 +1,12 @@
 const { prompt } = require("../../utils/inquirer");
 const CmdList = require("../../bin/handleCmdList");
 const actionMain = require("../../bin/actionMain");
+const { formatCmdList, getFilterList } = require("../../utils/common");
 
 module.exports = async (_, options = {}) => {
-  let cliName, cmdItem, config;
+  let cliName, config, cmdItem;
 
-  let cmd;
+  let cmd, runCmdItem;
 
   // 初始化变量
   const initVar = (answers) => {
@@ -15,13 +16,13 @@ module.exports = async (_, options = {}) => {
 
     cmd = answers.cmd;
 
-    cmdItem = CmdList.find(cmd);
+    runCmdItem = CmdList.find(cmd, cmdItem.children);
   };
 
   // 主流程 - step 集合
   const mainStepList = [
     {
-      fun: () => actionMain(null, cmdItem),
+      fun: () => actionMain(null, runCmdItem),
       desc: () => `运行命令 ${cmd}`,
     },
   ];
@@ -33,6 +34,14 @@ module.exports = async (_, options = {}) => {
     // },
   ];
 
+  const getCmdList = (selfCmd, filterCmd) => {
+    cmdItem = CmdList.find(selfCmd);
+
+    return formatCmdList(
+      getFilterList(cmdItem.children, { cmd: filterCmd }, "eq")
+    );
+  };
+
   return {
     async prompt(...args) {
       const config = args.pop(); // 最后一个为配置项
@@ -41,12 +50,14 @@ module.exports = async (_, options = {}) => {
 
       let answers = {};
 
+      const choices = getCmdList(options._name, arg);
+
       answers = await prompt([
         {
           type: "list",
           name: "cmd",
           message: "请选择要运行的命令:",
-          choices: CmdList.getFormatListFilter({ cmd: options._name }),
+          choices,
         },
       ]);
 

@@ -14,7 +14,7 @@ class handleCmdList {
   }
 
   // 获取 cmdList.json 原始数据
-  getListOrigin() {
+  getStringifyList() {
     return JSON.stringify(this.list, null, 2);
   }
 
@@ -29,8 +29,8 @@ class handleCmdList {
   }
 
   // 获取格式化 cmdList.json 数据
-  getFormatList() {
-    return formatCmdList(this.list);
+  getFormatList(list = this.list) {
+    return formatCmdList(list);
   }
 
   // 获取当前项目可执行的父级命令
@@ -50,13 +50,13 @@ class handleCmdList {
   }
 
   // 查找：返回 index
-  findIndex(cmd) {
-    return this.list.findIndex((item) => [item.cmd, item.alias].includes(cmd));
+  findIndex(cmd, list = this.list) {
+    return list.findIndex((item) => [item.cmd, item.alias].includes(cmd));
   }
 
   // 查找：item
-  find(cmd) {
-    return this.list.find((item) => [item.cmd, item.alias].includes(cmd));
+  find(cmd, list = this.list) {
+    return list.find((item) => [item.cmd, item.alias].includes(cmd));
   }
 
   // 删除某个命令
