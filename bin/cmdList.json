@@ -45,11 +45,6 @@
     "_description": "将某些 cmd 合并到一个大类里面"
   },
   {
-    "cmd": "mergeCmd2",
-    "alias": "mc2",
-    "_description": "将某些 cmd 合并到一个大类里面"
-  },
-  {
     "cmd": "renameCmd",
     "alias": "rec",
     "_description": "更改命令名称"
@@ -63,6 +58,28 @@
     "cmd": "runCmd",
     "alias": "rc",
     "_description": "展示当前命令并选择命令运行"
+  },
+  {
+    "cmd": "toolCmd",
+    "alias": "tc",
+    "_description": "小工具命令:code/npm/ip...",
+    "children": [
+      {
+        "cmd": "code",
+        "alias": "",
+        "_description": "code 相关命令"
+      },
+      {
+        "cmd": "ip",
+        "alias": "",
+        "_description": "查询当前 ip"
+      },
+      {
+        "cmd": "npm",
+        "alias": "",
+        "_description": "npm 相关命令"
+      }
+    ]
   },
   {
     "cmd": "updateCliTemplate",
@@ -93,27 +110,5 @@
     "cmd": "zshrcAlias",
     "alias": "za",
     "_description": "查看 .zshrc 里面的 alias"
-  },
-  {
-    "cmd": "toolCmd",
-    "alias": "tc",
-    "_description": "小工具命令:code/npm/ip...",
-    "children": [
-      {
-        "cmd": "code",
-        "alias": "",
-        "_description": "code 相关命令"
-      },
-      {
-        "cmd": "ip",
-        "alias": "",
-        "_description": "查询当前 ip"
-      },
-      {
-        "cmd": "npm",
-        "alias": "",
-        "_description": "npm 相关命令"
-      }
-    ]
   }
 ]
