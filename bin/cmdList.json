@@ -108,5 +108,10 @@
     "cmd": "zshrcAlias",
     "alias": "za",
     "_description": "查看 .zshrc 里面的自定义 alias"
+  },
+  {
+    "cmd": "fileFilter2",
+    "alias": "ff2",
+    "_description": "文件查找并展示列表"
   }
 ]
