@@ -2,7 +2,7 @@ const path = require("path");
 const fs = require("fs-extra");
 const log = require("./log");
 const { getFileName } = require("./path");
-const { bitTransform, formatTimeBy } = require("./common");
+const { bitTransform, formatTimeBy, getTime } = require("./common");
 
 // 检查文件是否存在
 const checkFileExist = fs.existsSync;
@@ -11,7 +11,7 @@ const checkFileExist = fs.existsSync;
 const newFileName = (filePath, { suffix, prefix } = {}) => {
   if (checkFileExist(filePath)) {
     let [fileName, ext] = getFileName(filePath);
-    fileName = [prefix, fileName, suffix].filter((i) => i).join("-");
+    fileName = [prefix, fileName, suffix].filter((i) => i).join("_");
     return path.join(path.dirname(filePath), `${fileName}${ext}`);
   } else return filePath;
 };
@@ -20,7 +20,7 @@ const newFileName = (filePath, { suffix, prefix } = {}) => {
 const createUniqueFileName = (filePath, { suffix, prefix } = {}) => {
   const random_suffix = Math.random().toString(36).substring(2, 8);
   return newFileName(filePath, {
-    suffix: [suffix, random_suffix].filter((i) => i).join("-"),
+    suffix: [suffix, random_suffix].filter((i) => i).join("_"),
     prefix,
   });
 };
@@ -43,6 +43,11 @@ const mkdirSync = (p, re = true) => fs.mkdirSync(p, { recursive: re });
 
 // 重命名文件
 const renameSync = fs.renameSync;
+
+// 修改文件的时间
+const utimesSync = (p, t1, t2) => {
+  if (checkFileExist(p)) fs.utimesSync(p, t1 || getTime(), t2 || getTime());
+};
 
 // 删除文件夹 & 子文件
 const removeSync = (p) => {
@@ -167,6 +172,7 @@ module.exports = {
   writeFileSync,
   mkdirSync,
   renameSync,
+  utimesSync,
   removeSync,
   moveSync,
   copyDir,

@@ -7,6 +7,9 @@ const getHBSContent = (temp, config) => toHBSTemp(temp)(config);
 // 格式化当前时间
 const formatTime = (format = "YYYY-MM-DD HH:mm:ss") => dayjs().format(format);
 
+// 获取当前时间戳
+const getTime = () => new Date().getTime() / 1000;
+
 // 格式化传入时间
 const formatTimeBy = (time, format = "YYYY-MM-DD HH:mm:ss") =>
   dayjs(time).format(format);
@@ -130,6 +133,7 @@ module.exports = {
   toHBSTemp,
   getHBSContent,
   formatTime,
+  getTime,
   formatTimeBy,
   bitTransform,
   getAllYears,
