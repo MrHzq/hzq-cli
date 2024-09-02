@@ -1,3 +1,4 @@
+const path = require("path");
 const log = require("../utils/log");
 const Spinner = require("../utils/spinner");
 const runStep = require("../utils/runStep");
@@ -6,31 +7,36 @@ const { readConfig, writeConfig } = require("../config/handler");
 
 let mainSpinner;
 
-let config, configKey;
+let config, currCmdConfigKey;
 
 // 获取当前所需配置
 const getConfig = () => {
   const allConfig = readConfig() || {};
-  config = allConfig[configKey] || {};
+  config = allConfig[currCmdConfigKey] || {};
 };
 
 // 设置当前所得配置
 const setConfig = () => {
   const allConfig = readConfig() || {};
-  writeConfig({ ...allConfig, [configKey]: config });
+  writeConfig({ ...allConfig, [currCmdConfigKey]: config });
 };
 
 module.exports = async (_, options) => {
-  let { _name, cmd, _description, args = [] } = options;
+  let { _name, cmd, _description, args = [], parentCmd = "" } = options;
 
-  configKey = cmd || _name;
+  currCmdConfigKey = cmd || _name;
 
   const {
     prompt,
     initVar,
     mainStepList = [],
     todoStepList = [],
-  } = await require(`../lib/${configKey}`)(_, options);
+  } = await require(path.join(
+    __dirname,
+    "../lib",
+    parentCmd,
+    currCmdConfigKey
+  ))(_, options);
 
   getConfig();
 
