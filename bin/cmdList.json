@@ -103,5 +103,10 @@
     "cmd": "zshrcAlias",
     "alias": "za",
     "_description": "查看 .zshrc 里面的自定义 alias"
+  },
+  {
+    "cmd": "videoToGif2",
+    "alias": "vtg2",
+    "_description": "视频转为 gif"
   }
 ]

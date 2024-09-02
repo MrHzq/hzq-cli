@@ -8,7 +8,7 @@ const { bitTransform, formatTimeBy } = require("./common");
 const checkFileExist = fs.existsSync;
 
 // 基于已有文件，生成自定义的文件名称
-const newFileName = (filePath, { suffix, prefix }) => {
+const newFileName = (filePath, { suffix, prefix } = {}) => {
   if (checkFileExist(filePath)) {
     let [fileName, ext] = getFileName(filePath);
     fileName = [prefix, fileName, suffix].filter((i) => i).join("-");
@@ -17,10 +17,10 @@ const newFileName = (filePath, { suffix, prefix }) => {
 };
 
 // 基于已有文件，生成唯一的文件名称
-const createUniqueFileName = (filePath, { suffix, prefix }) => {
+const createUniqueFileName = (filePath, { suffix, prefix } = {}) => {
   const random_suffix = Math.random().toString(36).substring(2, 8);
   return newFileName(filePath, {
-    suffix: suffix ? suffix + "-" + random_suffix : random_suffix,
+    suffix: [suffix, random_suffix].filter((i) => i).join("-"),
     prefix,
   });
 };
@@ -98,6 +98,8 @@ const getFileList = (filterKey, targetPath, sortKey) => {
     notFilterKey = targetPath;
     targetPath = ".";
   }
+
+  if (!targetPath) targetPath = ".";
 
   const fileList = readdirSync(targetPath);
 
