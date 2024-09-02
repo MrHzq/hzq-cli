@@ -44,7 +44,7 @@ module.exports = async (_, options) => {
 
     Object.assign(answers, { config });
 
-    initVar(answers);
+    initVar(answers, args);
   }
 
   mainSpinner = new Spinner(_description);
