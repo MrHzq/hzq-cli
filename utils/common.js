@@ -15,8 +15,8 @@ const bitTransform = (bit) => {
   bit = Number(bit);
   if (isNaN(bit)) bit = 0;
 
-  const kb = (bit / 1024).toFixed(2);
-  const mb = (kb / 1024).toFixed(2);
+  const kb = (bit / 1024).toFixed(4);
+  const mb = (kb / 1024).toFixed(4);
   return { bit, kb, kbs: `${kb} KB`, mb, mbs: `${mb} MB` };
 };
 

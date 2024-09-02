@@ -70,7 +70,9 @@ module.exports = async (_, options = {}) => {
       {{/if}}
       const [arg] = args;
 
-      const answers = await prompt([
+      let answers = {}
+      
+      answers = await prompt([
         {
           type: "input",
           name: "$1",

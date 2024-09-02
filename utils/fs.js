@@ -148,7 +148,7 @@ const logFileDetail = (file) => {
   log.succeed(`类型: ${stat.isFile ? "文件" : "目录"}`);
   if (stat.fullPath !== stat.filePath) log.succeed(`名称: ${stat.filePath}`);
 
-  if (stat.isFile && stat.sizeFormat.bit && stat.sizeFormat.mbs)
+  if (stat.isFile && stat.sizeFormat.mbs)
     log.succeed(`大小: ${stat.sizeFormat.mbs}`);
 
   log.succeed(`创建时间: ${stat.birthtimeFormat}`);
