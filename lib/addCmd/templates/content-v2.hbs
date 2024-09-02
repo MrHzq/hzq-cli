@@ -6,7 +6,9 @@ const CmdList = require("../../bin/handleCmdList");
 module.exports = async (_, options = {}) => {
   let cliName, config;
 
+  {{#if needInquirer}}
   let $1;
+  {{/if}}
 
   // 初始化变量
   const initVar = (answers) => {
@@ -14,7 +16,9 @@ module.exports = async (_, options = {}) => {
 
     cliName = CmdList.getCliName();
 
+    {{#if needInquirer}}
     $1 = answers.$1;
+    {{/if}}
   };
 
   const runMain = () => {
