@@ -63,13 +63,16 @@ const readdirSync = (p = ".") => fs.readdirSync(p);
 const filterFileList = (fileList, filterKey, notFilterKey) => {
   return fileList.filter((file) => {
     let flg = true;
-    if (typeof filterKey === "string") {
-      flg = file.includes(filterKey);
-    } else if (Array.isArray(filterKey)) {
-      flg = filterKey.every((key) => file.includes(key));
+
+    if (flg && filterKey?.length) {
+      if (typeof filterKey === "string") {
+        flg = file.includes(filterKey);
+      } else if (Array.isArray(filterKey)) {
+        flg = filterKey.every((key) => file.includes(key));
+      }
     }
 
-    if (flg) {
+    if (flg && notFilterKey?.length) {
       if (typeof notFilterKey === "string") {
         flg = !file.includes(notFilterKey);
       } else if (Array.isArray(notFilterKey)) {
@@ -83,7 +86,11 @@ const filterFileList = (fileList, filterKey, notFilterKey) => {
 
 // 获取当前 cwd 运行目录下的所有文件（可通过 filterKey 过滤）
 const getFileList = (filterKey, targetPath, sortKey) => {
-  filterKey = Array.isArray(filterKey) ? filterKey : [filterKey];
+  filterKey = Array.isArray(filterKey)
+    ? filterKey
+    : filterKey
+    ? [filterKey]
+    : [];
 
   let notFilterKey = [];
 

@@ -108,5 +108,10 @@
     "cmd": "zshrcAlias",
     "alias": "za",
     "_description": "查看 .zshrc 里面的自定义 alias"
+  },
+  {
+    "cmd": "deleteFile-2",
+    "alias": "df2",
+    "_description": "删除文件"
   }
 ]

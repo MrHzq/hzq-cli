@@ -57,9 +57,9 @@ module.exports = async (_, options = {}) => {
   return {
     {{#if needInquirer}}
     async prompt(...args) {
-      {{#if needConfig}}
       const config = args.pop(); // 最后一个为配置项
 
+      {{#if needConfig}}
       const reset = args[0] === "reset";
 
       if (reset) args.shift(); // 若需要重置，则将第一个参数删除掉
@@ -69,6 +69,7 @@ module.exports = async (_, options = {}) => {
 
       {{/if}}
       const [arg] = args;
+
       const answers = await prompt([
         {
           type: "input",

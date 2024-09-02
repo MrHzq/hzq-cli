@@ -32,14 +32,16 @@ module.exports = async (_, options) => {
 
   const answers = await doFunPro([prompt, {}], ...args, config);
 
-  if (answers.config) {
-    Object.assign(config, answers.config);
-    setConfig();
+  if (answers) {
+    if (answers.config) {
+      Object.assign(config, answers.config);
+      setConfig();
+    }
+
+    Object.assign(answers, { config });
+
+    initVar(answers);
   }
-
-  Object.assign(answers, { config });
-
-  initVar(answers);
 
   mainSpinner = new Spinner(_description);
 
