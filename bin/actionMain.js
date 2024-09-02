@@ -25,8 +25,12 @@ module.exports = async (_, options) => {
 
   configKey = cmd || _name;
 
-  const { prompt, initVar, mainStepList, todoStepList } =
-    await require(`../lib/${configKey}`)(_, options);
+  const {
+    prompt,
+    initVar,
+    mainStepList = [],
+    todoStepList = [],
+  } = await require(`../lib/${configKey}`)(_, options);
 
   getConfig();
 

@@ -108,10 +108,5 @@
     "cmd": "zshrcAlias",
     "alias": "za",
     "_description": "查看 .zshrc 里面的自定义 alias"
-  },
-  {
-    "cmd": "ip2",
-    "alias": "",
-    "_description": "查询当前 ip"
   }
 ]
