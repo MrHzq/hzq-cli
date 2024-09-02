@@ -97,8 +97,8 @@
     "_description": "查看视频详情"
   },
   {
-    "cmd": "videoTo3D",
-    "alias": "vt3d",
+    "cmd": "videoToThird",
+    "alias": "vt3",
     "_description": "视频转为 3D 视频"
   },
   {
