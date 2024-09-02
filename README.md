@@ -21,6 +21,11 @@
     "_description": "更改当前项目的 formatOnSave 配置"
   },
   {
+    "cmd": "code",
+    "alias": "",
+    "_description": "code 相关命令"
+  },
+  {
     "cmd": "deleteCmd",
     "alias": "dc",
     "_description": "删除一个命令"
@@ -51,9 +56,19 @@
     "_description": "拉取项目模板"
   },
   {
-    "cmd": "otherCmd",
-    "alias": "oc",
-    "_description": "其他常用命令"
+    "cmd": "ip",
+    "alias": "",
+    "_description": "查询当前 ip"
+  },
+  {
+    "cmd": "mergeCmd",
+    "alias": "mc",
+    "_description": "将某些 cmd 合并到一个大类里面"
+  },
+  {
+    "cmd": "npm",
+    "alias": "",
+    "_description": "npm 相关命令"
   },
   {
     "cmd": "renameCmd",
@@ -79,6 +94,16 @@
     "cmd": "updateReadme",
     "alias": "ur",
     "_description": "更新 README.md"
+  },
+  {
+    "cmd": "updateReadme2",
+    "alias": "ur2",
+    "_description": "更新当前项目的 README.md"
+  },
+  {
+    "cmd": "videoInfo",
+    "alias": "vi",
+    "_description": "查看视频详情"
   },
   {
     "cmd": "videoTo3D",

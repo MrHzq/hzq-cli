@@ -103,5 +103,10 @@
     "cmd": "zshrcAlias",
     "alias": "za",
     "_description": "查看 .zshrc 里面的自定义 alias"
+  },
+  {
+    "cmd": "updateReadme2",
+    "alias": "ur2",
+    "_description": "更新当前项目的 README.md"
   }
 ]
