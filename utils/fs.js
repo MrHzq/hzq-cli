@@ -45,7 +45,7 @@ const mkdirSync = (p, re = true) => fs.mkdirSync(p, { recursive: re });
 const renameSync = fs.renameSync;
 
 // 删除文件夹 & 子文件
-const removeDir = (p) => {
+const removeSync = (p) => {
   if (checkFileExist(p)) return fs.removeSync(p);
   else return `${p} 文件不存在`;
 };
@@ -148,8 +148,7 @@ const logFileDetail = (file) => {
   log.succeed(`类型: ${stat.isFile ? "文件" : "目录"}`);
   if (stat.fullPath !== stat.filePath) log.succeed(`名称: ${stat.filePath}`);
 
-  if (stat.isFile && stat.sizeFormat.mbs)
-    log.succeed(`大小: ${stat.sizeFormat.mbs}`);
+  if (stat.sizeFormat.mbs) log.succeed(`大小: ${stat.sizeFormat.mbs}`);
 
   log.succeed(`创建时间: ${stat.birthtimeFormat}`);
   log.succeed(`修改时间: ${stat.mtimeFormat}`);
@@ -166,7 +165,7 @@ module.exports = {
   writeFileSync,
   mkdirSync,
   renameSync,
-  removeDir,
+  removeSync,
   moveSync,
   copyDir,
   readdirSync,

@@ -23,7 +23,7 @@ module.exports = async (_, options = {}) => {
     {{/if}}
   };
 
-  const runMain = () => {
+  const runMain = async () => {
     // 运行命令...
   };
 
@@ -76,7 +76,7 @@ module.exports = async (_, options = {}) => {
       {{/if}}
       const [arg] = args;
 
-      let answers = {}
+      let answers = {};
       
       answers = await prompt([
         {

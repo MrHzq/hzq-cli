@@ -49,20 +49,17 @@ module.exports = async (_, options) => {
 
   mainSpinner = new Spinner(_description);
 
-  if (mainStepList.length === 1 && !todoStepList?.length) {
-    await mainStepList[0].fun();
-    return mainSpinner.succeed();
-  }
+  if (mainStepList.length > 1) mainSpinner.start();
 
-  mainSpinner.start();
-
-  const runSuccess = await runStep(mainStepList);
+  const runSuccess = await runStep(mainStepList, "fail", { mainSpinner });
 
   if (runSuccess) {
     mainSpinner.succeed();
 
-    log.warn("next todo", true);
-    runStep(todoStepList, "warn", { prefix: "todo" });
+    if (todoStepList?.length) {
+      log.warn("next todo", true);
+      runStep(todoStepList, "warn", { prefix: "todo" });
+    }
   } else {
     mainSpinner.fail();
   }
