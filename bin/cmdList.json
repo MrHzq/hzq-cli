@@ -60,11 +60,6 @@
     "_description": "npm 相关命令"
   },
   {
-    "cmd": "otherCmd",
-    "alias": "oc",
-    "_description": "其他常用命令"
-  },
-  {
     "cmd": "renameCmd",
     "alias": "rec",
     "_description": "更改命令名称"
