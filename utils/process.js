@@ -7,7 +7,10 @@ const processRun = (cmd, type = "run", _config = {}) => {
     const config = {};
     if (type === "run") config.stdio = "inherit";
     else config.encoding = "utf8";
-    return execSync(cmd, { ...config, ..._config });
+
+    const execSyncConfig = { ...config, ..._config };
+
+    return execSync(cmd, execSyncConfig);
   } catch (error) {
     const tip = `执行 '${cmd}' 时出错: ${error.message}`;
     log.error(tip);
@@ -91,12 +94,12 @@ const git = {
   // 获取 git 用户信息
   getUser() {
     this.type = "get";
-
     // 获取用户名
-    const userName = this.run(this.userName());
+    const userName = this.run("userName");
 
+    this.type = "get";
     // 获取用户邮箱
-    const userEmail = this.run(this.userEmail());
+    const userEmail = this.run("userEmail");
 
     return { userName, userEmail };
   },
@@ -107,4 +110,5 @@ module.exports = {
   cd,
   code,
   git,
+  getGitUser,
 };
