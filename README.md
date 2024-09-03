@@ -21,11 +21,6 @@
     "_description": "更改当前项目的 formatOnSave 配置"
   },
   {
-    "cmd": "code",
-    "alias": "",
-    "_description": "code 相关命令"
-  },
-  {
     "cmd": "deleteCmd",
     "alias": "dc",
     "_description": "删除一个命令"
@@ -56,24 +51,19 @@
     "_description": "拉取项目模板"
   },
   {
-    "cmd": "ip",
-    "alias": "",
-    "_description": "查询当前 ip"
-  },
-  {
     "cmd": "mergeCmd",
     "alias": "mc",
     "_description": "将某些 cmd 合并到一个大类里面"
   },
   {
-    "cmd": "npm",
-    "alias": "",
-    "_description": "npm 相关命令"
-  },
-  {
     "cmd": "renameCmd",
     "alias": "rec",
     "_description": "更改命令名称"
+  },
+  {
+    "cmd": "replaceFileName",
+    "alias": "rfn",
+    "_description": "替换部分文件名"
   },
   {
     "cmd": "replaceLang",
@@ -86,6 +76,28 @@
     "_description": "展示当前命令并选择命令运行"
   },
   {
+    "cmd": "toolCmd",
+    "alias": "tc",
+    "_description": "小工具命令:code/npm/ip...",
+    "children": [
+      {
+        "cmd": "code",
+        "alias": "",
+        "_description": "code 相关命令"
+      },
+      {
+        "cmd": "ip",
+        "alias": "",
+        "_description": "查询当前 ip"
+      },
+      {
+        "cmd": "npm",
+        "alias": "",
+        "_description": "npm 相关命令"
+      }
+    ]
+  },
+  {
     "cmd": "updateCliTemplate",
     "alias": "uct",
     "_description": "更新其他 *-cli 代码"
@@ -93,11 +105,6 @@
   {
     "cmd": "updateReadme",
     "alias": "ur",
-    "_description": "更新 README.md"
-  },
-  {
-    "cmd": "updateReadme2",
-    "alias": "ur2",
     "_description": "更新当前项目的 README.md"
   },
   {
@@ -106,19 +113,19 @@
     "_description": "查看视频详情"
   },
   {
-    "cmd": "videoTo3D",
-    "alias": "vt3d",
-    "_description": "视频转为 3D 视频"
-  },
-  {
     "cmd": "videoToGif",
     "alias": "vtg",
     "_description": "视频转为 gif"
   },
   {
+    "cmd": "videoToThird",
+    "alias": "vt3",
+    "_description": "视频转为 3D 视频"
+  },
+  {
     "cmd": "zshrcAlias",
     "alias": "za",
-    "_description": "查看 .zshrc 里面的自定义 alias"
+    "_description": "查看 .zshrc 里面的 alias"
   }
 ]
 ```
