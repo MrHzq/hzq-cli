@@ -68,10 +68,10 @@ module.exports = async (_, options) => {
   if (runSuccess) {
     mainSpinner.succeed();
 
-    const continueTodo = await doFunPro(onBeforeTodo);
+    const continueTodo = await doFunPro([onBeforeTodo, true]);
 
     if (continueTodo && todoStepList?.length) {
-      await doFunPro(onStartTodo);
+      await doFunPro([onStartTodo, true]);
       log.warn("next todo", true);
       runStep(todoStepList, "warn", { prefix: "todo" });
     }

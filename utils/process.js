@@ -95,11 +95,11 @@ const git = {
   getUser() {
     this.type = "get";
     // 获取用户名
-    const userName = this.run("userName");
+    const userName = this.run("userName")?.trim()
 
     this.type = "get";
     // 获取用户邮箱
-    const userEmail = this.run("userEmail");
+    const userEmail = this.run("userEmail")?.trim()
 
     return { userName, userEmail };
   },
@@ -110,5 +110,4 @@ module.exports = {
   cd,
   code,
   git,
-  getGitUser,
 };
