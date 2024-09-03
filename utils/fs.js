@@ -2,7 +2,7 @@ const path = require("path");
 const fs = require("fs-extra");
 const log = require("./log");
 const { getFileName } = require("./path");
-const { bitTransform, formatTimeBy, getTime } = require("./common");
+const { bitTransform, formatTimeBy, getTime, doFun } = require("./common");
 
 // 检查文件是否存在
 const checkFileExist = fs.existsSync;
@@ -73,7 +73,7 @@ const filterFileList = (fileList, filterKey, notFilterKey) => {
       if (typeof filterKey === "string") {
         flg = file.includes(filterKey);
       } else if (Array.isArray(filterKey)) {
-        flg = filterKey.every((key) => file.includes(key));
+        flg = filterKey.filter((key) => key).every((key) => file.includes(key));
       }
     }
 
@@ -81,7 +81,9 @@ const filterFileList = (fileList, filterKey, notFilterKey) => {
       if (typeof notFilterKey === "string") {
         flg = !file.includes(notFilterKey);
       } else if (Array.isArray(notFilterKey)) {
-        flg = notFilterKey.every((key) => !file.includes(key));
+        flg = notFilterKey
+          .filter((key) => key)
+          .every((key) => !file.includes(key));
       }
     }
 
@@ -90,7 +92,7 @@ const filterFileList = (fileList, filterKey, notFilterKey) => {
 };
 
 // 获取当前 cwd 运行目录下的所有文件（可通过 filterKey 过滤）
-const getFileList = (filterKey, targetPath, sortKey) => {
+const getFileList = (filterKey, targetPath, sortKey, filterFun) => {
   filterKey = Array.isArray(filterKey)
     ? filterKey
     : filterKey
@@ -118,6 +120,7 @@ const getFileList = (filterKey, targetPath, sortKey) => {
         }
       } else return a.localeCompare(b);
     })
+    .filter((file) => doFun([filterFun, true], file))
     .map((file, index) => {
       const { sizeFormat } = getFileDetail(path.resolve(file));
 

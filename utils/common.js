@@ -129,6 +129,9 @@ const getFilterList = (list, filterValue, filterType = "") => {
   });
 };
 
+// 睡眠
+const sleep = (time) => new Promise((resolve) => setTimeout(resolve, time));
+
 module.exports = {
   toHBSTemp,
   getHBSContent,
@@ -148,4 +151,5 @@ module.exports = {
   removeEmpty,
   formatCmdList,
   getFilterList,
+  sleep,
 };
