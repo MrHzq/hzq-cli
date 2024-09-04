@@ -1,18 +1,8 @@
 [
   {
-    "cmd": "addCmd",
-    "alias": "ac",
-    "_description": "新增一个命令"
-  },
-  {
     "cmd": "changeFormatOnSave",
     "alias": "cfos",
     "_description": "更改当前项目的 formatOnSave 配置"
-  },
-  {
-    "cmd": "deleteCmd",
-    "alias": "dc",
-    "_description": "删除一个命令"
   },
   {
     "cmd": "deleteFile",
@@ -40,16 +30,6 @@
     "_description": "拉取项目模板"
   },
   {
-    "cmd": "mergeCmd",
-    "alias": "mc",
-    "_description": "将某些 cmd 合并到一个大类里面"
-  },
-  {
-    "cmd": "renameCmd",
-    "alias": "rec",
-    "_description": "更改命令名称"
-  },
-  {
     "cmd": "replaceFileName",
     "alias": "rfn",
     "_description": "替换部分文件名"
@@ -58,11 +38,6 @@
     "cmd": "replaceLang",
     "alias": "rl",
     "_description": "语言包替换"
-  },
-  {
-    "cmd": "runCmd",
-    "alias": "rc",
-    "_description": "展示当前命令并选择命令运行"
   },
   {
     "cmd": "toolCmd",
@@ -115,5 +90,37 @@
     "cmd": "zshrcAlias",
     "alias": "za",
     "_description": "查看 .zshrc 里面的 alias"
+  },
+  {
+    "cmd": "baseCmd",
+    "alias": "bc",
+    "_description": "基础命令的操作：增删改查",
+    "children": [
+      {
+        "cmd": "addCmd",
+        "alias": "ac",
+        "_description": "新增一个命令"
+      },
+      {
+        "cmd": "deleteCmd",
+        "alias": "dc",
+        "_description": "删除一个命令"
+      },
+      {
+        "cmd": "mergeCmd",
+        "alias": "mc",
+        "_description": "将某些 cmd 合并到一个大类里面"
+      },
+      {
+        "cmd": "renameCmd",
+        "alias": "rec",
+        "_description": "更改命令名称"
+      },
+      {
+        "cmd": "runCmd",
+        "alias": "rc",
+        "_description": "展示当前命令并选择命令运行"
+      }
+    ]
   }
 ]
