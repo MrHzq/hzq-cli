@@ -35,7 +35,10 @@ class handleCmdList {
 
   // 获取当前项目可执行的父级命令
   getCliName() {
-    return Object.keys(require("../package.json").bin).join(" | ");
+    const binList = Object.keys(require("../package.json").bin);
+    const len = binList.length;
+    const binStr = binList.join(" | ");
+    return len > 1 ? `[ ${binStr} ]` : binStr;
   }
 
   // 写入 cmdList.json 数据

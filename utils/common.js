@@ -132,6 +132,9 @@ const getFilterList = (list, filterValue, filterType = "") => {
 // 睡眠
 const sleep = (time) => new Promise((resolve) => setTimeout(resolve, time));
 
+// 生成随机字符串
+const getRandomStr = (len = 8) => Math.random().toString(36).substring(2, len);
+
 module.exports = {
   toHBSTemp,
   getHBSContent,
@@ -152,4 +155,5 @@ module.exports = {
   formatCmdList,
   getFilterList,
   sleep,
+  getRandomStr,
 };

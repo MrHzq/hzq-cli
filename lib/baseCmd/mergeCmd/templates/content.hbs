@@ -2,7 +2,7 @@ const { prompt } = require("../../utils/inquirer");
 const CmdList = require("../../bin/handleCmdList");
 const actionMain = require("../../bin/actionMain");
 const { formatCmdList, getFilterList } = require("../../utils/common");
-const { getDirName } = require("../../../utils/path");
+const { getDirName } = require("../../utils/path");
 
 module.exports = async (_, options = {}) => {
   const { _name = getDirName(__dirname) } = options;
@@ -41,7 +41,11 @@ module.exports = async (_, options = {}) => {
     cmdItem = CmdList.find(selfCmd);
 
     return formatCmdList(
-      getFilterList(cmdItem.children, { cmd: filterCmd }, "eq")
+      getFilterList(
+        cmdItem.children,
+        { cmd: filterCmd, alias: filterCmd },
+        "eq"
+      )
     );
   };
 
@@ -55,14 +59,28 @@ module.exports = async (_, options = {}) => {
 
       const choices = getCmdList(_name, arg);
 
-      answers = await prompt([
-        {
-          type: "list",
-          name: "cmd",
-          message: "请选择要运行的命令:",
-          choices,
-        },
-      ]);
+      if (choices.length === 0) return log.warn("未找到相关命令");
+
+      if (choices.length > 1) {
+        answers = await prompt([
+          {
+            type: "list",
+            name: "cmd",
+            message: "请选择要运行的命令:",
+            choices,
+          },
+        ]);
+      } else {
+        answers = await prompt([
+          {
+            type: "confirm",
+            name: "cmd",
+            message: `确认要运行 ${choices[0].value} 命令:`,
+          },
+        ]);
+
+        answers.cmd = choices[0].value;
+      }
 
       return answers;
     },

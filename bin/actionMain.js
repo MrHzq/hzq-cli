@@ -56,7 +56,7 @@ module.exports = async (_, options) => {
     initVar(answers, args);
   } else return;
 
-  console.time("本次执行耗时");
+  // console.time("本次执行耗时");
 
   mainSpinner = new Spinner(_description);
 
@@ -82,5 +82,5 @@ module.exports = async (_, options) => {
   }
 
   log.newLine();
-  console.timeEnd("本次执行耗时");
+  // console.timeEnd("本次执行耗时");
 };
