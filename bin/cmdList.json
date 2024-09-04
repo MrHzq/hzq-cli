@@ -1,36 +1,30 @@
 [
   {
-    "cmd": "baseCmd",
-    "alias": "bc",
-    "_description": "基础命令的操作：增删改查",
-    "children": [
-      {
-        "cmd": "addCmd",
-        "alias": "ac",
-        "_description": "新增一个命令"
-      },
-      {
-        "cmd": "deleteCmd",
-        "alias": "dc",
-        "_description": "删除一个命令"
-      },
-      {
-        "cmd": "mergeCmd",
-        "alias": "mc",
-        "_description": "将某些 cmd 合并到一个大类里面"
-      },
-      {
-        "cmd": "renameCmd",
-        "alias": "rec",
-        "_description": "更改命令名称"
-      },
-      {
-        "cmd": "runCmd",
-        "alias": "rc",
-        "_description": "展示当前命令并选择命令运行"
-      }
-    ]
+    "cmd": "addCmd",
+    "alias": "ac",
+    "_description": "新增一个命令"
   },
+  {
+    "cmd": "deleteCmd",
+    "alias": "dc",
+    "_description": "删除一个命令"
+  },
+  {
+    "cmd": "mergeCmd",
+    "alias": "mc",
+    "_description": "将某些 cmd 合并到一个大类里面"
+  },
+  {
+    "cmd": "renameCmd",
+    "alias": "rec",
+    "_description": "更改命令名称"
+  },
+  {
+    "cmd": "runCmd",
+    "alias": "rc",
+    "_description": "展示当前命令并选择命令运行"
+  },
+
   {
     "cmd": "changeFormatOnSave",
     "alias": "cfos",
