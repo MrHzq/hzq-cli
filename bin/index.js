@@ -12,7 +12,7 @@ const { name, version } = require("../package.json");
 const actionMain = require("./actionMain");
 const cmdList = require("./cmdList.json");
 
-log.success(`welcome use ${name} ~`, [true, true]);
+log.success(`welcome use ${name}@${version} ~`, [true, true]);
 
 program.version(version);
 

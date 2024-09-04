@@ -4,7 +4,8 @@
   "description": "Vue脚手架工具",
   "main": "bin/index.js",
   "bin": {
-    "hzq": "bin/index.js"
+    "hzq": "bin/index.js",
+    "hc": "bin/index.js"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
