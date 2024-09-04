@@ -56,6 +56,8 @@ module.exports = async (_, options) => {
     initVar(answers, args);
   } else return;
 
+  console.time("本次执行耗时");
+
   mainSpinner = new Spinner(_description);
 
   if (mainStepList.length > 1) mainSpinner.start();
@@ -73,9 +75,12 @@ module.exports = async (_, options) => {
     if (continueTodo && todoStepList?.length) {
       await doFunPro([onStartTodo, true]);
       log.warn("next todo", true);
-      runStep(todoStepList, "warn", { prefix: "todo" });
+      await runStep(todoStepList, "warn", { prefix: "todo" });
     }
   } else {
     mainSpinner.fail();
   }
+
+  log.newLine();
+  console.timeEnd("本次执行耗时");
 };

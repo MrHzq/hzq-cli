@@ -11,7 +11,7 @@ const checkFileExist = fs.existsSync;
 const newFileName = (filePath, { suffix, prefix } = {}) => {
   if (checkFileExist(filePath)) {
     let [fileName, ext] = getFileName(filePath);
-    fileName = [prefix, fileName, suffix].filter((i) => i).join("_");
+    fileName = [prefix, fileName, suffix].filter(Boolean).join("_");
     return path.join(path.dirname(filePath), `${fileName}${ext}`);
   } else return filePath;
 };
@@ -20,7 +20,7 @@ const newFileName = (filePath, { suffix, prefix } = {}) => {
 const createUniqueFileName = (filePath, { suffix, prefix } = {}) => {
   const random_suffix = Math.random().toString(36).substring(2, 8);
   return newFileName(filePath, {
-    suffix: [suffix, random_suffix].filter((i) => i).join("_"),
+    suffix: [suffix, random_suffix].filter(Boolean).join("_"),
     prefix,
   });
 };
@@ -73,7 +73,7 @@ const filterFileList = (fileList, filterKey, notFilterKey) => {
       if (typeof filterKey === "string") {
         flg = file.includes(filterKey);
       } else if (Array.isArray(filterKey)) {
-        flg = filterKey.filter((key) => key).every((key) => file.includes(key));
+        flg = filterKey.filter(Boolean).every((key) => file.includes(key));
       }
     }
 
@@ -81,9 +81,7 @@ const filterFileList = (fileList, filterKey, notFilterKey) => {
       if (typeof notFilterKey === "string") {
         flg = !file.includes(notFilterKey);
       } else if (Array.isArray(notFilterKey)) {
-        flg = notFilterKey
-          .filter((key) => key)
-          .every((key) => !file.includes(key));
+        flg = notFilterKey.filter(Boolean).every((key) => !file.includes(key));
       }
     }
 
