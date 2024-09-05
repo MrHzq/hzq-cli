@@ -21,6 +21,11 @@
     "_description": "更改当前项目的 formatOnSave 配置"
   },
   {
+    "cmd": "cloneProject",
+    "alias": "cp",
+    "_description": "clone 模板项目"
+  },
+  {
     "cmd": "deleteCmd",
     "alias": "dc",
     "_description": "删除一个命令"
@@ -39,16 +44,6 @@
     "cmd": "fileFilter",
     "alias": "ff",
     "_description": "文件查找并展示列表"
-  },
-  {
-    "cmd": "getCliTem",
-    "alias": "gct",
-    "_description": "拉取 cli 模板"
-  },
-  {
-    "cmd": "getProjectTem",
-    "alias": "gpt",
-    "_description": "拉取项目模板"
   },
   {
     "cmd": "mergeCmd",
