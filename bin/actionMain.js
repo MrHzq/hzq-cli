@@ -43,18 +43,28 @@ module.exports = async (_, options) => {
 
   getConfig();
 
-  const answers = await doFunPro([prompt, {}], ...args, config);
+  const openDebug = false;
+
+  const answers = await doFunPro([prompt, {}], config, ...args);
+
+  if (openDebug) log.warn(answers);
 
   if (answers) {
     if (answers.config) {
-      Object.assign(config, answers.config);
-      setConfig();
+      const isNeedUpdate = ["reset", "add"].includes(answers.configType);
+      if (isNeedUpdate) {
+        if (answers.configType === "add") Object.assign(config, answers.config);
+        else config = answers.config;
+        setConfig();
+      }
     }
 
     Object.assign(answers, { config });
 
     initVar(answers, args);
   } else return;
+
+  if (openDebug) return; // 中断逻辑，用于调试
 
   // console.time("本次执行耗时");
 

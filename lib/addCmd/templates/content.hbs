@@ -5,14 +5,23 @@ const CmdList = require("../../bin/handleCmdList");
 const log = require("../../utils/log");
 const path = require("path");
 
+{{#if needMuteConfig}}
+const oneKeyHasMute = true; // 一个 key 是否存在多个
+{{/if}}
+
 module.exports = async (_, options = {}) => {
   // const { _name = getDirName(__dirname) } = options;
 
-  let cliName, config;
+  let cliName, config, configType;
 
-  {{#if needInquirer}}
+{{#if needMuteConfig}}
+  let currPromptKey = "$2";
+{{/if}}
+
+
+{{#if needInquirer}}
   let $1;
-  {{/if}}
+{{/if}}
 
   // 初始化变量
   const initVar = (answers) => {
@@ -20,9 +29,9 @@ module.exports = async (_, options = {}) => {
 
     cliName = CmdList.getCliName();
 
-    {{#if needInquirer}}
+{{#if needInquirer}}
     $1 = answers.$1;
-    {{/if}}
+{{/if}}
   };
 
   const runMain = async () => {
@@ -44,11 +53,46 @@ module.exports = async (_, options = {}) => {
     // },
   ];
 
-  {{#if needConfig}}
+{{#if needConfig}}
   // 生成当前配置对应的 prompt
   const createConfigPromptList = (config) => {
     const promptList = [];
 
+    const configKeys = Object.keys(config);
+    const configLen = configKeys.length;
+{{#if needMuteConfig}}
+    let isChoices = Boolean(configLen);
+
+    if (["reset", "add"].includes(configType)) isChoices = false;
+
+    if (oneKeyHasMute && configType === "add" && configLen) {
+      currPromptKey = "cliTemDir" + configLen;
+    }
+{{/if}}
+
+    if (!configLen) configType = "add";
+
+{{#if needMuteConfig}}
+    let $2Prompt = {
+      type: "input",
+      name: `config.${currPromptKey}`,
+      message: "请输入项目目录:",
+      validate: notNumberRule,
+    };
+
+    if (isChoices) {
+      $2Prompt = {
+        type: "list",
+        name: "config.$2",
+        message: "请选择项目目录:",
+        choices: configKeys.map((key) => ({
+          name: config[key],
+          value: config[key],
+        })),
+      };
+    }
+    promptList.push(cliTemDirPrompt);
+{{else}}
     const $2Prompt = {
       type: "input",
       name: "config.$2",
@@ -56,30 +100,32 @@ module.exports = async (_, options = {}) => {
       validate: notNumberRule,
     };
 
-    if (!config.$2) promptList.push($2Prompt);
+    if (["reset", "add"].includes(configType)) {
+      promptList.push($2Prompt);
+    }
+{{/if}}
 
-    return promptList
+    return promptList;
   };
-  {{/if}}
+{{/if}}
 
   return {
     {{#if needInquirer}}
-    async prompt(...args) {
-      const config = args.pop(); // 最后一个为配置项
-
+    // 第一个 _config 为配置项
+    async prompt(_config, ...args) {
       {{#if needConfig}}
-      const reset = args[0] === "reset";
+      configType = args[0];
 
-      if (reset) args.shift(); // 若需要重置，则将第一个参数删除掉
+      if (["reset", "add"].includes(configType)) args.shift(); // 若需要重置/新增，则将第一个参数删除掉
 
-      const promptList = createConfigPromptList(reset ? {} : config);
       // promptList 按情况使用
-
+      const promptList = createConfigPromptList(_config, configType);
       {{/if}}
+
       const [arg] = args;
 
       let answers = {};
-      
+
       answers = await prompt([
         {
           type: "input",
@@ -87,7 +133,14 @@ module.exports = async (_, options = {}) => {
           message: "请输入:",
           validate: notNumberRule,
         },
+      {{#if needConfig}}
+        // ...promptList
+      {{/if}}
       ]);
+
+      {{#if needConfig}}
+      answers.configType = configType;
+      {{/if}}
 
       return answers;
     },
