@@ -10,7 +10,7 @@ const oneKeyHasMute = true; // 一个 key 是否存在多个
 {{/if}}
 
 module.exports = async (_, options = {}) => {
-  // const { _name = getDirName(__dirname) } = options;
+  const { _name = getDirName(__dirname), _description } = options;
 
   let cliName, config, configType;
 
@@ -42,7 +42,7 @@ module.exports = async (_, options = {}) => {
   const mainStepList = [
     {
       fun: runMain,
-      desc: () => "运行",
+      desc: () => _description,
     },
   ];
 

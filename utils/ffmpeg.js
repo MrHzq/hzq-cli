@@ -1,16 +1,21 @@
 const { processRun } = require("./process");
 const log = require("./log");
-const { sleep } = require("./common");
+const { sleep, formatScend } = require("./common");
 const { format } = require("path");
 
 const ffmpeg = {
-  run(command) {
+  run(command, resolveRes) {
     return new Promise((resolve, reject) => {
+      if (!["ffmpeg", "ffprobe"].includes(command)) {
+        command = this.createCmd(command);
+      }
+
       if (command.length < 100) log.succeed(command);
+
       try {
         const res = processRun(command, "get");
         if (res.startsWith("err:")) reject(res);
-        else sleep(1000).then(() => resolve(res));
+        else sleep(1000).then(() => resolve(res || resolveRes));
       } catch (error) {
         reject(error);
       }
@@ -21,9 +26,9 @@ const ffmpeg = {
     return `ffmpeg ${command}`;
   },
 
-  version() {
-    const versionCommand = this.createCmd("-version");
-    return this.run(versionCommand);
+  async version() {
+    const cmdStr = "-version";
+    return await this.run(cmdStr);
   },
 
   infoMap: {
@@ -35,25 +40,14 @@ const ffmpeg = {
     r_frame_rate: "帧率",
     duration: {
       text: "时长",
-      format(val) {
-        val = Number(val);
-        // 转为小时:分钟:秒
-        const hours = Math.floor(val / 3600);
-        const minutes = Math.floor((val % 3600) / 60);
-        const seconds = Math.floor(val % 60);
-        // 补零
-        const hoursStr = hours.toString().padStart(2, "0");
-        const minutesStr = minutes.toString().padStart(2, "0");
-        const secondsStr = seconds.toString().padStart(2, "0");
-        return `${hoursStr}:${minutesStr}:${secondsStr}`;
-      },
+      format: formatScend,
     },
   },
 
   async info(videoPath) {
-    const infoCommand = `ffprobe -v error -select_streams v -show_entries stream=index,codec_name,codec_type,width,height,r_frame_rate,duration -of default=noprint_wrappers=1 ${videoPath}`;
+    const cmdStr = `ffprobe -v error -select_streams v -show_entries stream=index,codec_name,codec_type,width,height,r_frame_rate,duration -of default=noprint_wrappers=1 ${videoPath}`;
 
-    let res = await this.run(infoCommand);
+    let res = await this.run(cmdStr);
 
     Object.entries(this.infoMap).forEach(([key, value]) => {
       if (typeof value === "object") {
@@ -64,6 +58,11 @@ const ffmpeg = {
     });
 
     return res;
+  },
+
+  to3D({ videoPath, outPath }) {
+    const cmdStr = `-i ${videoPath} -i ${videoPath} -filter_complex "[0:v]scale=w=-1:ih[left];[1:v]scale=w=-1:ih[right];[left][right]hstack=inputs=2" ${outPath}`;
+    return this.run(cmdStr, outPath);
   },
 };
 

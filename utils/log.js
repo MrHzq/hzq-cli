@@ -58,6 +58,30 @@ const log = {
   fail(...args) {
     return this.error(...args);
   },
+
+  batchLog(totalList, successList, failList) {
+    const totalLen = totalList.length;
+    const totalTip = `总共 ${totalLen} 个`;
+
+    const successLen = successList.length;
+    const successTip = `成功 ${successLen} 个`;
+
+    const failLen = failList ? failList.length : totalLen - successLen;
+    const failTip = `失败 ${failLen} 个`;
+
+    const successRate = `成功率：${((100 * successLen) / totalLen).toFixed(
+      2
+    )}%`;
+
+    return [
+      totalTip,
+      successLen ? this.successText(successTip) : this.warnText(successTip),
+      failLen ? this.errorText(failTip) : "",
+      successRate,
+    ]
+      .filter(Boolean)
+      .join("，");
+  },
 };
 
 module.exports = log;
