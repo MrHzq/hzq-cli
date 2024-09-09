@@ -40,6 +40,11 @@
     "_description": "将某些 cmd 合并到一个大类里面"
   },
   {
+    "cmd": "moveFile",
+    "alias": "mf",
+    "_description": "移动文件"
+  },
+  {
     "cmd": "renameCmd",
     "alias": "rec",
     "_description": "更改命令名称"
@@ -112,8 +117,8 @@
     "_description": "查看 .zshrc 里面的 alias"
   },
   {
-    "cmd": "moveFile",
-    "alias": "mf",
-    "_description": "移动文件"
+    "cmd": "diffDir",
+    "alias": "dd",
+    "_description": "对比两个文件夹的内容"
   }
 ]
