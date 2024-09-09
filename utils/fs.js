@@ -77,7 +77,13 @@ const filterFileList = (fileList, filterKey, notFilterKey) => {
 
     if (flg && filterKey?.length) {
       if (typeof filterKey === "string") {
-        flg = file.includes(filterKey);
+        if (filterKey.includes("||")) {
+          flg = filterKey.split("||").some((key) => file.includes(key.trim()));
+        } else if (filterKey.includes("&&")) {
+          flg = filterKey.split("&&").every((key) => file.includes(key.trim()));
+        } else {
+          flg = file.includes(filterKey);
+        }
       } else if (Array.isArray(filterKey)) {
         flg = filterKey.filter(Boolean).every((key) => file.includes(key));
       }
@@ -97,11 +103,14 @@ const filterFileList = (fileList, filterKey, notFilterKey) => {
 
 // 获取当前 cwd 运行目录下的所有文件（可通过 filterKey 过滤）
 const getFileList = (filterKey, targetPath, sortKey, filterFun) => {
-  filterKey = Array.isArray(filterKey)
-    ? filterKey
-    : filterKey
-    ? [filterKey]
-    : [];
+  if (filterKey.includes("||") || filterKey.includes("&&")) {
+  } else {
+    filterKey = Array.isArray(filterKey)
+      ? filterKey
+      : filterKey
+      ? [filterKey]
+      : [];
+  }
 
   let notFilterKey = [];
 
