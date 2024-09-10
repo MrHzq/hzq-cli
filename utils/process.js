@@ -18,6 +18,9 @@ const processRun = (cmd, type = "run", _config = {}) => {
   }
 };
 
+// 中断执行
+const processExit = process.exit;
+
 // cd 操作
 const cd = {
   run(cmd, ...args) {
@@ -107,6 +110,7 @@ const git = {
 
 module.exports = {
   processRun,
+  processExit,
   cd,
   code,
   git,

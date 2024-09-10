@@ -88,16 +88,6 @@ const readdirSync = (p = ".") => fs.readdirSync(p);
 
 // 根据文件名称进行过滤
 const filterFileList = (fileList, filterKey, notFilterKey) => {
-  console.log(
-    "%c [ notFilterKey ]-「utils/fs.js」",
-    "font-size:13px; background:#7257b0; color:#b69bf4;",
-    notFilterKey
-  );
-  console.log(
-    "%c [ filterKey ]-「utils/fs.js」",
-    "font-size:13px; background:#14bf08; color:#58ff4c;",
-    filterKey
-  );
   const getFlg = (file, strKey) => {
     let flg = true;
     if (typeof strKey === "string") {
@@ -128,11 +118,6 @@ const filterFileList = (fileList, filterKey, notFilterKey) => {
 
 // 获取当前 cwd 运行目录下的所有文件（可通过 filterKey 过滤）
 const getFileList = (filterKey, targetPath, sortKey, filterFun) => {
-  console.log(
-    "%c [ filterKey ]-「utils/fs.js」",
-    "font-size:13px; background:#a5da6f; color:#e9ffb3;",
-    filterKey
-  );
   if (filterKey.includes("||") || filterKey.includes("&&")) {
   } else {
     filterKey = Array.isArray(filterKey)
