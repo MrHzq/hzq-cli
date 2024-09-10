@@ -51,19 +51,16 @@ const videoToGif = ({ videoPath, gifFps, startTime, duration, outPath }) => {
         .setDuration(duration || 15) // 持续时间
         .output(outPath) // 输出路径
         .on("end", () => {
-          sleep().then(() => resolve(outPath));
+          sleep().then(() => resolve({ success: true, res: outPath }));
         })
-        .on("error", (err) => {
-          log.error(`${path.basename(videoPath)}: ${err}`, true);
+        .on("error", (error) => {
+          log.error(`${path.basename(videoPath)}: ${error}`, true);
 
-          // 删除已输出的文件
-          if (checkFileExist(outPath)) removeSync(outPath);
-
-          reject(err);
+          reject({ success: false, error });
         })
         .run();
-    } catch (err) {
-      reject(err);
+    } catch (error) {
+      reject({ success: false, error });
     }
   });
 };

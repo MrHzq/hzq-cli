@@ -56,16 +56,17 @@ const ffmpeg = {
   },
 
   async checkFn(fnName) {
-    const isExist = await this.isExist();
     const mustNeedFfmpegFn = [this.videoInfo.name];
     const flag = mustNeedFfmpegFn.includes(fnName);
 
-    if (flag && !isExist) {
-      this.logInstallInfo({
-        needExit: true,
-        prefix: `命令 ${fnName} 需要`,
-      });
-    }
+    if (flag) {
+      if (!(await this.isExist())) {
+        this.logInstallInfo({
+          needExit: true,
+          prefix: `命令 ${fnName} 需要`,
+        });
+      }
+    } else return this[fnName];
 
     return true;
   },
