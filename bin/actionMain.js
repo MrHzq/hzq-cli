@@ -35,6 +35,7 @@ module.exports = async (_, options) => {
     onStartTodo,
     todoStepList = [],
     needLogTime = false,
+    oneKeyHasMute = false,
   } = await require(path.join(
     __dirname,
     "../lib",
@@ -57,6 +58,12 @@ module.exports = async (_, options) => {
         if (answers.configType === "add") Object.assign(config, answers.config);
         else config = answers.config;
         setConfig();
+      } else {
+        if (oneKeyHasMute) {
+          answers.currPromptKey = Object.entries(config).find(
+            ([key, value]) => value === answers.config[answers.currPromptKey]
+          )?.[0];
+        }
       }
     }
 

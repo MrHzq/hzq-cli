@@ -26,6 +26,9 @@ module.exports = async (_, options = {}) => {
   // 初始化变量
   const initVar = (answers) => {
     config = answers.config;
+{{#if needMuteConfig}}
+    if (answers.currPromptKey) currPromptKey = answers.currPromptKey;
+{{/if}}
 
     cliName = CmdList.getCliName();
 
@@ -110,17 +113,17 @@ module.exports = async (_, options = {}) => {
 {{/if}}
 
   return {
-    {{#if needInquirer}}
+{{#if needInquirer}}
     // 第一个 _config 为配置项
     async prompt(_config, ...args) {
-      {{#if needConfig}}
+{{#if needConfig}}
       configType = args[0];
 
       if (["reset", "add"].includes(configType)) args.shift(); // 若需要重置/新增，则将第一个参数删除掉
 
       // promptList 按情况使用
       const promptList = createConfigPromptList(_config, configType);
-      {{/if}}
+{{/if}}
 
       const [arg] = args;
 
@@ -133,20 +136,26 @@ module.exports = async (_, options = {}) => {
           message: "请输入:",
           validate: notNumberRule,
         },
-      {{#if needConfig}}
+{{#if needConfig}}
         // ...promptList,
-      {{/if}}
+{{/if}}
       ]);
 
-      {{#if needConfig}}
+{{#if needConfig}}
       answers.configType = configType;
-      {{/if}}
+{{/if}}
+{{#if needMuteConfig}}
+      answers.currPromptKey = currPromptKey;
+{{/if}}
 
       return answers;
     },
-    {{/if}}
+{{/if}}
     initVar,
     mainStepList,
     todoStepList,
+{{#if needMuteConfig}}
+    oneKeyHasMute,
+{{/if}}
   };
 };
