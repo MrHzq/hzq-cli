@@ -35,6 +35,11 @@
     "_description": "文件查找并展示列表"
   },
   {
+    "cmd": "findRepeatFile",
+    "alias": "frf",
+    "_description": "找出重复文件"
+  },
+  {
     "cmd": "mergeCmd",
     "alias": "mc",
     "_description": "将某些 cmd 合并到一个大类里面"
@@ -48,11 +53,6 @@
     "cmd": "renameCmd",
     "alias": "rec",
     "_description": "更改命令名称"
-  },
-  {
-    "cmd": "findRepeatFile",
-    "alias": "frf",
-    "_description": "找出重复文件"
   },
   {
     "cmd": "replaceFileName",
@@ -120,5 +120,10 @@
     "cmd": "zshrcAlias",
     "alias": "za",
     "_description": "查看 .zshrc 里面的 alias"
+  },
+  {
+    "cmd": "ls",
+    "alias": "",
+    "_description": "列出所有命令"
   }
 ]

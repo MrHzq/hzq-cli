@@ -124,6 +124,7 @@ const formatCmdList = (list) => {
     return {
       name: `${cmd}: ${_description} ${alias ? `(${alias})` : ""}`,
       value: cmd,
+      origin: item,
     };
   });
 };
@@ -150,6 +151,9 @@ const sleep = (time = 1000) =>
 // 生成随机字符串
 const getRandomStr = (len = 8) => Math.random().toString(36).substring(2, len);
 
+// 创建长度为 n 的空字符串
+const spaceStr = (length) => Array.from({ length }, () => " ").join("");
+
 module.exports = {
   toHBSTemp,
   getHBSContent,
@@ -172,4 +176,5 @@ module.exports = {
   getFilterList,
   sleep,
   getRandomStr,
+  spaceStr,
 };
