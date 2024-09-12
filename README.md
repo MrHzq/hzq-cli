@@ -46,9 +46,24 @@
     "_description": "文件查找并展示列表"
   },
   {
+    "cmd": "findRepeatFile",
+    "alias": "frf",
+    "_description": "找出重复文件"
+  },
+  {
+    "cmd": "ls",
+    "alias": "",
+    "_description": "列出所有命令"
+  },
+  {
     "cmd": "mergeCmd",
     "alias": "mc",
     "_description": "将某些 cmd 合并到一个大类里面"
+  },
+  {
+    "cmd": "moveFile",
+    "alias": "mf",
+    "_description": "移动文件"
   },
   {
     "cmd": "renameCmd",
