@@ -171,6 +171,13 @@ const getRandomStr = (len = 8) => Math.random().toString(36).substring(2, len);
 // 创建长度为 n 的空字符串
 const spaceStr = (length) => Array.from({ length }, () => " ").join("");
 
+// 使用 \n split 字符串
+const splitBy = (string, sp = "\n") => string.split(sp).filter(Boolean);
+
+const someIncludes = (l, v, k) => {
+  return l.some((i) => (k ? i[k] : i).includes(v));
+};
+
 module.exports = {
   toHBSTemp,
   getHBSContent,
@@ -195,4 +202,6 @@ module.exports = {
   sleep,
   getRandomStr,
   spaceStr,
+  splitBy,
+  someIncludes,
 };
