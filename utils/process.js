@@ -67,9 +67,10 @@ const code = {
 const git = {
   type: "run",
   run(cmd, ...args) {
-    const res = processRun(this[cmd](...args), this.type);
+    const cmdStr = this[cmd](...args);
+    const runRes = processRun(cmdStr, this.type);
     this.type = "run";
-    return res;
+    return runRes;
   },
   // 暂存 - 注释
   add(file = ".") {

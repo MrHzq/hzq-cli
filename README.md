@@ -36,6 +36,11 @@
     "_description": "删除文件"
   },
   {
+    "cmd": "depcheck",
+    "alias": "",
+    "_description": "检查未使用依赖"
+  },
+  {
     "cmd": "fileDetail",
     "alias": "fd",
     "_description": "查看文件详情"
