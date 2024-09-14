@@ -9,6 +9,10 @@ const { getDirName, getCmdName } = require("../../utils/path");
 const oneKeyHasMute = true; // 一个 key 是否存在多个
 {{/if}}
 
+{{#if configByProject}}
+const configByProject = true; // 配置项是否以“项目”维度
+{{/if}}
+
 module.exports = async (_, options = {}) => {
   const {
     _name = getDirName(__dirname),
@@ -30,6 +34,10 @@ module.exports = async (_, options = {}) => {
   // 初始化变量
   const initVar = (answers) => {
     config = answers.config;
+{{#if configByProject}}
+    if (configByProject) config = config[_cmdName];
+{{/if}}
+
 {{#if needMuteConfig}}
     if (answers.currPromptKey) currPromptKey = answers.currPromptKey;
 {{/if}}
@@ -67,6 +75,12 @@ module.exports = async (_, options = {}) => {
 
     const configKeys = Object.keys(config);
     const configLen = configKeys.length;
+
+    const createPromptName = (key) => {
+      return ["config", configByProject ? _cmdName : "", key]
+        .filter(Boolean)
+        .join(".");
+    };
 {{#if needMuteConfig}}
     let isChoices = Boolean(configLen);
 
@@ -78,6 +92,10 @@ module.exports = async (_, options = {}) => {
 {{/if}}
 
     if (!configLen) configType = "add";
+
+    if (configByProject) {
+      if (!config[_cmdName]) configType = "add";
+    }
 
 {{#if needMuteConfig}}
     let $2Prompt = {
@@ -102,7 +120,7 @@ module.exports = async (_, options = {}) => {
 {{else}}
     const $2Prompt = {
       type: "input",
-      name: "config.$2",
+      name: createPromptName("$2"),
       message: "请输入:",
       validate: notNumberRule,
     };
