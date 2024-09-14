@@ -40,6 +40,11 @@
     "_description": "找出重复文件"
   },
   {
+    "cmd": "ls",
+    "alias": "",
+    "_description": "列出所有命令"
+  },
+  {
     "cmd": "mergeCmd",
     "alias": "mc",
     "_description": "将某些 cmd 合并到一个大类里面"
@@ -122,8 +127,8 @@
     "_description": "查看 .zshrc 里面的 alias"
   },
   {
-    "cmd": "ls",
+    "cmd": "depcheck",
     "alias": "",
-    "_description": "列出所有命令"
+    "_description": "检查无用依赖"
   }
 ]
