@@ -85,6 +85,14 @@ class handleCmdList {
       this.write();
     }
   }
+
+  checkCmdExist(cmd) {
+    return cmd && this.list.some((item) => item.cmd === cmd);
+  }
+
+  checkAliasExist(alias) {
+    return alias && this.list.some((item) => item.alias === alias);
+  }
 }
 
 module.exports = new handleCmdList();

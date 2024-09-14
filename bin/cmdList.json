@@ -5,6 +5,11 @@
     "_description": "新增一个命令"
   },
   {
+    "cmd": "changeCmdName",
+    "alias": "ccn",
+    "_description": "更改命令名称"
+  },
+  {
     "cmd": "changeFormatOnSave",
     "alias": "cfos",
     "_description": "更改当前项目的 formatOnSave 配置"
@@ -25,12 +30,17 @@
     "_description": "删除文件"
   },
   {
+    "cmd": "depCheck",
+    "alias": "",
+    "_description": "检查未使用依赖"
+  },
+  {
     "cmd": "fileDetail",
     "alias": "fd",
     "_description": "查看文件详情"
   },
   {
-    "cmd": "fileFilter",
+    "cmd": "fileFind",
     "alias": "ff",
     "_description": "文件查找并展示列表"
   },
@@ -53,11 +63,6 @@
     "cmd": "moveFile",
     "alias": "mf",
     "_description": "移动文件"
-  },
-  {
-    "cmd": "renameCmd",
-    "alias": "rec",
-    "_description": "更改命令名称"
   },
   {
     "cmd": "replaceFileName",
@@ -125,10 +130,5 @@
     "cmd": "zshrcAlias",
     "alias": "za",
     "_description": "查看 .zshrc 里面的 alias"
-  },
-  {
-    "cmd": "depcheck",
-    "alias": "",
-    "_description": "检查未使用依赖"
   }
 ]
