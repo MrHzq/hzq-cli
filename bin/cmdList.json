@@ -129,6 +129,6 @@
   {
     "cmd": "depcheck",
     "alias": "",
-    "_description": "检查无用依赖"
+    "_description": "检查未使用依赖"
   }
 ]

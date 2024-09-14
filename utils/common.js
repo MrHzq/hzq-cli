@@ -55,6 +55,23 @@ const isExistByRegTest = (content, target) => {
   return regex.test(content); // 使用 test 方法进行正则匹配
 };
 
+// 检查某个依赖是否被使用了
+const checkDependencyUsed = (dependency, fileContent) => {
+  const regexStaticImport = new RegExp(
+    `require\\(['"\`]${dependency}['"\`]|from ['"\`]${dependency}['"\`]`,
+    "i"
+  );
+  const regexDynamicImport = new RegExp(
+    `import\\(['"\`]${dependency}['"\`]\\)`,
+    "i"
+  );
+
+  return [
+    regexStaticImport.test(fileContent),
+    regexDynamicImport.test(fileContent),
+  ].some(Boolean);
+};
+
 // 将驼峰命名转换为横线连接
 const camelToHyphen = (str) => {
   return str.replace(/([a-z])([A-Z])/g, "$1-$2").toLowerCase();
@@ -164,6 +181,7 @@ module.exports = {
   bitTransform,
   getAllYears,
   isExistByRegTest,
+  checkDependencyUsed,
   camelToHyphen,
   firstUpperCase,
   firstLowerCase,

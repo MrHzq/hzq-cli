@@ -36,6 +36,7 @@ module.exports = async (_, options) => {
     todoStepList = [],
     needLogTime = false,
     oneKeyHasMute = false,
+    forceLoading = false,
   } = await require(path.join(
     __dirname,
     "../lib",
@@ -78,7 +79,7 @@ module.exports = async (_, options) => {
 
   mainSpinner = new Spinner(_description);
 
-  if (mainStepList.length > 1) mainSpinner.start();
+  if (mainStepList.length > 1 || forceLoading) mainSpinner.start();
 
   const runSuccess = await runStep(mainStepList, "fail", {
     mainSpinner,

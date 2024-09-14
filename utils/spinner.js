@@ -46,6 +46,10 @@ class Spinner {
     const type = "fail";
     return this.print(type, text, prefix || type);
   }
+
+  stop() {
+    return this.do("stopAndPersist");
+  }
 }
 
 module.exports = Spinner;
