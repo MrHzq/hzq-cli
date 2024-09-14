@@ -3,14 +3,18 @@ const { prompt, notNumberRule } = require("../../utils/inquirer");
 {{/if}}
 const CmdList = require("../../bin/handleCmdList");
 const log = require("../../utils/log");
-const path = require("path");
+const { getDirName, getCmdName } = require("../../utils/path");
 
 {{#if needMuteConfig}}
 const oneKeyHasMute = true; // 一个 key 是否存在多个
 {{/if}}
 
 module.exports = async (_, options = {}) => {
-  const { _name = getDirName(__dirname), _description } = options;
+  const {
+    _name = getDirName(__dirname),
+    _cmdName = getCmdName(),
+    _description,
+  } = options;
 
   let cliName, config, configType;
 

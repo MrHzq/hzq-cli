@@ -36,6 +36,9 @@ const getCwdRePath = (...args) => path.join(currCwdPath, ...args);
 // 获取当前文件夹名称
 const getDirName = (dirname = __dirname) => path.basename(dirname);
 
+// 获取当前工作目录文件夹名称
+const getCmdName = (dirname = currCwdPath) => path.basename(dirname);
+
 module.exports = {
   root,
   currCwdPath,
@@ -46,4 +49,5 @@ module.exports = {
   getDirRePath,
   getCwdRePath,
   getDirName,
+  getCmdName,
 };

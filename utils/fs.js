@@ -92,10 +92,7 @@ const reReaddirSync = (config = {}) => {
 
   const { dir = ".", ignoreList = [], showIgnoreLog = false } = config;
 
-  const currIgnoreList = [".git", "dist", "node_modules", ".gitignore"].concat(
-    getGitIgnoreList(),
-    ignoreList
-  );
+  const currIgnoreList = getDefaultIgnoreList().concat(ignoreList);
 
   const fileEach = (_dir) => {
     const files = readdirSync(_dir);
@@ -239,10 +236,11 @@ const logFileDetail = (file) => {
   log.succeed(`完整路径: ${stat.fullPath}`);
 };
 
+// 获取 JSON 文件的内容
 const getJsonContent = (path = ".") => JSON.parse(readFileSync(path) || "{}");
 
 // 获取 .gitignore 的内容
-const getGitIgnoreList = (gitIgnorePath = ".gitignore") => {
+const getIgnoreList = (gitIgnorePath = ".gitignore") => {
   try {
     const ignoreList = readFileSyncFormat(gitIgnorePath).filter(
       (line) => line.trim() !== "" && !line.includes("#")
@@ -256,6 +254,10 @@ const getGitIgnoreList = (gitIgnorePath = ".gitignore") => {
     }
     return [];
   }
+};
+
+const getDefaultIgnoreList = () => {
+  return [".git", "dist", "node_modules", ".gitignore"].concat(getIgnoreList());
 };
 
 // 当前路径是否是忽略的
@@ -303,5 +305,6 @@ module.exports = {
   getFileDetail,
   logFileDetail,
   getJsonContent,
-  getGitIgnoreList,
+  getIgnoreList,
+  getDefaultIgnoreList,
 };
