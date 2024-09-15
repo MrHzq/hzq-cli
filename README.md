@@ -16,6 +16,11 @@
     "_description": "新增一个命令"
   },
   {
+    "cmd": "changeCmdName",
+    "alias": "ccn",
+    "_description": "更改命令名称"
+  },
+  {
     "cmd": "changeFormatOnSave",
     "alias": "cfos",
     "_description": "更改当前项目的 formatOnSave 配置"
@@ -24,6 +29,16 @@
     "cmd": "cloneProject",
     "alias": "cp",
     "_description": "clone 模板项目"
+  },
+  {
+    "cmd": "code",
+    "alias": "",
+    "_description": "code 相关命令"
+  },
+  {
+    "cmd": "compressGif",
+    "alias": "cg",
+    "_description": "压缩 gif"
   },
   {
     "cmd": "deleteCmd",
@@ -36,7 +51,7 @@
     "_description": "删除文件"
   },
   {
-    "cmd": "depcheck",
+    "cmd": "depCheck",
     "alias": "",
     "_description": "检查未使用依赖"
   },
@@ -46,7 +61,7 @@
     "_description": "查看文件详情"
   },
   {
-    "cmd": "fileFilter",
+    "cmd": "fileFind",
     "alias": "ff",
     "_description": "文件查找并展示列表"
   },
@@ -54,6 +69,11 @@
     "cmd": "findRepeatFile",
     "alias": "frf",
     "_description": "找出重复文件"
+  },
+  {
+    "cmd": "ip",
+    "alias": "",
+    "_description": "查询当前 ip"
   },
   {
     "cmd": "ls",
@@ -69,11 +89,6 @@
     "cmd": "moveFile",
     "alias": "mf",
     "_description": "移动文件"
-  },
-  {
-    "cmd": "renameCmd",
-    "alias": "rec",
-    "_description": "更改命令名称"
   },
   {
     "cmd": "replaceFileName",
@@ -93,18 +108,8 @@
   {
     "cmd": "toolCmd",
     "alias": "tc",
-    "_description": "小工具命令:code/npm/ip...",
+    "_description": "小工具命令:npm/ip...",
     "children": [
-      {
-        "cmd": "code",
-        "alias": "",
-        "_description": "code 相关命令"
-      },
-      {
-        "cmd": "ip",
-        "alias": "",
-        "_description": "查询当前 ip"
-      },
       {
         "cmd": "npm",
         "alias": "",
@@ -138,7 +143,7 @@
     "_description": "视频转为 3D 视频"
   },
   {
-    "cmd": "zshrcAlias",
+    "cmd": "zsls",
     "alias": "za",
     "_description": "查看 .zshrc 里面的 alias"
   }
