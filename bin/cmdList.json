@@ -20,6 +20,16 @@
     "_description": "clone 模板项目"
   },
   {
+    "cmd": "code",
+    "alias": "",
+    "_description": "code 相关命令"
+  },
+  {
+    "cmd": "compressGif",
+    "alias": "cg",
+    "_description": "压缩 gif"
+  },
+  {
     "cmd": "deleteCmd",
     "alias": "dc",
     "_description": "删除一个命令"
@@ -50,6 +60,11 @@
     "_description": "找出重复文件"
   },
   {
+    "cmd": "ip",
+    "alias": "",
+    "_description": "查询当前 ip"
+  },
+  {
     "cmd": "ls",
     "alias": "",
     "_description": "列出所有命令"
@@ -78,16 +93,6 @@
     "cmd": "runCmd",
     "alias": "rc",
     "_description": "展示当前命令并选择命令运行"
-  },
-  {
-    "cmd": "code",
-    "alias": "",
-    "_description": "code 相关命令"
-  },
-  {
-    "cmd": "ip",
-    "alias": "",
-    "_description": "查询当前 ip"
   },
   {
     "cmd": "toolCmd",
@@ -127,13 +132,8 @@
     "_description": "视频转为 3D 视频"
   },
   {
-    "cmd": "zshrcAlias",
+    "cmd": "zsls",
     "alias": "za",
     "_description": "查看 .zshrc 里面的 alias"
-  },
-  {
-    "cmd": "compressGif",
-    "alias": "cg",
-    "_description": "压缩 gif"
   }
 ]
