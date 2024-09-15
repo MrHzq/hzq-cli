@@ -13,7 +13,7 @@ const actionMain = require("./actionMain");
 const cmdList = require("./cmdList.json");
 const { sortBy } = require("../utils/common");
 
-log.success(`welcome use ${name}@${version} ~`, true);
+log.success(`welcome use ${name}@${version} ~`, [true, true]);
 
 program.version(version);
 

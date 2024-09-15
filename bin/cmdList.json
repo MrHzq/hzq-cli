@@ -80,20 +80,20 @@
     "_description": "展示当前命令并选择命令运行"
   },
   {
+    "cmd": "code",
+    "alias": "",
+    "_description": "code 相关命令"
+  },
+  {
+    "cmd": "ip",
+    "alias": "",
+    "_description": "查询当前 ip"
+  },
+  {
     "cmd": "toolCmd",
     "alias": "tc",
-    "_description": "小工具命令:code/npm/ip...",
+    "_description": "小工具命令:npm/ip...",
     "children": [
-      {
-        "cmd": "code",
-        "alias": "",
-        "_description": "code 相关命令"
-      },
-      {
-        "cmd": "ip",
-        "alias": "",
-        "_description": "查询当前 ip"
-      },
       {
         "cmd": "npm",
         "alias": "",
