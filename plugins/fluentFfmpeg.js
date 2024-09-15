@@ -2,13 +2,6 @@ const ffmpegPath = require("@ffmpeg-installer/ffmpeg").path;
 const fluentFfmpeg = require("fluent-ffmpeg");
 fluentFfmpeg.setFfmpegPath(ffmpegPath); // 设置二进制客户端路径
 
-const {
-  removeSync,
-  renameSync,
-  createNewNameBy,
-  checkFileExist,
-  utimesSync,
-} = require("../utils/fs");
 const log = require("../utils/log");
 const path = require("path");
 const { sleep } = require("../utils/common");
@@ -65,21 +58,4 @@ const videoToGif = ({ videoPath, gifFps, startTime, duration, outPath }) => {
   });
 };
 
-const videoCompressGif = async (inputPath, outPath) => {
-  const data = await sharp(inputPath, {
-    animated: true,
-    limitInputPixels: false,
-  })
-    .gif({
-      // colours: 60,
-    })
-    .toBuffer();
-
-  if (!outPath) outPath = createNewNameBy(inputPath, { suffix: "compress" });
-
-  writeFileSync(outPath, data);
-
-  return outPath;
-};
-
-module.exports = { videoTo3D, videoToGif, videoCompressGif };
+module.exports = { videoTo3D, videoToGif };

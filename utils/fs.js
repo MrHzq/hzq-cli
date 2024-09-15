@@ -31,7 +31,7 @@ const createUniqueNameBy = (filePath, { suffix, prefix } = {}) => {
   const random_suffix = getRandomStr();
   return createNewNameBy(filePath, {
     prefix,
-    suffix: [random_suffix, suffix].filter(Boolean).join("_"),
+    suffix: [suffix, random_suffix].filter(Boolean).join("_"),
   });
 };
 
