@@ -186,7 +186,7 @@ const sortBy = (list, key) => {
 };
 // 判断数组里面的值是否 includes 关键值
 const someIncludes = (list, value, key) => {
-  return list.some((i) => (key ? i[key] : i).includes(value));
+  return list.some((i) => ((key ? i[key] : i) ?? "").includes(value));
 };
 
 const toPromise = (fn, resolveRes, rejectRes) => {
