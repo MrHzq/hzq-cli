@@ -1,6 +1,6 @@
 const { processRun, processExit } = require("../utils/process");
 const log = require("../utils/log");
-const { sleep, formatScend } = require("../utils/common");
+const { sleep, formatScend, joinBy } = require("../utils/common");
 
 const ffmpeg = {
   run(command, resolveRes, rejectRes) {
@@ -104,10 +104,10 @@ const ffmpeg = {
           _value = _value.text;
         }
 
-        return [_value, value].join(`=`);
+        return [_value, value].join(`: `);
       });
 
-    return { success, res: resList.join("\n") };
+    return { success, res: joinBy(resList) };
   },
 
   async videoTo3D({ videoPath, outPath }) {

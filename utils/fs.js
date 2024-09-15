@@ -1,7 +1,7 @@
 const path = require("path");
 const fs = require("fs-extra");
 const log = require("./log");
-const { getFileName } = require("./path");
+const { getFileName, getFileType } = require("./path");
 const {
   bitTransform,
   formatTimeBy,
@@ -193,11 +193,12 @@ const getFileList = (filterKey, targetPath, sortKey, filterFun) => {
     })
     .filter((file) => doFun([filterFun, true], file))
     .map((file, index) => {
-      const { sizeFormat } = getFileDetail(path.resolve(file));
+      const fileDetail = getFileDetail(path.resolve(file));
 
       return {
-        name: `${index + 1}. ${file} ${sizeFormat.mbs || ""}`,
+        name: `${index + 1}. ${file} ${fileDetail.sizeFormat.mbs || ""}`,
         value: file,
+        fileDetail,
       };
     });
 };
@@ -216,6 +217,7 @@ const getFileDetail = (file) => {
       birthtimeFormat,
       mtimeFormat,
       fullPath,
+      ...getFileType(fullPath),
     });
   } catch (error) {
     throw Error(`${file} 文件不存在`);
@@ -223,17 +225,24 @@ const getFileDetail = (file) => {
 };
 
 // 打印查询到的查看文件详情
-const logFileDetail = (file) => {
+const logFileDetail = async (file) => {
   const stat = typeof file === "object" ? file : getFileDetail(file);
 
-  log.succeed(`类型: ${stat.isFile ? "文件" : "目录"}`);
+  if (stat.isFile()) {
+    log.succeed(`类型: ${stat.fileType}`);
+  } else {
+    log.succeed("分类: 目录");
+  }
+
   if (stat.fullPath !== stat.filePath) log.succeed(`名称: ${stat.filePath}`);
 
   if (stat.sizeFormat.mbs) log.succeed(`大小: ${stat.sizeFormat.mbs}`);
 
-  log.succeed(`创建时间: ${stat.birthtimeFormat}`);
   log.succeed(`修改时间: ${stat.mtimeFormat}`);
+  log.succeed(`创建时间: ${stat.birthtimeFormat}`);
   log.succeed(`完整路径: ${stat.fullPath}`);
+
+  return stat;
 };
 
 // 获取 JSON 文件的内容

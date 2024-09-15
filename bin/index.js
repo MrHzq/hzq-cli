@@ -11,13 +11,13 @@ const { name, version } = require("../package.json");
 
 const actionMain = require("./actionMain");
 const cmdList = require("./cmdList.json");
+const { sortBy } = require("../utils/common");
 
 log.success(`welcome use ${name}@${version} ~`, true);
 
 program.version(version);
 
-cmdList
-  .sort((a, b) => a.cmd.localeCompare(b.cmd))
+sortBy(cmdList, "cmd")
   .filter((item) => item.cmd)
   .forEach((item) => {
     const { cmd, alias, _description } = item;

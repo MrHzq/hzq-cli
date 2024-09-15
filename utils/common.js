@@ -28,6 +28,7 @@ const formatScend = (scend) => {
   return `${hoursStr}:${minutesStr}:${secondsStr}`;
 };
 
+// 将字节转为 kb、mb
 const bitTransform = (bit) => {
   bit = Number(bit);
   if (isNaN(bit)) bit = 0;
@@ -174,8 +175,29 @@ const spaceStr = (length) => Array.from({ length }, () => " ").join("");
 // 使用 \n split 字符串
 const splitBy = (string, sp = "\n") => string.split(sp).filter(Boolean);
 
-const someIncludes = (l, v, k) => {
-  return l.some((i) => (k ? i[k] : i).includes(v));
+// 使用 \n join 数组
+const joinBy = (list, sp = "\n") => list.filter(Boolean).join(sp);
+
+// 使用文件名正序
+const sortBy = (list, key) => {
+  return list.sort((a, b) =>
+    (key ? a[key] : a).localeCompare(key ? b[key] : b)
+  );
+};
+// 判断数组里面的值是否 includes 关键值
+const someIncludes = (list, value, key) => {
+  return list.some((i) => (key ? i[key] : i).includes(value));
+};
+
+const toPromise = (fn, resolveRes, rejectRes) => {
+  return new Promise((resolve, reject) => {
+    try {
+      const res = doFun([fn, null]);
+      resolve({ success: true, res: res || resolveRes });
+    } catch (error) {
+      reject({ success: false, error, res: rejectRes });
+    }
+  });
 };
 
 module.exports = {
@@ -203,5 +225,8 @@ module.exports = {
   getRandomStr,
   spaceStr,
   splitBy,
+  joinBy,
+  sortBy,
   someIncludes,
+  toPromise,
 };
