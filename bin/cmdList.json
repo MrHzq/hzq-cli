@@ -30,6 +30,11 @@
     "_description": "删除文件"
   },
   {
+    "cmd": "depCheck",
+    "alias": "",
+    "_description": "检查未使用依赖"
+  },
+  {
     "cmd": "fileDetail",
     "alias": "fd",
     "_description": "查看文件详情"
@@ -127,8 +132,8 @@
     "_description": "查看 .zshrc 里面的 alias"
   },
   {
-    "cmd": "depCheck",
-    "alias": "",
-    "_description": "检查未使用依赖"
+    "cmd": "compressGif",
+    "alias": "cg",
+    "_description": "压缩 gif"
   }
 ]

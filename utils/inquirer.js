@@ -1,9 +1,16 @@
 const { prompt } = require("inquirer");
 
 const requireRule = (value) => {
-  value = value.trim();
-  if (!value) return "此字段必填";
-  return true;
+  let res = true;
+  if (typeof value === "string") {
+    if (!value.trim()) res = "此字段必填";
+  } else if (Array.isArray(value)) {
+    if (!value.length) res = "此字段必填";
+  } else {
+    if (!value) res = "此字段必填";
+  }
+
+  return res;
 };
 
 const notNumberRule = (value, isReq = true) => {
