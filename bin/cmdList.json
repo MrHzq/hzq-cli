@@ -140,5 +140,10 @@
     "cmd": "zsls",
     "alias": "za",
     "_description": "查看 .zshrc 里面的 alias"
+  },
+  {
+    "cmd": "fileNumber",
+    "alias": "fn",
+    "_description": "查看文件数量"
   }
 ]
