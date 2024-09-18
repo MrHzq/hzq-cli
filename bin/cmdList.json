@@ -55,6 +55,11 @@
     "_description": "文件查找并展示列表"
   },
   {
+    "cmd": "fileImportReference",
+    "alias": "fir",
+    "_description": "查找文件引用关系"
+  },
+  {
     "cmd": "findRepeatFile",
     "alias": "frf",
     "_description": "找出重复文件"
@@ -135,10 +140,5 @@
     "cmd": "zsls",
     "alias": "za",
     "_description": "查看 .zshrc 里面的 alias"
-  },
-  {
-    "cmd": "findFileImport",
-    "alias": "ffi",
-    "_description": "查找文件引用关系"
   }
 ]
