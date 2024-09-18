@@ -92,7 +92,9 @@ const reReaddirSync = (config = {}) => {
 
   const { dir = ".", ignoreList = [], showIgnoreLog = false, cb } = config;
 
-  const currIgnoreList = getDefaultIgnoreList().concat(ignoreList);
+  const currIgnoreList = getDefaultIgnoreList()
+    .concat(ignoreList)
+    .filter(Boolean);
 
   const fileEach = (_dir) => {
     const files = readdirSync(_dir);
