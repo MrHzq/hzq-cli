@@ -1,4 +1,5 @@
 const chalk = require("chalk");
+const { getValueByPath } = require("./common");
 
 const info = console.log;
 
@@ -24,7 +25,9 @@ const log = {
   },
 
   chalkText(msg, color) {
-    return color && chalk[color] ? chalk[color](msg) : msg;
+    if (!color) return msg;
+
+    return getValueByPath(chalk, color)?.(msg);
   },
   chalk(msg, color) {
     this.infoWithNewLine(this.chalkText(msg, color));

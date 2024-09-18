@@ -51,7 +51,7 @@ const getAllYears = (startYear = 2017) => {
 };
 
 // 全字匹配，判断是否存在
-const isExistByRegTest = (content, target) => {
+const isFullWord = (content, target) => {
   const regex = new RegExp(`\\b${target}\\b`); // 创建正则表达式对象，^表示匹配字符串的开头，$表示匹配字符串的结尾，从而实现完全匹配
   return regex.test(content); // 使用 test 方法进行正则匹配
 };
@@ -170,7 +170,7 @@ const sleep = (time = 1000) =>
 const getRandomStr = (len = 8) => Math.random().toString(36).substring(2, len);
 
 // 创建长度为 n 的空字符串
-const spaceStr = (length) => Array.from({ length }, () => " ").join("");
+const spaceStr = (length) => new Array(length).join(" ");
 
 // 使用 \n split 字符串
 const splitBy = (string, sp = "\n") => string.split(sp).filter(Boolean);
@@ -200,6 +200,18 @@ const toPromise = (fn, resolveRes, rejectRes) => {
   });
 };
 
+const getValueByPath = (obj, path) => {
+  const keys = path.split(".");
+
+  let value = obj;
+  for (const key of keys) {
+    if (value) value = value[key];
+    else return undefined;
+  }
+
+  return value;
+};
+
 module.exports = {
   toHBSTemp,
   getHBSContent,
@@ -209,7 +221,7 @@ module.exports = {
   formatScend,
   bitTransform,
   getAllYears,
-  isExistByRegTest,
+  isFullWord,
   checkDependencyUsed,
   camelToHyphen,
   firstUpperCase,
@@ -229,4 +241,5 @@ module.exports = {
   sortBy,
   someIncludes,
   toPromise,
+  getValueByPath,
 };

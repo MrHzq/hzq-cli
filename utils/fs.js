@@ -90,7 +90,7 @@ const readdirSync = (p = ".") => fs.readdirSync(p);
 const reReaddirSync = (config = {}) => {
   const fileList = [];
 
-  const { dir = ".", ignoreList = [], showIgnoreLog = false } = config;
+  const { dir = ".", ignoreList = [], showIgnoreLog = false, cb } = config;
 
   const currIgnoreList = getDefaultIgnoreList().concat(ignoreList);
 
@@ -109,11 +109,14 @@ const reReaddirSync = (config = {}) => {
       if (!isIgnore) {
         if (statSync(fullFilePath).isDirectory()) fileEach(fullFilePath);
         else {
-          fileList.push({
+          const item = {
             filePath: file,
             fullFilePath,
             fileContent: readFileSync(fullFilePath),
-          });
+            fileContentFormat: readFileSyncFormat(fullFilePath),
+          };
+
+          if (doFun([cb, true], item)) fileList.push(item);
         }
       }
     });

@@ -34,9 +34,10 @@ module.exports = async (_, options) => {
     onBeforeTodo,
     onStartTodo,
     todoStepList = [],
-    needLogTime = false,
+    showRunTime = false,
     oneKeyHasMute = false,
     forceLoading = false,
+    hideSucceed = false,
   } = await require(path.join(
     __dirname,
     "../lib",
@@ -75,7 +76,7 @@ module.exports = async (_, options) => {
 
   if (openDebug) return; // 中断逻辑，用于调试
 
-  if (needLogTime) console.time("本次执行耗时");
+  if (showRunTime) console.time("本次执行耗时");
 
   mainSpinner = new Spinner(_description);
 
@@ -87,7 +88,8 @@ module.exports = async (_, options) => {
   });
 
   if (runSuccess) {
-    mainSpinner.succeed();
+    if (hideSucceed) mainSpinner.stop();
+    else mainSpinner.succeed();
 
     const continueTodo = await doFunPro([onBeforeTodo, true]);
 
@@ -101,5 +103,5 @@ module.exports = async (_, options) => {
   }
 
   log.newLine();
-  if (needLogTime) console.timeEnd("本次执行耗时");
+  if (showRunTime) console.timeEnd("本次执行耗时");
 };

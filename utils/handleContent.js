@@ -1,4 +1,4 @@
-const { isExistByRegTest } = require("./common");
+const { isFullWord } = require("./common");
 const { readFileSync, writeFileSync } = require("./fs");
 
 const twoSpaceString = `  `; // 2 个开始空格
@@ -45,8 +45,8 @@ const addValueToEnum = (p, enumName, valueList, addContent) => {
 
       const [key, value, comment] = valueList;
 
-      const keyExist = isExistByRegTest(enumContent, key);
-      const valueExist = isExistByRegTest(enumContent, value);
+      const keyExist = isFullWord(enumContent, key);
+      const valueExist = isFullWord(enumContent, value);
 
       if (keyExist) hasExistList.push(`key：${key} 重复`);
       if (valueExist) hasExistList.push(`value：${value} 重复`);
@@ -54,7 +54,8 @@ const addValueToEnum = (p, enumName, valueList, addContent) => {
       if (hasExistList.length) return hasExistList.join(enterString);
 
       const addEnumContent =
-        addContent || `,${newLine}${key} = ${value} // ${comment}${enterString}`;
+        addContent ||
+        `,${newLine}${key} = ${value} // ${comment}${enterString}`;
 
       const newEnumContent = enumContent + addEnumContent;
 
@@ -71,7 +72,7 @@ const addValueToEnum = (p, enumName, valueList, addContent) => {
 // 往 TS 文件内容新增 type 值
 const addValueToType = (p, typeName, typeKey) => {
   return splitAndJoin(p, `export type ${typeName} =`, (content) => {
-    if (isExistByRegTest(content, typeKey)) {
+    if (isFullWord(content, typeKey)) {
       return { error: `${typeKey} 重复` };
     }
 

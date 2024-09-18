@@ -48,7 +48,7 @@ class Spinner {
   }
 
   stop() {
-    return this.do("stopAndPersist");
+    return this.do("stop");
   }
 }
 
