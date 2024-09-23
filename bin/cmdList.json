@@ -60,6 +60,11 @@
     "_description": "查找文件引用关系"
   },
   {
+    "cmd": "fileNumber",
+    "alias": "fn",
+    "_description": "查看文件数量"
+  },
+  {
     "cmd": "findRepeatFile",
     "alias": "frf",
     "_description": "找出重复文件"
@@ -142,8 +147,8 @@
     "_description": "查看 .zshrc 里面的 alias"
   },
   {
-    "cmd": "fileNumber",
-    "alias": "fn",
-    "_description": "查看文件数量"
+    "cmd": "handleExcel",
+    "alias": "he",
+    "_description": "处理表格"
   }
 ]
