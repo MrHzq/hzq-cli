@@ -16,3 +16,5 @@ config/global.json
 *.njsproj
 *.sln
 *.code-workspace
+
+.env

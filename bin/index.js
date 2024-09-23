@@ -5,6 +5,8 @@
 // 引入 commander 模块，官方使用文档：https://github.com/tj/commander.js/blob/HEAD/Readme_zh-CN.md
 const { program } = require("commander");
 
+const path = require("path");
+
 const log = require("../utils/log");
 
 const { name, version } = require("../package.json");
@@ -16,6 +18,9 @@ const { sortBy } = require("../utils/common");
 log.success(`welcome use ${name}@${version} ~`, [true, true]);
 
 program.version(version);
+
+const configPath = path.join(path.dirname(__dirname), ".env");
+if (configPath) require("dotenv").config({ path: configPath });
 
 if (cmdList.length > 1) {
   sortBy(cmdList, "cmd")

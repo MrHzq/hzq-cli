@@ -23,6 +23,7 @@
     "chalk": "^4.1.2",
     "commander": "^12.1.0",
     "dayjs": "^1.11.12",
+    "dotenv": "^16.4.5",
     "download-git-repo": "^3.0.2",
     "exceljs": "^4.4.0",
     "ffmpeg-static": "^5.2.0",
