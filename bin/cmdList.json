@@ -25,9 +25,9 @@
     "_description": "code 相关命令"
   },
   {
-    "cmd": "compressGif",
-    "alias": "cg",
-    "_description": "压缩 gif"
+    "cmd": "compressImage",
+    "alias": "ci",
+    "_description": "压缩图片"
   },
   {
     "cmd": "deleteCmd",
@@ -68,6 +68,11 @@
     "cmd": "findRepeatFile",
     "alias": "frf",
     "_description": "找出重复文件"
+  },
+  {
+    "cmd": "handleExcel",
+    "alias": "he",
+    "_description": "处理表格"
   },
   {
     "cmd": "ip",
@@ -145,10 +150,5 @@
     "cmd": "zsls",
     "alias": "za",
     "_description": "查看 .zshrc 里面的 alias"
-  },
-  {
-    "cmd": "handleExcel",
-    "alias": "he",
-    "_description": "处理表格"
   }
 ]
