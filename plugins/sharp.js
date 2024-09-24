@@ -19,20 +19,20 @@ const imageInfo = async (p) => {
   return metadata;
 };
 
-const compressGif = async ({ gifPath, outPath }) => {
+const compressImage = async ({ imagePath, outPath }) => {
   return new Promise(async (resolve, reject) => {
     try {
       if (!outPath) {
-        outPath = createUniqueNameBy(gifPath, { suffix: "compress" });
+        outPath = createUniqueNameBy(imagePath, { suffix: "compress" });
       }
 
       // 获取原始图像信息
-      const { width, height } = await imageInfo(gifPath);
+      const { width, height } = await imageInfo(imagePath);
 
       const newWidth = parseInt(width * 0.6);
       const newHeight = parseInt(height * 0.6);
 
-      return sharp(gifPath, {
+      return sharp(imagePath, {
         animated: true,
         limitInputPixels: false,
       })
@@ -54,4 +54,4 @@ const compressGif = async ({ gifPath, outPath }) => {
   });
 };
 
-module.exports = { imageInfo, compressGif };
+module.exports = { imageInfo, compressImage };

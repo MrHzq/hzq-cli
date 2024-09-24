@@ -90,6 +90,8 @@ const readdirSync = (p = ".") => fs.readdirSync(p);
 const reReaddirSync = (config = {}) => {
   const fileList = [];
 
+  if (typeof config === "string") config = { dir: config };
+
   const { dir = ".", ignoreList = [], showIgnoreLog = false, cb } = config;
 
   const currIgnoreList = getDefaultIgnoreList()

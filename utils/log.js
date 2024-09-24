@@ -63,10 +63,12 @@ const log = {
   },
 
   batchLog(totalList, successList, failList) {
-    const totalLen = totalList.length;
+    const totalLen = Array.isArray(totalList) ? totalList.length : totalList;
     const totalTip = `总共 ${totalLen} 个`;
 
-    const successLen = successList.length;
+    const successLen = Array.isArray(successList)
+      ? successList.length
+      : successList;
     const successTip = `成功 ${successLen} 个`;
 
     const failLen = failList ? failList.length : totalLen - successLen;

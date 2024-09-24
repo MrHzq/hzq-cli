@@ -31,6 +31,7 @@
     "fs-extra": "^11.2.0",
     "git-clone": "^0.2.0",
     "handlebars": "^4.7.8",
+    "icon-gen": "^5.0.0",
     "inquirer": "^8",
     "ora": "^5.4.1",
     "path": "^0.12.7",

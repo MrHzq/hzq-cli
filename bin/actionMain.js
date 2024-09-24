@@ -35,7 +35,7 @@ module.exports = async (_, options) => {
     onStartTodo,
     todoStepList = [],
     showRunTime = false,
-    oneKeyHasMute = false,
+    needMuteConfig = false,
     forceLoading = false,
     hideSucceed = false,
   } = await require(path.join(
@@ -61,7 +61,7 @@ module.exports = async (_, options) => {
         else config = answers.config;
         setConfig();
       } else {
-        if (oneKeyHasMute) {
+        if (needMuteConfig) {
           answers.currPromptKey = Object.entries(config).find(
             ([key, value]) => value === answers.config[answers.currPromptKey]
           )?.[0];

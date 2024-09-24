@@ -150,5 +150,10 @@
     "cmd": "zsls",
     "alias": "za",
     "_description": "查看 .zshrc 里面的 alias"
+  },
+  {
+    "cmd": "imageToIco",
+    "alias": "iti",
+    "_description": "图片转 ico"
   }
 ]
