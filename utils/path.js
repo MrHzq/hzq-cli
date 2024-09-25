@@ -38,9 +38,10 @@ const getFileType = (filePath) => {
     (obj, item) => {
       const key = firstUpperCase(item);
       const keys = ["is", key].join("");
-      const is = TYPE_LIST[key + "_TYPE_LIST"].includes(extname);
-      if (is) fileType = key;
-      obj[keys] = is;
+      const TYPE_LIST_KEY = key.toLocaleUpperCase() + "_TYPE_LIST";
+      const isTrue = TYPE_LIST[TYPE_LIST_KEY]?.includes(extname);
+      if (isTrue) fileType = key;
+      obj[keys] = isTrue;
       return obj;
     },
     {}

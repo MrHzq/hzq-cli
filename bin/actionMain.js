@@ -3,6 +3,7 @@ const log = require("../utils/log");
 const Spinner = require("../utils/spinner");
 const runStep = require("../utils/runStep");
 const { doFunPro } = require("../utils/common");
+const { processRun } = require("../utils/process");
 const { readConfig, writeConfig } = require("../config/handler");
 
 let mainSpinner;
@@ -48,6 +49,8 @@ module.exports = async (_, options) => {
   getConfig();
 
   const openDebug = false;
+
+  processRun("clear");
 
   const answers = await doFunPro([prompt, {}], config, ...args);
 

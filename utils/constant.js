@@ -1,4 +1,7 @@
-const addUpperCase = (l) => l.forEach((i) => list.push(i.toLocaleUpperCase()));
+const addUpperCase = (l) => {
+  l.forEach((i) => l.push(i.toLocaleUpperCase()));
+  return l;
+};
 
 const IMAGE_TYPE_LIST = addUpperCase([
   ".jpg",
