@@ -75,6 +75,11 @@
     "_description": "处理表格"
   },
   {
+    "cmd": "imageToIco",
+    "alias": "iti",
+    "_description": "图片转 ico"
+  },
+  {
     "cmd": "ip",
     "alias": "",
     "_description": "查询当前 ip"
@@ -152,8 +157,8 @@
     "_description": "查看 .zshrc 里面的 alias"
   },
   {
-    "cmd": "imageToIco",
-    "alias": "iti",
-    "_description": "图片转 ico"
+    "cmd": "updateNavProject",
+    "alias": "unp",
+    "_description": "更新 hzq-nav 项目"
   }
 ]
