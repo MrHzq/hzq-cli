@@ -212,6 +212,12 @@ const getValueByPath = (obj, path) => {
   return value;
 };
 
+const isChinese = (str) => {
+  const chineseRegex = /[\u4e00-\u9fa5]/;
+  for (let char of str) if (chineseRegex.test(char)) return true;
+  return false;
+};
+
 module.exports = {
   toHBSTemp,
   getHBSContent,
@@ -242,4 +248,5 @@ module.exports = {
   someIncludes,
   toPromise,
   getValueByPath,
+  isChinese,
 };
