@@ -1,6 +1,7 @@
 const os = require("os");
 const path = require("path");
 const { firstUpperCase } = require("./common");
+const TYPE_LIST = require("./constant");
 
 // 获取不同操作系统的根目录
 const root = () => os.homedir();
@@ -31,63 +32,15 @@ const getFileName = (filePath) => {
 // 获取文件详细类型
 const getFileType = (filePath) => {
   const [, extname] = getFileName(filePath);
-  let fileType;
-  switch (extname) {
-    case ".jpg":
-    case ".jpeg":
-      fileType = "JPEG Image";
-      break;
-    case ".png":
-      fileType = "PNG Image";
-      break;
-    case ".gif":
-      fileType = "GIF Image";
-      break;
-    case ".bmp":
-      fileType = "BMP Image";
-      break;
-    case ".mp4":
-      fileType = "MP4 Video";
-      break;
-    case ".avi":
-      fileType = "AVI Video";
-      break;
-    case ".mov":
-      fileType = "MOV Video";
-      break;
-    case ".txt":
-      fileType = "Text Document";
-      break;
-    case ".pdf":
-      fileType = "PDF Document";
-      break;
-    case ".doc":
-    case ".docx":
-      fileType = "Word Document";
-      break;
-    case ".xls":
-    case ".xlsx":
-      fileType = "Excel Document";
-      break;
-    case ".ppt":
-    case ".pptx":
-      fileType = "PowerPoint Document";
-      break;
-    case ".zip":
-      fileType = "Zip Archive";
-      break;
-    case ".rar":
-      fileType = "RAR Archive";
-    default:
-      fileType = "Unknown";
-  }
+  let fileType = "Unknown";
 
   const isObj = ["image", "video", "document", "archive"].reduce(
     (obj, item) => {
       const key = firstUpperCase(item);
       const keys = ["is", key].join("");
-      const [, type] = fileType.split(" ");
-      obj[keys] = key === type;
+      const is = TYPE_LIST[key + "_TYPE_LIST"].includes(extname);
+      if (is) fileType = key;
+      obj[keys] = is;
       return obj;
     },
     {}
