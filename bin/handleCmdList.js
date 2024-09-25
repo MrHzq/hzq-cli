@@ -24,8 +24,8 @@ class handleCmdList {
   }
 
   // 获取格式化 && 过滤了的 cmdList.json 数据,filterType:'eq'
-  getFormatListFilter(filterValue, filterType = "") {
-    return getFilterList(this.getFormatList(), filterValue, filterType);
+  getFormatListFilter(filterObj) {
+    return getFilterList(this.getFormatList(), filterObj);
   }
 
   // 获取格式化 cmdList.json 数据

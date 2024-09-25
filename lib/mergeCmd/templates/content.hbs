@@ -41,11 +41,10 @@ module.exports = async (_, options = {}) => {
     cmdItem = CmdList.find(selfCmd);
 
     return formatCmdList(
-      getFilterList(
-        cmdItem.children,
-        { cmd: filterCmd, alias: filterCmd },
-        "eq"
-      )
+      getFilterList(cmdItem.children, {
+        filterValue: { cmd: filterCmd, alias: filterCmd },
+        filterType: "eq",
+      })
     );
   };
 

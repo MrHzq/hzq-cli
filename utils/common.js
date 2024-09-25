@@ -147,18 +147,53 @@ const formatCmdList = (list) => {
   });
 };
 
+// 是否为空值
+const isEmptyVal = (val) => {
+  if (val) {
+    if (typeof val === "object") return Object.keys(val).length === 0;
+    else if (Array.isArray(val)) return val.length === 0;
+    else return true;
+  } else return true;
+};
+
 // 获取已过滤过的 list
-const getFilterList = (list, filterValue, filterType = "") => {
+const getFilterList = (
+  list = [],
+  { filterValue, notFilterValue, filterType, notFilterType }
+) => {
+  const getFlag = (item, obj, type) => {
+    let flag = true;
+
+    const objList = Object.entries(obj);
+
+    if (objList.length) {
+      flag = objList.some(([key, value]) => {
+        const itemValue = item[key]?.toLocaleLowerCase();
+
+        const objValue = value?.toLocaleLowerCase();
+
+        if (itemValue && objValue) {
+          if (type === "eq") return objValue === itemValue;
+          else return itemValue.includes(objValue); // 模糊匹配
+        } else return false;
+      });
+    }
+    return flag;
+  };
+
   const filterObj = removeEmpty(Object.assign({}, filterValue || {}));
+  const notFilterObj = removeEmpty(Object.assign({}, notFilterValue || {}));
 
-  return (list || []).filter((item) => {
-    const keys = Object.keys(filterObj);
-    if (!keys.length) return true;
+  if (isEmptyVal(filterObj) && isEmptyVal(notFilterObj)) return list;
 
-    return keys.some((key) => {
-      const isEq = filterObj[key] === item[key];
-      return filterType === "eq" ? isEq : !isEq;
-    });
+  return list.filter((item) => {
+    let flag = true;
+
+    if (flag) flag = getFlag(item, filterObj, filterType);
+
+    if (flag) flag = !getFlag(item, notFilterObj, notFilterType);
+
+    return flag;
   });
 };
 
@@ -238,6 +273,7 @@ module.exports = {
   doFunPro,
   removeEmpty,
   formatCmdList,
+  isEmptyVal,
   getFilterList,
   sleep,
   getRandomStr,
