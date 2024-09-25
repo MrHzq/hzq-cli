@@ -8,12 +8,12 @@ const { getDirName, getCmdName } = require("../../utils/path");
 const { getFileList } = require("../../utils/fs");
 const Spinner = require("../../utils/spinner");
 {{/if}}
-
 {{#if needMuteConfig}}
+
 const needMuteConfig = true; // 一个 key 是否存在多个
 {{/if}}
-
 {{#if configByProject}}
+
 const configByProject = true; // 配置项是否以“项目”维度
 {{/if}}
 
@@ -25,14 +25,13 @@ module.exports = async (_, options = {}) => {
   } = options;
 
   let cliName, config, configType;
-
 {{#if needMuteConfig}}
+
   let currPromptKey = "$2";
 {{/if}}
-
-
 {{#if needInquirer}}
 {{#if needLs}}
+
   let filePathList, successList;
 {{else}}
   let $1;
@@ -45,19 +44,20 @@ module.exports = async (_, options = {}) => {
 {{#if configByProject}}
     if (configByProject) config = config[_cmdName];
 {{/if}}
-
 {{#if needMuteConfig}}
+
     if (answers.currPromptKey) currPromptKey = answers.currPromptKey;
 {{/if}}
 
     cliName = CmdList.getCliName();
-
 {{#if needInquirer}}
 {{#if needLs}}
+
     filePathList = answers.filePathList;
 
     successList = [];
 {{else}}
+
     $1 = answers.$1;
 {{/if}}
 {{/if}}
@@ -117,16 +117,16 @@ module.exports = async (_, options = {}) => {
 
     const configKeys = Object.keys(config);
     const configLen = configKeys.length;
-
 {{#if configByProject}}
+
     const createPromptName = (key) => {
       return ["config", configByProject ? _cmdName : "", key]
         .filter(Boolean)
         .join(".");
     };
 {{/if}}
-
 {{#if needMuteConfig}}
+
     let isChoices = Boolean(configLen);
 
     if (["reset", "add"].includes(configType)) isChoices = false;
@@ -137,14 +137,14 @@ module.exports = async (_, options = {}) => {
 {{/if}}
 
     if (!configLen) configType = "add";
-
 {{#if configByProject}}
+
     if (configByProject) {
       if (!config[_cmdName]) configType = "add";
     }
 {{/if}}
-
 {{#if needMuteConfig}}
+
     let $2Prompt = {
       type: "input",
       name: `config.${currPromptKey}`,
@@ -165,6 +165,7 @@ module.exports = async (_, options = {}) => {
     }
     promptList.push($2Prompt);
 {{else}}
+
     const $2Prompt = {
       type: "input",
       name: createPromptName("$2"),
@@ -195,8 +196,8 @@ module.exports = async (_, options = {}) => {
 {{/if}}
 
       let [arg] = args;
-
 {{#if needLs}}
+
       const needList = arg === "ls";
 
       if (needList) arg = "";
@@ -235,17 +236,18 @@ module.exports = async (_, options = {}) => {
             }
           : firstPrompt,
 {{else}}
-          firstPrompt,
+        firstPrompt,
 {{/if}}
 {{#if needConfig}}
         // ...promptList,
 {{/if}}
       ]);
-
 {{#if needConfig}}
+
       answers.configType = configType;
 {{/if}}
 {{#if needMuteConfig}}
+
       answers.currPromptKey = currPromptKey;
 {{/if}}
 
