@@ -4,6 +4,7 @@ const { prompt, notNumberRule } = require("../../utils/inquirer");
 const CmdList = require("../../bin/handleCmdList");
 const log = require("../../utils/log");
 const { getDirName, getCmdName } = require("../../utils/path");
+const { getValueByPath } = require("../../utils/common");
 {{#if needLs}}
 const { getFileList } = require("../../utils/fs");
 const Spinner = require("../../utils/spinner");
@@ -112,19 +113,11 @@ module.exports = async (_, options = {}) => {
 
 {{#if needConfig}}
   // 生成当前配置对应的 prompt
-  const createConfigPromptList = (config) => {
+  const createConfigPromptList = (_config) => {
     const promptList = [];
 
-    const configKeys = Object.keys(config);
+    const configKeys = Object.keys(_config);
     const configLen = configKeys.length;
-{{#if configByProject}}
-
-    const createPromptName = (key) => {
-      return ["config", configByProject ? _cmdName : "", key]
-        .filter(Boolean)
-        .join(".");
-    };
-{{/if}}
 {{#if needMuteConfig}}
 
     let isChoices = Boolean(configLen);
@@ -140,7 +133,7 @@ module.exports = async (_, options = {}) => {
 {{#if configByProject}}
 
     if (configByProject) {
-      if (!config[_cmdName]) configType = "add";
+      if (!_config[_cmdName]) configType = "add";
     }
 {{/if}}
 {{#if needMuteConfig}}
@@ -165,17 +158,27 @@ module.exports = async (_, options = {}) => {
     }
     promptList.push($2Prompt);
 {{else}}
+    const createPromptName = (key) => {
+      return ["config", configByProject ? _cmdName : "", key]
+        .filter(Boolean)
+        .join(".");
+    };
 
     const $2Prompt = {
       type: "input",
-      name: createPromptName("$2"),
+      name: createPromptName("$2"), // config.??.$2
       message: "请输入:",
       validate: notNumberRule,
     };
 
     if (["reset", "add"].includes(configType)) {
       promptList.push($2Prompt);
-    }
+    } else {
+      if (!getValueByPath({ config: _config }, $2Prompt.name)) {
+        promptList.push($2Prompt);
+        configType = "add";
+      }
+    };
 {{/if}}
 
     return promptList;

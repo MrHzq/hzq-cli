@@ -235,6 +235,7 @@ const toPromise = (fn, resolveRes, rejectRes) => {
   });
 };
 
+// 获取对象的值，key 可为 xx.yy.zz
 const getValueByPath = (obj, path) => {
   const keys = path.split(".");
 

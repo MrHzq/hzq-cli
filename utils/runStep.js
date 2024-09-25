@@ -24,7 +24,7 @@ module.exports = async (stepList, globalFailType = "fail", config = {}) => {
     let funRes = await doFunPro([fun, {}], config);
 
     // 表明无错误，则是走【成功】逻辑
-    if ([undefined, null].includes(funRes)) funRes = { success: true };
+    if ([undefined, null, "", " "].includes(funRes)) funRes = { success: true };
     else if (typeof funRes === "string") {
       funRes = {
         success: false,

@@ -1,5 +1,7 @@
 const { execSync } = require("child_process");
 const log = require("./log");
+const { someIncludes, splitBy } = require("./common");
+const { currCwdPath } = require("./path");
 
 // 执行命令并获得返回值
 const processRun = (cmd, type = "run", _config = {}) => {
@@ -12,8 +14,8 @@ const processRun = (cmd, type = "run", _config = {}) => {
 
     return execSync(cmd, execSyncConfig);
   } catch (error) {
-    const tip = `执行 '${cmd}' 时出错: ${error.message}`;
-    log.error(tip);
+    const tip = `执行 '${cmd}' 时出错:\n-- ${error.message}`;
+    // log.error(tip);
     return `err: ${tip}`;
   }
 };
@@ -79,6 +81,17 @@ const git = {
   // 提交 - 注释
   commit(msg = "Initial commit") {
     return `git commit -m "${msg}"`;
+  },
+
+  runCommit(msg) {
+    try {
+      const isStaged = someIncludes(splitBy(git.run("status")), currCwdPath);
+
+      if (isStaged) git.run("commit", msg);
+      else return "暂无变更";
+    } catch (error) {
+      return msg;
+    }
   },
 
   // 获取 git origin

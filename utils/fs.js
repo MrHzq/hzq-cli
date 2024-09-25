@@ -92,9 +92,18 @@ const reReaddirSync = (config = {}) => {
 
   if (typeof config === "string") config = { dir: config };
 
-  const { dir = ".", ignoreList = [], showIgnoreLog = false, cb } = config;
+  const {
+    dir = ".", // 入口目录
+    getIgnoreContent = true, // 是否需要读取项目的 .gitignore 内容
+    ignoreList = [], // 传入的忽略列表
+    showIgnoreLog = false, // 是否打印忽略的文件
+    re = true, // 是否深度读取文件
+    needContent = true, // 是否读取文件内容
+    cb, // push 之前要做的事
+  } = config;
 
   const currIgnoreList = getDefaultIgnoreList()
+    .concat(getIgnoreContent ? getIgnoreList() : [])
     .concat(ignoreList)
     .filter(Boolean);
 
@@ -111,13 +120,23 @@ const reReaddirSync = (config = {}) => {
       }
 
       if (!isIgnore) {
-        if (statSync(fullFilePath).isDirectory()) fileEach(fullFilePath);
-        else {
+        if (statSync(fullFilePath).isDirectory()) {
+          if (re) fileEach(fullFilePath);
+          else {
+            const item = {
+              filePath: file,
+              fullFilePath,
+            };
+            if (doFun([cb, true], item)) fileList.push(item);
+          }
+        } else {
           const item = {
             filePath: file,
             fullFilePath,
-            fileContent: readFileSync(fullFilePath),
-            fileContentFormat: readFileSyncFormat(fullFilePath),
+            fileContent: needContent ? readFileSync(fullFilePath) : "",
+            fileContentFormat: needContent
+              ? readFileSyncFormat(fullFilePath)
+              : "",
           };
 
           if (doFun([cb, true], item)) fileList.push(item);
@@ -272,9 +291,13 @@ const getIgnoreList = (gitIgnorePath = ".gitignore") => {
   }
 };
 
-const getDefaultIgnoreList = () => {
-  return [".git", "dist", "node_modules", ".gitignore"].concat(getIgnoreList());
-};
+const getDefaultIgnoreList = () => [
+  ".git",
+  "dist",
+  "node_modules",
+  ".gitignore",
+  ".DS_Store",
+];
 
 // 当前路径是否是忽略的
 const checkPathIsIgnore = (path, ignoreList = []) => {

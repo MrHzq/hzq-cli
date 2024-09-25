@@ -1,4 +1,5 @@
 const path = require("path");
+const { merge } = require("lodash");
 const log = require("../utils/log");
 const Spinner = require("../utils/spinner");
 const runStep = require("../utils/runStep");
@@ -27,7 +28,7 @@ module.exports = async (_, options) => {
 
   currCmdConfigKey = cmd || _name;
 
-  const {
+  let {
     prompt,
     initVar,
     mainStepList = [],
@@ -60,7 +61,7 @@ module.exports = async (_, options) => {
     if (answers.config) {
       const isNeedUpdate = ["reset", "add"].includes(answers.configType);
       if (isNeedUpdate) {
-        if (answers.configType === "add") Object.assign(config, answers.config);
+        if (answers.configType === "add") merge(config, answers.config);
         else config = answers.config;
         setConfig();
       } else {
@@ -95,6 +96,8 @@ module.exports = async (_, options) => {
     else mainSpinner.succeed();
 
     const continueTodo = await doFunPro([onBeforeTodo, true]);
+
+    todoStepList = await doFunPro([todoStepList]);
 
     if (continueTodo && todoStepList?.length) {
       await doFunPro([onStartTodo, true]);
