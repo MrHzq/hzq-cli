@@ -232,6 +232,7 @@ const toPromise = (fn, resolveRes, rejectRes) => {
     };
 
     const runReject = (error) => {
+      console.log("[ toPromise error ] >", error);
       reject({ success: false, error, res: rejectRes });
     };
 

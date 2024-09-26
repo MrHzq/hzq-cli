@@ -21,6 +21,7 @@
     "@ffmpeg-installer/ffmpeg": "^1.1.0",
     "axios": "^1.7.2",
     "chalk": "^4.1.2",
+    "cheerio": "^1.0.0",
     "commander": "^12.1.0",
     "dayjs": "^1.11.12",
     "dotenv": "^16.4.5",
@@ -33,9 +34,11 @@
     "handlebars": "^4.7.8",
     "icon-gen": "^5.0.0",
     "inquirer": "^8",
+    "ip": "^2.0.1",
     "lodash": "^4.17.21",
     "ora": "^5.4.1",
     "path": "^0.12.7",
+    "puppeteer": "^23.4.1",
     "sharp": "^0.33.5",
     "simple-git": "^3.25.0"
   }
