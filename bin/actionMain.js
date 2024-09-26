@@ -3,7 +3,7 @@ const { merge } = require("lodash");
 const log = require("../utils/log");
 const Spinner = require("../utils/spinner");
 const runStep = require("../utils/runStep");
-const { doFunPro } = require("../utils/common");
+const { doProFun } = require("../utils/common");
 const { processRun } = require("../utils/process");
 const { readConfig, writeConfig } = require("../config/handler");
 
@@ -53,7 +53,7 @@ module.exports = async (_, options) => {
 
   processRun("clear");
 
-  const answers = await doFunPro([prompt, {}], config, ...args);
+  const answers = await doProFun([prompt, {}], config, ...args);
 
   if (openDebug) log.warn(answers);
 
@@ -95,19 +95,19 @@ module.exports = async (_, options) => {
     if (hideSucceed) mainSpinner.stop();
     else mainSpinner.succeed();
 
-    const continueTodo = await doFunPro([onBeforeTodo, true]);
+    const continueTodo = await doProFun([onBeforeTodo, true]);
 
-    todoStepList = await doFunPro([todoStepList]);
+    todoStepList = await doProFun([todoStepList]);
 
     if (continueTodo && todoStepList?.length) {
-      await doFunPro([onStartTodo, true]);
+      await doProFun([onStartTodo, true]);
       log.warn("next todo", true);
       await runStep(todoStepList, "warn", { prefix: "todo" });
     }
-  } else {
-    mainSpinner.fail();
-  }
+  } else mainSpinner.fail();
 
-  log.newLine();
-  if (showRunTime) console.timeEnd("本次执行耗时");
+  if (showRunTime) {
+    log.newLine();
+    console.timeEnd("本次执行耗时");
+  }
 };

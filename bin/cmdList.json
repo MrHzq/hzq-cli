@@ -132,6 +132,11 @@
     "_description": "更新其他 *-cli 代码"
   },
   {
+    "cmd": "updateNavProject",
+    "alias": "unp",
+    "_description": "更新 hzq-nav 项目"
+  },
+  {
     "cmd": "updateReadme",
     "alias": "ur",
     "_description": "更新当前项目的 README.md"
@@ -157,8 +162,8 @@
     "_description": "查看 .zshrc 里面的 alias"
   },
   {
-    "cmd": "updateNavProject",
-    "alias": "unp",
-    "_description": "更新 hzq-nav 项目"
+    "cmd": "imageToBase64",
+    "alias": "itb",
+    "_description": "图片转为 base64"
   }
 ]

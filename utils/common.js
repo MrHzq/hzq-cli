@@ -113,7 +113,7 @@ const doFun = (obj, ...args) => {
   return res;
 };
 
-const doFunPro = async (obj, ...args) => {
+const doProFun = async (obj, ...args) => {
   obj = Array.isArray(obj) ? obj : [obj];
   const [fun] = obj;
 
@@ -152,7 +152,7 @@ const isEmptyVal = (val) => {
   if (val) {
     if (typeof val === "object") return Object.keys(val).length === 0;
     else if (Array.isArray(val)) return val.length === 0;
-    else return true;
+    else return false;
   } else return true;
 };
 
@@ -198,8 +198,7 @@ const getFilterList = (
 };
 
 // 睡眠
-const sleep = (time = 1000) =>
-  new Promise((resolve) => setTimeout(resolve, time));
+const sleep = (time = 1000) => new Promise((r) => setTimeout(r, time));
 
 // 生成随机字符串
 const getRandomStr = (len = 8) => Math.random().toString(36).substring(2, len);
@@ -225,12 +224,21 @@ const someIncludes = (list, value, key) => {
 };
 
 const toPromise = (fn, resolveRes, rejectRes) => {
-  return new Promise((resolve, reject) => {
-    try {
-      const res = doFun([fn, null]);
-      resolve({ success: true, res: res || resolveRes });
-    } catch (error) {
+  return new Promise(async (resolve, reject) => {
+    const runResolve = (res) => {
+      if (isEmptyVal(res)) res = { res: "" || resolveRes };
+      else if (typeof res !== "object") res = { res: res || resolveRes };
+      sleep().then(() => resolve({ success: true, ...res }));
+    };
+
+    const runReject = (error) => {
       reject({ success: false, error, res: rejectRes });
+    };
+
+    try {
+      doProFun(fn, runResolve, runReject);
+    } catch (error) {
+      runReject(error);
     }
   });
 };
@@ -271,7 +279,7 @@ module.exports = {
   getAlias,
   getAliasHyphen,
   doFun,
-  doFunPro,
+  doProFun,
   removeEmpty,
   formatCmdList,
   isEmptyVal,

@@ -1,4 +1,4 @@
-const { firstUpperCase, doFun, doFunPro } = require("./common");
+const { firstUpperCase, doFun, doProFun, sleep } = require("./common");
 const log = require("./log");
 const Spinner = require("./spinner");
 
@@ -11,7 +11,9 @@ module.exports = async (stepList, globalFailType = "fail", config = {}) => {
 
   for (let index = 0; index < stepListLen; index++) {
     const item = stepList[index];
-    const { fun, desc, ignore } = item;
+    const { fun, desc, ignore, delay = 0 } = item;
+
+    await sleep(delay * 1000); // 延迟执行时间
 
     if (doFun(ignore)) continue;
 
@@ -21,7 +23,7 @@ module.exports = async (stepList, globalFailType = "fail", config = {}) => {
       (config.hideIndex ? "" : index + 1 + ". ") + doFun(desc)
     );
 
-    let funRes = await doFunPro([fun, {}], config);
+    let funRes = await doProFun([fun, {}], config);
 
     // 表明无错误，则是走【成功】逻辑
     if ([undefined, null, "", " "].includes(funRes)) funRes = { success: true };

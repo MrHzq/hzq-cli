@@ -13,20 +13,20 @@ const {
 // 检查文件是否存在
 const checkFileExist = fs.existsSync;
 
-// 基于传入文件(不需要存在)，生成自定义的文件名称
-const createNewName = (filePath, { suffix, prefix } = {}) => {
-  let [fileName, ext] = getFileName(filePath);
+// 基于传入文件(不需要存在)，生成自定义的文件名称(文件类型后缀默认保持不变)
+const createNewName = (filePath, { suffix, prefix, ext } = {}) => {
+  let [fileName, _ext] = getFileName(filePath);
   fileName = [prefix, fileName, suffix].filter(Boolean).join("_");
-  return path.join(path.dirname(filePath), `${fileName}${ext}`);
+  return path.join(path.dirname(filePath), `${fileName}${ext || _ext}`);
 };
 
-// 基于已有文件，生成自定义的文件名称
+// 基于已有文件(需要存在)，生成自定义的文件名称(文件类型后缀保持不变)
 const createNewNameBy = (filePath, config) => {
   if (checkFileExist(filePath)) return createNewName(filePath, config);
   else return filePath;
 };
 
-// 基于已有文件，生成唯一的文件名称
+// 基于已有文件(需要存在)，生成唯一的文件名称(文件类型后缀保持不变)
 const createUniqueNameBy = (filePath, { suffix, prefix } = {}) => {
   const random_suffix = getRandomStr();
   return createNewNameBy(filePath, {
@@ -35,7 +35,7 @@ const createUniqueNameBy = (filePath, { suffix, prefix } = {}) => {
   });
 };
 
-// 基于文件名，当后缀不存在，则强制添加后缀
+// 基于文件名，当关键词不存在，则强制添加关键词
 const foreAddSuffix = (fileName, suffix) => {
   if (!fileName.includes(suffix)) {
     const newFileName = createNewNameBy(fileName, { suffix });
@@ -324,6 +324,7 @@ const checkPathIsIgnore = (path, ignoreList = []) => {
 
 module.exports = {
   checkFileExist,
+  createNewName,
   createNewNameBy,
   createUniqueNameBy,
   foreAddSuffix,
