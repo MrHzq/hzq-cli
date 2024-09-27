@@ -1,5 +1,7 @@
+const { default: axios } = require("axios");
 const dayjs = require("dayjs");
 const Handlebars = require("handlebars");
+const { succeed } = require("./log");
 
 const toHBSTemp = (temp) => Handlebars.compile(temp);
 const getHBSContent = (temp, config) => toHBSTemp(temp)(config);
@@ -125,10 +127,19 @@ const doProFun = async (obj, ...args) => {
   return res;
 };
 
+// 常用的空值
+const getEmptyValue = (otherEmptyList = []) => [
+  undefined,
+  null,
+  "",
+  " ",
+  ...otherEmptyList,
+];
+
 // 删除对象中的空值
-const removeEmpty = (obj, otherEmptyAdjustList = []) => {
+const removeEmpty = (obj, otherEmptyList = []) => {
   Object.keys(obj).forEach((key) => {
-    if ([null, undefined, "", ...otherEmptyAdjustList].includes(obj[key])) {
+    if (getEmptyValue(otherEmptyList).includes(obj[key])) {
       delete obj[key];
     }
   });
@@ -155,6 +166,9 @@ const isEmptyVal = (val) => {
     else return false;
   } else return true;
 };
+
+// 是否为数字
+const isNumber = (val) => !isNaN(Number(val));
 
 // 获取已过滤过的 list
 const getFilterList = (
@@ -198,7 +212,10 @@ const getFilterList = (
 };
 
 // 睡眠
-const sleep = (time = 1000) => new Promise((r) => setTimeout(r, time));
+const sleep = (time = 1000) => {
+  if (time < 1000) time *= 1000;
+  return new Promise((r) => setTimeout(r, time));
+};
 
 // 生成随机字符串
 const getRandomStr = (len = 8) => Math.random().toString(36).substring(2, len);
@@ -224,7 +241,7 @@ const someIncludes = (list, value, key) => {
 };
 
 const toPromise = (fn, resolveRes, rejectRes) => {
-  return new Promise(async (resolve, reject) => {
+  return new Promise(async (resolve) => {
     const runResolve = (res) => {
       if (isEmptyVal(res)) res = { res: "" || resolveRes };
       else if (typeof res !== "object") res = { res: res || resolveRes };
@@ -232,8 +249,8 @@ const toPromise = (fn, resolveRes, rejectRes) => {
     };
 
     const runReject = (error) => {
-      console.log("[ toPromise error ] >", error);
-      reject({ success: false, error, res: rejectRes });
+      console.log("[ toPromise error ] >", error?.message);
+      resolve({ success: false, error, res: rejectRes });
     };
 
     try {
@@ -263,6 +280,28 @@ const isChinese = (str) => {
   return false;
 };
 
+const stringArrayReplaceAll = (l, k = "\n", r = "") => {
+  return l.map((i) => i.replaceAll(k, r));
+};
+
+const testIp = async (ip, testUrl = "https://tieba.baidu.com/") =>
+  toPromise(async (resolve, reject) => {
+    axios
+      .get(testUrl, {
+        proxy: {
+          host: ip.split(":")[0],
+          port: ip.split(":")[1],
+        },
+        timeout: 5000,
+      })
+      .then((res) => {
+        if (res.status === 200 || res.status === 302) {
+          resolve({ res });
+        } else reject({ res });
+      })
+      .catch(reject);
+  });
+
 module.exports = {
   toHBSTemp,
   getHBSContent,
@@ -281,9 +320,11 @@ module.exports = {
   getAliasHyphen,
   doFun,
   doProFun,
+  getEmptyValue,
   removeEmpty,
   formatCmdList,
   isEmptyVal,
+  isNumber,
   getFilterList,
   sleep,
   getRandomStr,
@@ -295,4 +336,6 @@ module.exports = {
   toPromise,
   getValueByPath,
   isChinese,
+  stringArrayReplaceAll,
+  testIp,
 };

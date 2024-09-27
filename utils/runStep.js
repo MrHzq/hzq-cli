@@ -1,4 +1,10 @@
-const { firstUpperCase, doFun, doProFun, sleep } = require("./common");
+const {
+  firstUpperCase,
+  doFun,
+  doProFun,
+  sleep,
+  getEmptyValue,
+} = require("./common");
 const log = require("./log");
 const Spinner = require("./spinner");
 
@@ -26,7 +32,7 @@ module.exports = async (stepList, globalFailType = "fail", config = {}) => {
     let funRes = await doProFun([fun, {}], config);
 
     // 表明无错误，则是走【成功】逻辑
-    if ([undefined, null, "", " "].includes(funRes)) funRes = { success: true };
+    if (getEmptyValue().includes(funRes)) funRes = { success: true };
     else if (typeof funRes === "string") {
       funRes = {
         success: false,
@@ -46,6 +52,7 @@ module.exports = async (stepList, globalFailType = "fail", config = {}) => {
       if (tip) log.succeed(tip, true);
 
       doFun(funRes.onSuccess, item, funRes);
+      doFun(funRes.onFinal, success);
       doFun(config.onSuccessStep, item, funRes);
     } else {
       stepSpinner[finalType]("", config.prefix);
@@ -56,6 +63,7 @@ module.exports = async (stepList, globalFailType = "fail", config = {}) => {
 
       const funKey = `on${firstUpperCase(finalType)}`;
       doFun(funRes[funKey], item, funRes);
+      doFun(funRes.onFinal, success);
       doFun(config[funKey + "Step"], item, funRes);
 
       if (finalType === "fail") break;

@@ -198,9 +198,12 @@ module.exports = async (_, options = {}) => {
 
       if (["reset", "add"].includes(configType)) args.pop(); // 若需要重置/新增，则将最后一个参数删除掉
 
-      // promptList 按情况使用
-      const promptList = createConfigPromptList(_config, configType);
+      // configPromptList 按情况使用
+      const configPromptList = createConfigPromptList(_config, configType);
 {{/if}}
+      const promptList = [
+        //...configPromptList
+      ];
 
       let [arg] = args;
 {{#if needLs}}
@@ -230,25 +233,22 @@ module.exports = async (_, options = {}) => {
         message: "请输入:",
         validate: notNumberRule,
       };
-
-      answers = await prompt([
 {{#if needLs}}
-        needList && choices.length
-          ? {
-              type: "checkbox",
-              name: "filePathList",
-              message: `请选择文件(可选${choices.length}个):`,
-              choices,
-              validate: requireRule,
-            }
-          : firstPrompt,
-{{else}}
-        firstPrompt,
+
+      if (needList && choices.length) {
+        promptList.push({
+          type: "checkbox",
+          name: "filePathList",
+          message: `请选择文件(可选${choices.length}个):`,
+          choices,
+          validate: requireRule,
+        });
+      }
 {{/if}}
-{{#if needConfig}}
-        // ...promptList,
-{{/if}}
-      ]);
+
+      promptList.push(firstPrompt);
+
+      answers = await prompt(promptList);
 {{#if needConfig}}
 
       answers.configType = configType;
