@@ -30,6 +30,11 @@
     "_description": "压缩图片"
   },
   {
+    "cmd": "createIpPool",
+    "alias": "cip",
+    "_description": "创建可用的 ip 池"
+  },
+  {
     "cmd": "deleteCmd",
     "alias": "dc",
     "_description": "删除一个命令"
@@ -68,6 +73,11 @@
     "cmd": "findRepeatFile",
     "alias": "frf",
     "_description": "找出重复文件"
+  },
+  {
+    "cmd": "getWebInfo",
+    "alias": "gwi",
+    "_description": "获取网站信息"
   },
   {
     "cmd": "handleExcel",
@@ -165,10 +175,5 @@
     "cmd": "zsls",
     "alias": "za",
     "_description": "查看 .zshrc 里面的 alias"
-  },
-  {
-    "cmd": "getWebInfo",
-    "alias": "gwi",
-    "_description": "获取网站信息"
   }
 ]
