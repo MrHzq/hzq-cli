@@ -159,7 +159,11 @@ module.exports = async (_, options = {}) => {
     promptList.push($2Prompt);
 {{else}}
     const createPromptName = (key) => {
-      return ["config", configByProject ? _cmdName : "", key]
+{{#if configByProject}}
+      return ["config", _cmdName, key]
+{{else}}
+      return ["config", key]
+{{/if}}
         .filter(Boolean)
         .join(".");
     };
