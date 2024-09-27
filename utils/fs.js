@@ -13,6 +13,9 @@ const {
 // 检查文件是否存在
 const checkFileExist = fs.existsSync;
 
+// 创建文件流
+const createWriteStream = fs.createWriteStream;
+
 // 基于传入文件(不需要存在)，生成自定义的文件名称(文件类型后缀默认保持不变)
 const createNewName = (filePath, { suffix, prefix, ext } = {}) => {
   let [fileName, _ext] = getFileName(filePath);
@@ -210,11 +213,19 @@ const getFileList = (filterKey, targetPath, sortKey, filterFun) => {
   return filterFileList(fileList, filterKey, notFilterKey)
     .sort((a, b) => {
       if (sortKey) {
-        if (sortKey === "size") {
-          const aSize = getFileDetail(path.resolve(a)).sizeFormat.bit;
-          const bSize = getFileDetail(path.resolve(b)).sizeFormat.bit;
-          return aSize - bSize;
+        const aDetail = getFileDetail(path.resolve(a));
+        const bDetail = getFileDetail(path.resolve(b));
+        const desc = sortKey[0] === "-" ? -1 : 1;
+        let aValue = "";
+        let bValue = "";
+        if (sortKey.includes("size")) {
+          aValue = aDetail.sizeFormat.bit;
+          bValue = bDetail.sizeFormat.bit;
+        } else if (sortKey.includes("mtimeMs")) {
+          aValue = aDetail.mtimeMs;
+          bValue = bDetail.mtimeMs;
         }
+        return (aValue - bValue) * desc;
       } else return a.localeCompare(b);
     })
     .filter((file) => doFun([filterFun, true], file))
@@ -324,6 +335,7 @@ const checkPathIsIgnore = (path, ignoreList = []) => {
 
 module.exports = {
   checkFileExist,
+  createWriteStream,
   createNewName,
   createNewNameBy,
   createUniqueNameBy,

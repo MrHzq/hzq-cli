@@ -53,20 +53,20 @@ const compressImage = async ({ imagePath, outPath }) =>
       .catch(reject);
   });
 
-// 图片转为 base64
-const imageToBase64 = async ({ imagePath, outPath }) =>
+// 本地路径的图片转为 base64
+const imageToBase64 = async ({ imagePath, outPath, noNeedOutPath }) =>
   toPromise(async (resolve, reject) => {
     if (!outPath) {
-      outPath = createNewName(imagePath, { ext: ".txt" });
+      if (!noNeedOutPath) outPath = createNewName(imagePath, { ext: ".txt" });
     }
 
     sharp(imagePath)
       .toBuffer()
       .then((buffer) => {
         const prefix = "data:image/png;base64,";
-        const base64String = prefix + buffer.toString("base64");
-        writeFileSync(outPath, base64String);
-        resolve({ res: outPath, base64String });
+        const base64 = prefix + buffer.toString("base64");
+        if (outPath) writeFileSync(outPath, base64);
+        resolve({ res: outPath || base64, base64 });
       })
       .catch(reject);
   });

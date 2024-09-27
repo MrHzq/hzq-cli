@@ -1,7 +1,6 @@
-const { default: axios } = require("axios");
+const axios = require("axios");
 const dayjs = require("dayjs");
 const Handlebars = require("handlebars");
-const { succeed } = require("./log");
 
 const toHBSTemp = (temp) => Handlebars.compile(temp);
 const getHBSContent = (temp, config) => toHBSTemp(temp)(config);
@@ -248,15 +247,18 @@ const toPromise = (fn, resolveRes, rejectRes) => {
       sleep().then(() => resolve({ success: true, ...res }));
     };
 
-    const runReject = (error) => {
-      console.log("[ toPromise error ] >", error?.message);
+    const runReject = (error, showLog) => {
+      const log = require("./log");
+      if (showLog) {
+        log.error("[ toPromise error ] >", error);
+      }
       resolve({ success: false, error, res: rejectRes });
     };
 
     try {
-      doProFun(fn, runResolve, runReject);
+      await doProFun(fn, runResolve, runReject);
     } catch (error) {
-      runReject(error);
+      runReject(error, true);
     }
   });
 };
@@ -284,6 +286,7 @@ const stringArrayReplaceAll = (l, k = "\n", r = "") => {
   return l.map((i) => i.replaceAll(k, r));
 };
 
+// 测试 IP 是否可以用
 const testIp = async (ip, testUrl = "https://tieba.baidu.com/") =>
   toPromise(async (resolve, reject) => {
     axios
@@ -301,6 +304,23 @@ const testIp = async (ip, testUrl = "https://tieba.baidu.com/") =>
       })
       .catch(reject);
   });
+
+// 同步循环列表
+const awaitList = async (list, fn, delay) => {
+  for (let index = 0; index < list.length; index++) {
+    const item = list[index];
+
+    await fn(item);
+
+    if (delay) await sleep(delay);
+  }
+};
+
+// 将数组每一项改为大写,并新增进去
+const addUpperCase = (l) => {
+  l.forEach((i) => l.push(i.toLocaleUpperCase()));
+  return l;
+};
 
 module.exports = {
   toHBSTemp,
@@ -338,4 +358,6 @@ module.exports = {
   isChinese,
   stringArrayReplaceAll,
   testIp,
+  awaitList,
+  addUpperCase,
 };

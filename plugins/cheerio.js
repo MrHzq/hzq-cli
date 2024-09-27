@@ -1,93 +1,118 @@
-const ip = require("ip");
 const axios = require("axios");
 const cheerio = require("cheerio");
-const { toPromise } = require("../utils/common");
-const { createWriteStream } = require("fs-extra");
-const { getFileName, getFullPathBy } = require("../utils/path");
 const log = require("../utils/log");
+const { toPromise, isEmptyVal } = require("../utils/common");
+const { getFileName, getFullPathBy, pathJoin } = require("../utils/path");
+const {
+  createWriteStream,
+  readFileSyncFormat,
+  removeSync,
+} = require("../utils/fs");
+const path = require("path");
+const { imageToBase64 } = require("./sharp");
 
-const createIpPool = () => {
-  const ipPool = [
-    ip.address(),
-    ip.cidrSubnet("192.168.1.100/32").toString(),
-    ip.cidrSubnet("192.168.1.101/32").toString(),
-    ip.cidrSubnet("192.168.1.102/32").toString(),
-    ip.cidrSubnet("192.168.1.103/32").toString(),
-  ];
+const mock = true;
+const mockImageUrl = "https://netnewswire.com/images/nnw_icon_32.png";
+const mockWebsite = "https://ai-emoji.bettergogo.com/";
 
-  console.log("[ ipPool ] >", ipPool);
-
-  return ipPool;
-};
-
-createIpPool();
-
-const getHttpImage = (
-  imageUrl = "https://netnewswire.com/images/nnw_icon_32.png",
-  type = "base64"
-) =>
+// 下载网络链接的图片
+// type = base64 | local
+const downHttpImage = (imageUrl, type = "base64") =>
   toPromise(async (resolve, reject) => {
+    if (isEmptyVal(imageUrl)) {
+      if (mock) imageUrl = mockImageUrl;
+      else return reject(`imageUrl 不能为空`);
+    }
+    const newIp = "";
+
+    const freeIpList = readFileSyncFormat(
+      path.resolve(__dirname, "../tempDir/freeIp.txt")
+    );
+
     axios
       .get(imageUrl, {
         headers: {
           "User-Agent": "Mozilla/5.0", // 设置 User-Agent 为浏览器的类型
-          "X-Forwarded-For": newIp, // 设置 X-Forwarded-For 为新 IP
+          // "X-Forwarded-For": newIp, // 设置 X-Forwarded-For 为新 IP
         },
         responseType: "stream",
       })
       .then(({ data }) => {
-        const filePath = getFullPathBy(getFileName(imageUrl).join(""));
-        const writeStream = createWriteStream(filePath);
+        const imagePath = getFullPathBy(getFileName(imageUrl).join(""));
+        const writeStream = createWriteStream(imagePath);
         data.pipe(writeStream);
 
-        writeStream.on("finish", () => {
-          log.succeed(`图片已保存在: ${filePath}`, true);
-          resolve({ filePath });
+        writeStream.on("finish", async () => {
+          const resolveRes = {};
+
+          if (type === "base64") {
+            const { base64 } = await imageToBase64({
+              imagePath,
+              noNeedOutPath: true,
+            });
+            resolveRes.base64 = base64;
+            removeSync(imagePath);
+          } else {
+            log.succeed(`图片已保存在: ${imagePath}`, true);
+            resolveRes.imagePath = imagePath;
+          }
+          resolve(resolveRes);
         });
       })
       .catch(reject);
   });
 
-const getWebInfo = (website = "https://www.baidu.com/") =>
+// 获取网址信息: { title,description,icon }
+const getWebInfo = (website) =>
   toPromise(async (resolve, reject) => {
-    const res = { title: "", description: "", icon: "" };
-
-    if (!website) return reject(`website 不能为空`);
+    if (isEmptyVal(website)) {
+      if (mock) website = mockWebsite;
+      else return reject(`website 不能为空`);
+    }
 
     axios
       .get(website, {
         headers: {
           "User-Agent": "Mozilla/5.0", // 设置 User-Agent 为浏览器的类型
-          "X-Forwarded-For": newIp, // 设置 X-Forwarded-For 为新 IP
+          // "X-Forwarded-For": newIp, // 设置 X-Forwarded-For 为新 IP
         },
       })
       .then(async ({ data }) => {
-        console.log("data", data.split("\n").slice(0, 50));
-
         const $ = cheerio.load(data);
 
-        res.title =
+        let title =
           $('meta[property="og:title"]').attr("content") || $("title").text();
 
-        res.description =
+        let description =
           $('meta[name="description"]').attr("content") ||
           $(`meta[property="og:description"]`).attr("content");
 
-        res.icon =
+        let icon =
           $('link[rel="icon"]').attr("href") ||
           $('link[rel="shortcut icon"]').attr("href");
 
-        if (res.icon) {
-          const { success, filePath } = await getHttpImage(res.icon);
-          console.log(
-            "%c [ success ]-「plugins/cheerio.js」",
-            "font-size:13px; background:#11d554; color:#55ff98;",
-            success
-          );
-          if (success) res.icon = filePath;
+        if (icon) {
+          if (icon.includes("http") || icon.includes("https")) {
+          } else {
+            console.log("[ icon ] >", icon);
+            icon = pathJoin(website, icon);
+          }
+
+          const { success, base64 } = await downHttpImage(icon);
+          if (success) icon = base64;
         }
 
-        resolve({ res });
+        const resolveRes = {
+          title,
+          description,
+          icon,
+        };
+
+        console.log("[ resolveRes ] >", resolveRes);
+
+        // console.log("data", data.split("\n").slice(0, 50));
+
+        resolve({ res: resolveRes });
       })
       .catch(reject);
   });

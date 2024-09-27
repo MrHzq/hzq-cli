@@ -1,5 +1,4 @@
 const chalk = require("chalk");
-const { getValueByPath } = require("./common");
 
 const info = console.log;
 
@@ -26,6 +25,8 @@ const log = {
 
   chalkText(msg, color) {
     if (!color) return msg;
+
+    const { getValueByPath } = require("./common");
 
     return getValueByPath(chalk, color)?.(msg);
   },

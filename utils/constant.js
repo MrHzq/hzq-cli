@@ -1,7 +1,4 @@
-const addUpperCase = (l) => {
-  l.forEach((i) => l.push(i.toLocaleUpperCase()));
-  return l;
-};
+const { addUpperCase } = require("./common");
 
 const IMAGE_TYPE_LIST = addUpperCase([
   ".jpg",
